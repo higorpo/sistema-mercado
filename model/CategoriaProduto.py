@@ -1,0 +1,2 @@
+class CategoriaProduto:
+    pass
