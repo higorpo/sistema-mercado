@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 import utils.Log as Log
 from brutils import cpf, cnpj
 import re
+from pick import pick
+import time
 
 
 class AbstractTela(ABC):
@@ -9,12 +11,12 @@ class AbstractTela(ABC):
     def __init__(self, controlador):
         self.__controlador = controlador
 
-    def mostrar_opcoes(self, opcoes=[]):
-        for index, opcao in enumerate(opcoes):
-            Log.log(f'{index + 1} - {opcao}')
-
-        Log.log('Escolhe uma das opções para continuar: ')
-        return self.ler_numero(min=1, max=len(opcoes))
+    def mostrar_opcoes(self, titulo, opcoes=[]):
+        Log.info('• Abrindo opções de seleção, aguarde...')
+        time.sleep(2)
+        option, index = pick(opcoes, titulo)
+        Log.warning(f'Opção selecionada: {option}')
+        return index
 
     def ler_string(self) -> str:
         while True:
