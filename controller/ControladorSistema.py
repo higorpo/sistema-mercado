@@ -24,6 +24,11 @@ class ControladorSistema:
 
     def abre_tela(self):
         self.__tela_sistema.mostrar_opcoes([
-            'Teste',
-            'Teste 2'
+            'Clientes',
+            'Funcionários',
+            'Fornecedores',
+            'Produtos',
+            'Categorias de produto',
+            'Formas de pagamento',
+            'Pedidos'
         ])
