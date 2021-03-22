@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
 import utils.Log as Log
-from brutils import cpf, cnpj
 import re
-from pick import pick
 import time
+from abc import ABC, abstractmethod
+from brutils import cpf, cnpj
+from pick import pick
 
 MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'
 
