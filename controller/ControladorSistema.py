@@ -1,12 +1,14 @@
 import utils.Log as Log
-from view.TelaSistema import TelaSistema
 import time
+from controller.ControladorFormasPagamento import ControladorFormasPagamento
+from view.TelaSistema import TelaSistema
 
 FAKE_BOOT_TIMER = 0  # use 1
 
 
 class ControladorSistema:
     def __init__(self):
+        self.__controlador_formas_pagamento = ControladorFormasPagamento(self)
         self.__tela_sistema = TelaSistema(self)
 
     def inicializa_sistema(self):
@@ -27,7 +29,11 @@ class ControladorSistema:
             exit(0)
 
     def abre_tela(self):
-        self.__tela_sistema.mostrar_opcoes([
+        lista_opcoes = {
+            5: self.__controlador_formas_pagamento.abre_tela
+        }
+
+        opcao_selecionada = self.__tela_sistema.mostrar_opcoes([
             'Clientes',
             'Funcionários',
             'Fornecedores',
@@ -36,3 +42,5 @@ class ControladorSistema:
             'Formas de pagamento',
             'Pedidos'
         ])
+
+        lista_opcoes[opcao_selecionada]()
