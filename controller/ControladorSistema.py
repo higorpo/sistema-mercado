@@ -10,17 +10,21 @@ class ControladorSistema:
         self.__tela_sistema = TelaSistema(self)
 
     def inicializa_sistema(self):
-        Log.clear()
-        Log.log('--------- Sistema de supermercado v1.0 ----------')
-        Log.sucess('• Iniciando sistema')
-        time.sleep(FAKE_BOOT_TIMER * 1)
-        Log.info('• Configurando itens do sistema')
-        time.sleep(FAKE_BOOT_TIMER*1)
-        Log.warning('• Verificando existência de erros')
-        time.sleep(FAKE_BOOT_TIMER*2)
-        Log.info('• Abrindo tela inicial')
-        time.sleep(FAKE_BOOT_TIMER*1)
-        self.abre_tela()
+        try:
+            Log.clear()
+            Log.log('--------- Sistema de supermercado v1.0 ----------')
+            Log.sucess('• Iniciando sistema')
+            time.sleep(FAKE_BOOT_TIMER * 1)
+            Log.info('• Configurando itens do sistema')
+            time.sleep(FAKE_BOOT_TIMER*1)
+            Log.warning('• Verificando existência de erros')
+            time.sleep(FAKE_BOOT_TIMER*2)
+            Log.info('• Abrindo tela inicial')
+            time.sleep(FAKE_BOOT_TIMER*1)
+            self.abre_tela()
+        except KeyboardInterrupt:
+            Log.error('ERRO: Algo deu errado...')
+            exit(0)
 
     def abre_tela(self):
         self.__tela_sistema.mostrar_opcoes([
