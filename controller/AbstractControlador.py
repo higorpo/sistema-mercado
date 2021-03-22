@@ -23,7 +23,7 @@ class AbstractControlador(ABC):
             exit(0)
 
         opcao_selecionada = self.__tela.mostrar_opcoes(titulo, opcoes)
-        acoes[opcao_selecionada]
+        acoes[opcao_selecionada]()
 
     @property
     def _tela(self):

@@ -31,7 +31,7 @@ class AbstractTela(ABC):
     def ler_string(self) -> str:
         while True:
             try:
-                inputted_string = input(mensagem)
+                inputted_string = input()
                 return inputted_string
             except IOError:
                 Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
