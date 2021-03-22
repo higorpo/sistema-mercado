@@ -5,6 +5,8 @@ import re
 from pick import pick
 import time
 
+MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'
+
 
 class AbstractTela(ABC):
     @abstractmethod
@@ -14,7 +16,11 @@ class AbstractTela(ABC):
     def mostrar_opcoes(self, titulo, opcoes=[]):
         Log.info('• Abrindo opções de seleção, aguarde...')
         time.sleep(2)
-        option, index = pick(opcoes, titulo)
+        try:
+            option, index = pick(opcoes, titulo)
+        except KeyboardInterrupt:
+            Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+            exit(0)
         Log.warning(f'Opção selecionada: {option}')
         return index
 
@@ -26,7 +32,7 @@ class AbstractTela(ABC):
             except IOError:
                 Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
             except KeyboardInterrupt:
-                Log.error('AVISO: Entrada de dados interrompida!')
+                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
                 exit(0)
 
     def ler_numero(self, min=None, max=None) -> int:
