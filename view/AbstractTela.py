@@ -13,6 +13,10 @@ class AbstractTela(ABC):
     def __init__(self, controlador):
         self.__controlador = controlador
 
+    @property
+    def _controlador(self):
+        return self.__controlador
+
     def mostrar_opcoes(self, titulo, opcoes=[]):
         Log.info('• Abrindo opções de seleção, aguarde...')
         time.sleep(2)
