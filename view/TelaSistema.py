@@ -8,5 +8,4 @@ class TelaSistema(AbstractTela):
 
     def mostrar_opcoes(self, opcoes=[]):
         Log.clear()
-        Log.log('--------- Sistema de supermercado v1.0 ----------')
         return super().mostrar_opcoes('Qual módulo do sistema você deseja acessar?', opcoes)

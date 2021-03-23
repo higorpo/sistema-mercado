@@ -18,14 +18,13 @@ class AbstractTela(ABC):
         return self.__controlador
 
     def mostrar_opcoes(self, titulo, opcoes=[]):
-        Log.info('• Abrindo opções de seleção, aguarde...')
-        time.sleep(2)
+        Log.clear()
+
         try:
             option, index = pick(opcoes, titulo)
         except KeyboardInterrupt:
             Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
             exit(0)
-        Log.warning(f'Opção selecionada: {option}')
         return index
 
     def ler_string(self) -> str:

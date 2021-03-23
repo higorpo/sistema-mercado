@@ -30,17 +30,20 @@ class ControladorSistema:
 
     def abre_tela(self):
         lista_opcoes = {
-            5: self.__controlador_formas_pagamento.abre_tela
+            5: self.__controlador_formas_pagamento.abre_tela,
+            7: exit
         }
 
-        opcao_selecionada = self.__tela_sistema.mostrar_opcoes([
-            'Clientes',
-            'Funcionários',
-            'Fornecedores',
-            'Produtos',
-            'Categorias de produto',
-            'Formas de pagamento',
-            'Pedidos'
-        ])
+        while True:
+            opcao_selecionada = self.__tela_sistema.mostrar_opcoes([
+                'Clientes',
+                'Funcionários',
+                'Fornecedores',
+                'Produtos',
+                'Categorias de produto',
+                'Formas de pagamento',  # 5
+                'Pedidos',
+                'Sair do sistema'
+            ])
 
-        lista_opcoes[opcao_selecionada]()
+            lista_opcoes[opcao_selecionada]()
