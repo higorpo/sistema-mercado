@@ -7,6 +7,7 @@ class TelaFormaPagamento(AbstractTela):
         super().__init__(controlador)
 
     def adicionar(self):
+        Log.clear()
         Log.log('Digite o nome da nova forma de pagamento a ser cadastrada:')
         return super().ler_string()
 
