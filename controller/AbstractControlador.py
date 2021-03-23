@@ -22,8 +22,16 @@ class AbstractControlador(ABC):
                 'ERRO: O tamanho da lista de opções e de ações na tela é diferente!')
             exit(0)
 
-        opcao_selecionada = self.__tela.mostrar_opcoes(titulo, opcoes)
-        acoes[opcao_selecionada]()
+        opcoes.append('<-- Voltar')
+
+        tela_aberta = True
+        while tela_aberta:
+            opcao_selecionada = self.__tela.mostrar_opcoes(titulo, opcoes)
+
+            if opcao_selecionada == len(opcoes) - 1:
+                tela_aberta = False
+            else:
+                acoes[opcao_selecionada]()
 
     @property
     def _tela(self):
