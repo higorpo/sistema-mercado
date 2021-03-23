@@ -8,13 +8,6 @@ class AbstractControlador(ABC):
         self.__controlador_sistema = controlador_sistema
         self.__tela = tela
 
-    # def adicionar(self):
-    #     self.novo_registro(self.__tela.adicionar())
-
-    # @abstractmethod
-    # def novo_registro(self, opcoes: list):
-    #     pass
-
     @abstractmethod
     def abre_tela(self, titulo, opcoes, acoes):
         if len(opcoes) != len(acoes):
