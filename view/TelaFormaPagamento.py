@@ -9,3 +9,12 @@ class TelaFormaPagamento(AbstractTela):
     def adicionar(self):
         Log.log('Digite o nome da nova forma de pagamento a ser cadastrada:')
         return super().ler_string()
+
+    def listar(self, formas_pagamento):
+        Log.clear()
+        Log.info('Mostrando formas de pagamento cadastradas')
+        for forma_pagamento in formas_pagamento:
+            Log.log(
+                f'- Código: {forma_pagamento.codigo}    |    Método: {forma_pagamento.metodo}')
+        Log.warning('Pressione enter para continuar')
+        input()
