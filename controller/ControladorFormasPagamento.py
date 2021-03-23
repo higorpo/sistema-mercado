@@ -15,8 +15,7 @@ class ControladorFormasPagamento(AbstractControlador):
             'Listar todas as formas de pagamento'
         ], [
             self.adicionar,
-            self.listar  # ,
-            # self.buscar
+            self.listar
         ])
 
     def adicionar(self):
@@ -29,6 +28,3 @@ class ControladorFormasPagamento(AbstractControlador):
 
     def listar(self):
         super()._tela.listar(self.__formas_pagamentos)
-
-    # def buscar(self):
-    #     pass
