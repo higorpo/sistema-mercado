@@ -47,3 +47,6 @@ class ControladorSistema:
             ])
 
             lista_opcoes[opcao_selecionada]()
+
+    def controlador_formas_pagamento(self):
+        return self.__controlador_formas_pagamento
