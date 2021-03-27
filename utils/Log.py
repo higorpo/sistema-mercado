@@ -27,4 +27,4 @@ def log(message: str) -> None:
 
 
 def clear() -> None:
-    os.system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
