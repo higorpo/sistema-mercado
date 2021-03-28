@@ -24,7 +24,11 @@ class AbstractControlador(ABC):
             if opcao_selecionada == len(opcoes) - 1:
                 tela_aberta = False
             else:
-                acoes[opcao_selecionada]()
+                try:
+                    acoes[opcao_selecionada]()
+                except KeyError:
+                    Log.error('ERRO: A opção selecionada não foi implementada!')
+                    time.sleep(2)
 
     @property
     def _tela(self):
