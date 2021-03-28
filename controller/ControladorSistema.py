@@ -46,7 +46,11 @@ class ControladorSistema:
                 'Sair do sistema'
             ])
 
-            lista_opcoes[opcao_selecionada]()
+            try:
+                lista_opcoes[opcao_selecionada]()
+            except KeyError:
+                Log.error('ERRO: A opção selecionada não foi implementada!')
+                time.sleep(2)
 
     def controlador_formas_pagamento(self):
         return self.__controlador_formas_pagamento
