@@ -1,4 +1,5 @@
 import utils.Log as Log
+from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 import re
 import time
 from abc import ABC, abstractmethod
@@ -20,12 +21,54 @@ class AbstractTela(ABC):
     def mostrar_opcoes(self, titulo, opcoes=[]):
         Log.clear()
 
+        if len(opcoes) == 0:
+            raise NenhumaOpcaoSelecionada
+
         try:
             option, index = pick(opcoes, titulo)
         except KeyboardInterrupt:
             Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
             exit(0)
         return index
+
+    def encontrar_opcao(self, opcoes=[]):
+        option, index = pick([
+            'Listar todas as opções...',
+            'Pesquisar...'
+        ], 'Selecione uma ação...')
+
+        if index == 0:
+            return self.selecionar_a_partir_lista_opcoes(opcoes)
+        else:
+            Log.clear()
+            Log.log('Digite o termo da busca:')
+
+            # Abre input para receber a pesquisa do usuário
+            buscar_por = self.ler_string()
+
+            # Faz a pesquisa
+            lista_opcoes_encontradas = self.__controlador.pesquisar_opcoes(
+                buscar_por
+            )
+
+            # Se não encontrar nenhuma informação, infoma ao usuário
+            if len(lista_opcoes_encontradas) == 0:
+                Log.warning(
+                    'Nenhuma informação encontrada com esse termo de busca...'
+                )
+                raise NenhumaOpcaoSelecionada
+            else:
+                return self.selecionar_a_partir_lista_opcoes(lista_opcoes_encontradas)
+
+    def selecionar_a_partir_lista_opcoes(self, opcoes):
+        lista_opcoes = list(map(lambda x: x.nome, opcoes))
+
+        selecionado = self.mostrar_opcoes(
+            'Selecione uma opção abaixo',
+            lista_opcoes
+        )
+
+        return opcoes[selecionado]
 
     def ler_string(self) -> str:
         while True:

@@ -1,6 +1,8 @@
 import utils.Log as Log
 from view.AbstractTela import AbstractTela
 from model.CategoriaProduto import CategoriaProduto
+from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+import time
 
 
 class TelaCategoriaProduto(AbstractTela):
@@ -14,13 +16,23 @@ class TelaCategoriaProduto(AbstractTela):
     def listar(self, categorias_produto):
         Log.clear()
         Log.info('Mostrando as categorias de produto cadastradas')
-        for categoria_produto in categorias_produto:
-            Log.log(
-                f'- Código: {categoria_produto.codigo}    |    Método: {categoria_produto.nome}')
+
+        if len(categorias_produto) == 0:
+            Log.log('Não há nada cadastrado para ser listado...')
+        else:
+            for categoria_produto in categorias_produto:
+                Log.log(
+                    f'- Código: {categoria_produto.codigo}    |    Categoria: {categoria_produto.nome}')
+
         Log.warning('Pressione enter para continuar')
         input()
 
     def buscar(self, categorias_produto) -> CategoriaProduto:
-        index_categoria_selecionada = super().mostrar_opcoes(
-            'Selecione uma categoria de produto abaixo', categorias_produto)
-        return categorias_produto[index_categoria_selecionada]
+        if len(categorias_produto) == 0:
+            Log.error(
+                'AVISO: Não existe categorias de produto para buscar, cadastre uma primeiro...')
+            Log.warning('Pressione enter para continuar')
+            input()
+            raise NenhumaOpcaoSelecionada
+
+        return super().encontrar_opcao(categorias_produto)

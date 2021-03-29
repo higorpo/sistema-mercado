@@ -13,8 +13,13 @@ class TelaFormaPagamento(AbstractTela):
     def listar(self, formas_pagamento):
         Log.clear()
         Log.info('Mostrando formas de pagamento cadastradas')
-        for forma_pagamento in formas_pagamento:
-            Log.log(
-                f'- Código: {forma_pagamento.codigo}    |    Método: {forma_pagamento.metodo}')
+
+        if len(formas_pagamento) == 0:
+            Log.log('Não há nada cadastrado para ser listado...')
+        else:
+            for forma_pagamento in formas_pagamento:
+                Log.log(
+                    f'- Código: {forma_pagamento.codigo}    |    Método: {forma_pagamento.metodo}')
+
         Log.warning('Pressione enter para continuar')
         input()

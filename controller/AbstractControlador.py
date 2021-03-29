@@ -30,6 +30,9 @@ class AbstractControlador(ABC):
                     Log.error('ERRO: A opção selecionada não foi implementada!')
                     time.sleep(2)
 
+    def pesquisar_opcoes(self, buscar_por: str):
+        raise NotImplementedError
+
     @property
     def _tela(self):
         return self.__tela
