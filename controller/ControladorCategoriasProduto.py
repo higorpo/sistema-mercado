@@ -31,6 +31,5 @@ class ControladorCategoriasProduto(AbstractControlador):
     def listar(self):
         super()._tela.listar(self.__list_cat_produto)
 
-    def buscar(self):
-        ''' Implementar '''
-        pass
+    def buscar(self) -> CategoriaProduto:
+        super()._tela.buscar(self.__list_cat_produto)
