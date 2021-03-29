@@ -74,7 +74,12 @@ class AbstractTela(ABC):
         while True:
             try:
                 inputted_string = input()
-                return inputted_string
+
+                if len(inputted_string) == 0:
+                    Log.warning('AVISO: Digite um valor válido...')
+                    continue
+                else:
+                    return inputted_string
             except IOError:
                 Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
             except KeyboardInterrupt:
