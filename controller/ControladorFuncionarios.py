@@ -30,6 +30,7 @@ class ControladorFuncionarios(AbstractControlador):
             self.__funcionarios.append(
                 Funcionario(*dados_funcionario.values()))
         else:
+            # TODO: Remover os prints da tela
             Log.warning(
                 'AVISO: Um funcionário com este CPF já foi cadastrado!')
             self.adicionar_funcionarios()
