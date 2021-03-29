@@ -1,6 +1,7 @@
 import utils.Log as Log
 import time
 from controller.ControladorFormasPagamento import ControladorFormasPagamento
+from controller.ControladorFuncionarios import ControladorFuncionarios
 from view.TelaSistema import TelaSistema
 
 FAKE_BOOT_TIMER = 0  # use 1
@@ -9,6 +10,7 @@ FAKE_BOOT_TIMER = 0  # use 1
 class ControladorSistema:
     def __init__(self):
         self.__controlador_formas_pagamento = ControladorFormasPagamento(self)
+        self.__controlador_funcionarios = ControladorFuncionarios(self)
         self.__tela_sistema = TelaSistema(self)
 
     def inicializa_sistema(self):
@@ -30,6 +32,7 @@ class ControladorSistema:
 
     def abre_tela(self):
         lista_opcoes = {
+            1: self.__controlador_funcionarios.abre_tela,
             5: self.__controlador_formas_pagamento.abre_tela,
             7: exit
         }
@@ -50,3 +53,6 @@ class ControladorSistema:
 
     def controlador_formas_pagamento(self):
         return self.__controlador_formas_pagamento
+
+    def controlador_funcionarios(self):
+        return self.__controlador_funcionarios
