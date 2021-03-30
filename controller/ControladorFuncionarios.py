@@ -1,4 +1,3 @@
-import utils.Log as Log
 from controller.AbstractControlador import AbstractControlador
 from model.Funcionario import Funcionario
 from view.TelaFuncionario import TelaFuncionario
@@ -30,8 +29,7 @@ class ControladorFuncionarios(AbstractControlador):
             self.__funcionarios.append(
                 Funcionario(*dados_funcionario.values()))
         else:
-            # TODO: Remover os prints da tela
-            Log.warning(
+            super()._sistema.mensagem_sistema.warning(
                 'AVISO: Um funcionário com este CPF já foi cadastrado!')
             self.adicionar_funcionarios()
 

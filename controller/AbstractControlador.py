@@ -1,4 +1,3 @@
-import utils.Log as Log
 from abc import ABC, abstractmethod
 
 
@@ -12,7 +11,7 @@ class AbstractControlador(ABC):
     def abre_tela(self, titulo, opcoes, acoes):
         if len(opcoes) != len(acoes):
             # TODO: Remover os prints da tela
-            Log.error(
+            self._sistema.mensagem_sistema.error(
                 'ERRO: O tamanho da lista de opções e de ações na tela é diferente!')
             exit(0)
 
@@ -29,7 +28,8 @@ class AbstractControlador(ABC):
                     acoes[opcao_selecionada]()
                 except KeyError:
                     # TODO: Remover os prints da tela
-                    Log.error('ERRO: A opção selecionada não foi implementada!')
+                    self._sistema.mensagem_sistema.error(
+                        'ERRO: A opção selecionada não foi implementada!')
                     time.sleep(2)
 
     def pesquisar_opcoes(self, buscar_por: str):
@@ -38,3 +38,7 @@ class AbstractControlador(ABC):
     @property
     def _tela(self):
         return self.__tela
+
+    @property
+    def _sistema(self):
+        return self.__controlador_sistema

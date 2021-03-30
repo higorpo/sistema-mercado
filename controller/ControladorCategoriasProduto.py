@@ -1,4 +1,3 @@
-import utils.Log as Log
 from controller.AbstractControlador import AbstractControlador
 from view.TelaCategoriaProduto import TelaCategoriaProduto
 from model.CategoriaProduto import CategoriaProduto
@@ -25,8 +24,8 @@ class ControladorCategoriasProduto(AbstractControlador):
         if len([x for x in self.__list_cat_produto if x.nome == categoria_produto]) == 0:
             self.__list_cat_produto.append(CategoriaProduto(categoria_produto))
         else:
-            # TODO: Remover os prints da tela
-            Log.warning('AVISO: Essa categoria de produto já foi cadastrada!')
+            super()._sistema.mensagem_sistema.warning(
+                'AVISO: Essa categoria de produto já foi cadastrada!')
             self.adicionar()
 
     def listar(self):

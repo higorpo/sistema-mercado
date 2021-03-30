@@ -1,4 +1,3 @@
-import utils.Log as Log
 from controller.AbstractControlador import AbstractControlador
 from view.TelaFormaPagamento import TelaFormaPagamento
 from model.FormaPagamento import FormaPagamento
@@ -23,8 +22,8 @@ class ControladorFormasPagamento(AbstractControlador):
         if len([x for x in self.__formas_pagamentos if x.metodo == forma_pagamento]) == 0:
             self.__formas_pagamentos.append(FormaPagamento(forma_pagamento))
         else:
-            # TODO: Remover os prints da tela
-            Log.warning('AVISO: Essa forma de pagamento já foi cadastrada!')
+            super()._sistema.mensagem_sistema.warning(
+                'AVISO: Essa forma de pagamento já foi cadastrada!')
             self.adicionar()
 
     def listar(self):

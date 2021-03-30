@@ -6,8 +6,6 @@ from controller.ControladorFuncionarios import ControladorFuncionarios
 from view.TelaSistema import TelaSistema
 from view.TelaMensagemSistema import TelaMensagemSistema
 
-FAKE_BOOT_TIMER = 0  # use 1
-
 
 class ControladorSistema:
     def __init__(self):
@@ -19,12 +17,12 @@ class ControladorSistema:
 
     def inicializa_sistema(self):
         try:
-            # TODO: Remover os prints da tela
-            Log.clear()
+            self.mensagem_sistema.clear()
             self.abre_tela()
         except KeyboardInterrupt:
-            # TODO: Remover os prints da tela
-            Log.error('ERRO: Algo deu errado...')
+            self.mensagem_sistema.error(
+                'ERRO: Você interrompeu a entrada de dados via teclado...')
+            self.mensagem_sistema.info('Fechando sistema...')
             exit(0)
 
     def abre_tela(self):
@@ -50,8 +48,8 @@ class ControladorSistema:
             try:
                 lista_opcoes[opcao_selecionada]()
             except KeyError:
-                # TODO: Remover os prints da tela
-                Log.error('ERRO: A opção selecionada não foi implementada!')
+                self.mensagem_sistema.error(
+                    'ERRO: A opção selecionada não foi implementada!')
                 time.sleep(2)
 
     @property
