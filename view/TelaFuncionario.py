@@ -39,20 +39,50 @@ class TelaFuncionario(AbstractTela):
 
         return dados_funcionario
 
-    def excluir(self, funcionarios):
-        if len(funcionarios) == 0:
-            print(Terminal.error(
+    def editar(self, funcionario: Funcionario):
+        dados_funcionario = {
+            'salario': funcionario.salario,
+            'email': funcionario.email,
+            'telefone': funcionario.telefone
+        }
+
+        print(mensagens.get('label_email'))
+        print(
+            Terminal.warning(
                 self,
-                mensagens.get('nada_cad_excluir')
-            ))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
+                mensagens.get('label_atualmente')
+                (
+                    'E-mail', dados_funcionario['email']
+                )
+            )
+        )
+        dados_funcionario['email'] = super().ler_email(modo_edicao=True)
 
-        return super().encontrar_opcao(funcionarios)
+        print(mensagens.get('label_telefone'))
+        print(
+            Terminal.warning(
+                self,
+                mensagens.get('label_atualmente')
+                (
+                    'Telefone', dados_funcionario['telefone']
+                )
+            )
+        )
+        dados_funcionario['telefone'] = super().ler_telefone(modo_edicao=True)
 
-    def editar(self):
-        # Esperar código do Higor
-        pass
+        print(mensagens.get('label_salario'))
+        print(
+            Terminal.warning(
+                self,
+                mensagens.get('label_atualmente')
+                (
+                    'Salário', dados_funcionario['salario']
+                )
+            )
+        )
+        dados_funcionario['salario'] = super().ler_float(modo_edicao=True)
+
+        return dados_funcionario
 
     # Vamos mudar o modo como é listado dps, fiz assim só pra testar, sei q tá feio
     def listar(self, funcionarios):

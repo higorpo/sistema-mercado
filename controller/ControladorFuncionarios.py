@@ -47,7 +47,15 @@ class ControladorFuncionarios(AbstractControlador):
     def editar(self):
         if self.__verifica_tem_dados():
             funcionario = self.buscar()
-            # continua....
+            dados_funcionarios = super()._tela.editar(funcionario)
+
+            email = dados_funcionarios['email']
+            telefone = dados_funcionarios['telefone']
+            salario = dados_funcionarios['salario']
+
+            funcionario.email = email if email != '--' else funcionario.email
+            funcionario.telefone = telefone if telefone != '--' else funcionario.telefone
+            funcionario.salario = salario if salario != '--' else funcionario.salario
 
     def listar(self):
         super()._tela.listar(self.__funcionarios)

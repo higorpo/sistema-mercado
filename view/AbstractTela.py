@@ -73,10 +73,13 @@ class AbstractTela(ABC):
 
         return opcoes[selecionado]
 
-    def ler_string(self) -> str:
+    def ler_string(self, modo_edicao: bool = False) -> str:
         while True:
             try:
                 inputted_string = input()
+
+                if inputted_string == '--' and modo_edicao == True:
+                    return inputted_string
 
                 if len(inputted_string) == 0:
                     print(Terminal.warning(
@@ -92,10 +95,15 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
-    def ler_inteiro(self, min=None, max=None) -> int:
+    def ler_inteiro(self, min=None, max=None, modo_edicao: bool = False) -> int:
         while True:
             try:
-                inputted_int = int(input())
+                inputted_int = input()
+
+                if inputted_int == '--' and modo_edicao == True:
+                    return inputted_int
+
+                inputted_int = int(inputted_int)
 
                 if min == None and max == None or inputted_int >= min and inputted_int <= max:
                     return inputted_int
@@ -113,10 +121,15 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
-    def ler_float(self, min=None, max=None) -> float:
+    def ler_float(self, min=None, max=None, modo_edicao: bool = False) -> float:
         while True:
             try:
-                inputted_float = float(input())
+                inputted_float = input()
+
+                if inputted_float == '--' and modo_edicao == True:
+                    return inputted_float
+
+                inputted_float = float(inputted_float)
 
                 if min == None and max == None or inputted_float >= min and inputted_float <= max:
                     return inputted_float
@@ -132,10 +145,14 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
-    def ler_cpf(self) -> str:
+    def ler_cpf(self, modo_edicao: bool = False) -> str:
         while True:
             try:
                 inputted_cpf = input()
+
+                if inputted_cpf == '--' and modo_edicao == True:
+                    return inputted_cpf
+
                 if self.validar_cpf(inputted_cpf):
                     if '.' not in inputted_cpf:
                         inputted_cpf = cpf.display(inputted_cpf)
@@ -151,10 +168,14 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
-    def ler_cnpj(self) -> str:
+    def ler_cnpj(self, modo_edicao: bool = False) -> str:
         while True:
             try:
                 inputted_cnpj = input()
+
+                if inputted_cnpj == '--' and modo_edicao == True:
+                    return inputted_cnpj
+
                 if self.validar_cnpj(inputted_cnpj):
                     if '.' not in inputted_cnpj:
                         inputted_cnpj = cnpj.display(inputted_cnpj)
@@ -170,10 +191,14 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
-    def ler_email(self) -> str:
+    def ler_email(self, modo_edicao: bool = False) -> str:
         while True:
             try:
                 inputted_email = input()
+
+                if inputted_email == '--' and modo_edicao == True:
+                    return inputted_email
+
                 if self.validar_email(inputted_email):
                     return inputted_email
                 else:
@@ -184,10 +209,14 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
-    def ler_telefone(self) -> int:
+    def ler_telefone(self, modo_edicao: bool = False) -> int:
         while True:
             try:
                 inputted_telefone = input()
+
+                if inputted_telefone == '--' and modo_edicao == True:
+                    return inputted_telefone
+
                 if self.validar_telefone(inputted_telefone):
                     return self.formatar_telefone(inputted_telefone)
 
