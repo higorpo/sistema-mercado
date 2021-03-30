@@ -6,7 +6,7 @@ class Terminal:
         # Printa uma mensagem de aviso
         return f'\033[93m{message}\033[0m'
 
-    def sucess(self, message: str) -> str:
+    def success(self, message: str) -> str:
         # Printa uma mensagem de sucesso
         return f'\033[92m{message}\033[0m'
 
