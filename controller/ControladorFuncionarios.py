@@ -29,6 +29,7 @@ class ControladorFuncionarios(AbstractControlador):
 
     def adicionar(self):
         dados_funcionario = super()._tela.adicionar()
+
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
             self.__funcionarios.append(
                 Funcionario(*dados_funcionario.values()))
