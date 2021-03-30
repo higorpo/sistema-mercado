@@ -2,6 +2,8 @@ from datetime import date
 from utils.Terminal import Terminal
 from utils.exceptions import NenhumaOpcaoSelecionada
 from view.AbstractTela import AbstractTela
+from messages.Funcionarios import mensagens
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaFuncionario(AbstractTela):
@@ -19,19 +21,19 @@ class TelaFuncionario(AbstractTela):
             'cpf': None
         }
 
-        print('Digite o cpf do funcionário a ser cadastrado:')
+        print(mensagens.get('label_cpf'))
         dados_funcionario['cpf'] = super().ler_cpf()
 
-        print('Digite o nome do funcionário a ser cadastrado:')
+        print(mensagens.get('label_nome'))
         dados_funcionario['nome'] = super().ler_string()
 
-        print('Digite o email do funcionário a ser cadastrado:')
+        print(mensagens.get('label_email'))
         dados_funcionario['email'] = super().ler_email()
 
-        print('Digite o telefone (com DDD) do funcionário a ser cadastrado:')
+        print(mensagens.get('label_telefone'))
         dados_funcionario['telefone'] = super().ler_telefone()
 
-        print('Digite o salario do funcionário a ser cadastrado:')
+        print(mensagens.get('label_salario'))
         dados_funcionario['salario'] = super().ler_float()
 
         return dados_funcionario
@@ -40,9 +42,9 @@ class TelaFuncionario(AbstractTela):
         if len(funcionarios) == 0:
             print(Terminal.error(
                 self,
-                'AVISO: Não há nenhum funcionário para excluir, cadastre um primeiro...'
+                mensagens.get('nada_cad_excluir')
             ))
-            print(Terminal.warning(self, 'Pressione enter para continuar'))
+            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
 
         return super().encontrar_opcao(funcionarios)
@@ -54,16 +56,10 @@ class TelaFuncionario(AbstractTela):
     # Vamos mudar o modo como é listado dps, fiz assim só pra testar, sei q tá feio
     def listar_funcionarios(self, funcionarios):
         Terminal.clear_all(self)
-        print(Terminal.info(self, 'Mostrando funcionários cadastrados:'))
+        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
         for funcionario in funcionarios:
-            print(f'Nome: {funcionario.nome}')
-            print(f'CPF: {funcionario.cpf}')
-            print(f'Telefone: {funcionario.telefone}')
-            print(f'Email: {funcionario.email}')
-            print(f'Salário: {funcionario.salario}')
-            print(
-                f'Data de contratação: {funcionario.data_contratacao}\n ---')
-        print(Terminal.warning(self, 'Pressione enter para continuar'))
+            print(mensagens.get('lista_valores')(funcionario))
+        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
     def buscar_funcionario(self):

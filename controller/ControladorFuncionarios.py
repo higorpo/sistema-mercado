@@ -1,6 +1,8 @@
 from controller.AbstractControlador import AbstractControlador
 from model.Funcionario import Funcionario
 from view.TelaFuncionario import TelaFuncionario
+from messages.Funcionarios import mensagens
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class ControladorFuncionarios(AbstractControlador):
@@ -9,12 +11,12 @@ class ControladorFuncionarios(AbstractControlador):
         self.__funcionarios = []
 
     def abre_tela(self):
-        super().abre_tela('O que você deseja fazer?', [
-            'Cadastrar novo funcionário',
-            'Excluir funcionário',
-            'Editar funcionário',
-            'Listar funcionários',
-            'Buscar funcionário'
+        super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
+            mensagens.get('cadastrar'),
+            mensagens.get('excluir'),
+            mensagens.get('editar'),
+            mensagens.get('listar'),
+            mensagens.get('buscar')
         ], [
             self.adicionar_funcionarios,
             self.excluir_funcionario,
@@ -29,8 +31,7 @@ class ControladorFuncionarios(AbstractControlador):
             self.__funcionarios.append(
                 Funcionario(*dados_funcionario.values()))
         else:
-            super()._sistema.mensagem_sistema.warning(
-                'AVISO: Um funcionário com este CPF já foi cadastrado!')
+            super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar_funcionarios()
 
     def excluir_funcionario(self):
