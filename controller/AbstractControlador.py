@@ -11,6 +11,7 @@ class AbstractControlador(ABC):
     @abstractmethod
     def abre_tela(self, titulo, opcoes, acoes):
         if len(opcoes) != len(acoes):
+            # TODO: Remover os prints da tela
             Log.error(
                 'ERRO: O tamanho da lista de opções e de ações na tela é diferente!')
             exit(0)
@@ -27,6 +28,7 @@ class AbstractControlador(ABC):
                 try:
                     acoes[opcao_selecionada]()
                 except KeyError:
+                    # TODO: Remover os prints da tela
                     Log.error('ERRO: A opção selecionada não foi implementada!')
                     time.sleep(2)
 

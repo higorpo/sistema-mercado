@@ -17,6 +17,7 @@ class ControladorSistema:
 
     def inicializa_sistema(self):
         try:
+            # TODO: Remover os prints da tela
             Log.clear()
             Log.log('--------- Sistema de supermercado v1.0 ----------')
             Log.sucess('• Iniciando sistema')
@@ -29,6 +30,7 @@ class ControladorSistema:
             time.sleep(FAKE_BOOT_TIMER*1)
             self.abre_tela()
         except KeyboardInterrupt:
+            # TODO: Remover os prints da tela
             Log.error('ERRO: Algo deu errado...')
             exit(0)
 
@@ -55,6 +57,7 @@ class ControladorSistema:
             try:
                 lista_opcoes[opcao_selecionada]()
             except KeyError:
+                # TODO: Remover os prints da tela
                 Log.error('ERRO: A opção selecionada não foi implementada!')
                 time.sleep(2)
 

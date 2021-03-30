@@ -1,5 +1,6 @@
 import utils.Log as Log
 from view.AbstractTela import AbstractTela
+# Perguntar sobre isso aqui abaixo....
 from model.CategoriaProduto import CategoriaProduto
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 import time
