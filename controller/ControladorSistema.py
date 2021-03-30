@@ -1,4 +1,3 @@
-import utils.Log as Log
 import time
 from controller.ControladorCategoriasProduto import ControladorCategoriasProduto
 from controller.ControladorFormasPagamento import ControladorFormasPagamento

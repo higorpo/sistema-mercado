@@ -1,12 +1,13 @@
-import utils.Log as Log
-from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 import re
 import time
 from abc import ABC, abstractmethod
 from brutils import cpf, cnpj
 from pick import pick
+from utils.Terminal import Terminal
+from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 
 MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'
+MENSAGEM_ERRO_LEITURA_VALOR = 'ERRO: Ocorreu um erro ao fazer a leitura do valor'
 
 
 class AbstractTela(ABC):
@@ -19,7 +20,7 @@ class AbstractTela(ABC):
         return self.__controlador
 
     def mostrar_opcoes(self, titulo, opcoes=[]):
-        Log.clear()
+        Terminal.clear_all(self)
 
         if len(opcoes) == 0:
             raise NenhumaOpcaoSelecionada
@@ -27,7 +28,7 @@ class AbstractTela(ABC):
         try:
             option, index = pick(opcoes, titulo)
         except KeyboardInterrupt:
-            Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+            print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
             exit(0)
         return index
 
@@ -40,8 +41,8 @@ class AbstractTela(ABC):
         if index == 0:
             return self.selecionar_a_partir_lista_opcoes(opcoes)
         else:
-            Log.clear()
-            Log.log('Digite o termo da busca:')
+            Terminal.clear_all(self)
+            print('Digite o termo da busca:')
 
             # Abre input para receber a pesquisa do usuário
             buscar_por = self.ler_string()
@@ -53,9 +54,10 @@ class AbstractTela(ABC):
 
             # Se não encontrar nenhuma informação, infoma ao usuário
             if len(lista_opcoes_encontradas) == 0:
-                Log.warning(
+                print(Terminal.warning(
+                    self,
                     'Nenhuma informação encontrada com esse termo de busca...'
-                )
+                ))
                 raise NenhumaOpcaoSelecionada
             else:
                 return self.selecionar_a_partir_lista_opcoes(lista_opcoes_encontradas)
@@ -76,14 +78,17 @@ class AbstractTela(ABC):
                 inputted_string = input()
 
                 if len(inputted_string) == 0:
-                    Log.warning('AVISO: Digite um valor válido...')
+                    print(Terminal.warning(
+                        self,
+                        'AVISO: Digite um valor válido...'
+                    ))
                     continue
                 else:
                     return inputted_string
             except IOError:
-                Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except KeyboardInterrupt:
-                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
     def ler_inteiro(self, min=None, max=None) -> int:
@@ -94,15 +99,17 @@ class AbstractTela(ABC):
                 if min == None and max == None or inputted_int >= min and inputted_int <= max:
                     return inputted_int
                 else:
-                    Log.error(
-                        f'ERRO: Você precisa digitar um número entre {min} e {max}')
+                    print(
+                        Terminal.error(self,
+                                       f'ERRO: Você precisa digitar um número entre {min} e {max}')
+                    )
             except IOError:
-                Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except ValueError:
-                Log.error(
-                    'ERRO: O tipo do valor digitado é inválido, digite um número!')
+                print(Terminal.error(self,
+                                     'ERRO: O tipo do valor digitado é inválido, digite um número!'))
             except KeyboardInterrupt:
-                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
     def ler_float(self, min=None, max=None) -> float:
@@ -113,15 +120,15 @@ class AbstractTela(ABC):
                 if min == None and max == None or inputted_float >= min and inputted_float <= max:
                     return inputted_float
                 else:
-                    Log.error(
-                        f'ERRO: Você precisa digitar um número entre {min} e {max}')
+                    print(Terminal.error(self,
+                                         f'ERRO: Você precisa digitar um número entre {min} e {max}'))
             except IOError:
-                Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except ValueError:
-                Log.error(
-                    'ERRO: O tipo do valor digitado é inválido, digite um número!')
+                print(Terminal.error(self,
+                                     'ERRO: O tipo do valor digitado é inválido, digite um número!'))
             except KeyboardInterrupt:
-                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
     def ler_cpf(self) -> str:
@@ -133,14 +140,14 @@ class AbstractTela(ABC):
                         inputted_cpf = cpf.display(inputted_cpf)
                     return inputted_cpf
                 else:
-                    Log.error('ERRO: O CPF digitado é inválido!')
+                    print(Terminal.error(self, 'ERRO: O CPF digitado é inválido!'))
             except IOError:
-                Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except ValueError:
-                Log.error(
-                    'ERRO: O tipo do valor digitado é inválido, digite somente números ou no padrão XXX.XXX.XXX-XX')
+                print(Terminal.error(self,
+                                     'ERRO: O tipo do valor digitado é inválido, digite somente números ou no padrão XXX.XXX.XXX-XX'))
             except KeyboardInterrupt:
-                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
     def ler_cnpj(self) -> str:
@@ -152,14 +159,14 @@ class AbstractTela(ABC):
                         inputted_cnpj = cnpj.display(inputted_cnpj)
                     return inputted_cnpj
                 else:
-                    Log.error('ERRO: O CNPJ digitado é inválido!')
+                    print(Terminal.error(self, 'ERRO: O CNPJ digitado é inválido!'))
             except IOError:
-                Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except ValueError:
-                Log.error(
-                    "ERRO: O tipo do valor digitado é inválido, digite somente números ou no padrão 'XX.XXX.XXX/XXXX-XX'!")
+                print(Terminal.error(self,
+                                     'ERRO: O tipo do valor digitado é inválido, digite somente números ou no padrão \'XX.XXX.XXX/XXXX-XX\'!'))
             except KeyboardInterrupt:
-                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
     def ler_email(self) -> str:
@@ -169,11 +176,11 @@ class AbstractTela(ABC):
                 if self.validar_email(inputted_email):
                     return inputted_email
                 else:
-                    Log.error('O email digitado é inválido!')
+                    print(Terminal.error(self, 'O email digitado é inválido!'))
             except IOError:
-                Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except KeyboardInterrupt:
-                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
     def ler_telefone(self) -> int:
@@ -184,11 +191,11 @@ class AbstractTela(ABC):
                     return self.formatar_telefone(inputted_telefone)
 
                 else:
-                    Log.error('O telefone digitado é inválido!')
+                    print(Terminal.error(self, 'O telefone digitado é inválido!'))
             except IOError:
-                Log.error('ERRO: Ocorreu um erro ao fazer a leitura do valor')
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except KeyboardInterrupt:
-                Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
     def validar_cnpj(self, cnpj_string: str) -> bool:

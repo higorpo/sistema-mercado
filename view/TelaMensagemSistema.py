@@ -1,4 +1,5 @@
 import os
+from utils.Terminal import Terminal
 
 
 class TelaMensagemSistema:
@@ -7,23 +8,23 @@ class TelaMensagemSistema:
 
     def warning(self, message: str) -> None:
         # Printa uma mensagem de aviso
-        print(f'\033[93m{message}\033[0m')
+        print(Terminal.warning(self, message))
 
     def sucess(self, message: str) -> None:
         # Printa uma mensagem de sucesso
-        print(f'\033[92m{message}\033[0m')
+        print(Terminal.sucess(self, message))
 
     def error(self, message: str) -> None:
         # Printa uma mensagem de erro
-        print(f'\033[91m{message}\033[0m')
+        print(Terminal.error(self, message))
 
     def info(self, message: str) -> None:
         # Printa uma mensagem de informação
-        print(f'\033[96m{message}\033[0m')
+        print(Terminal.info(self, message))
 
     def log(self, message: str) -> None:
         # Print um log normal
         print(message)
 
     def clear(self) -> None:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        Terminal.clear_all(self)

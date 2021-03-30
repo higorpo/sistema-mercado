@@ -1,4 +1,4 @@
-import utils.Log as Log
+from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 
 
@@ -7,19 +7,19 @@ class TelaFormaPagamento(AbstractTela):
         super().__init__(controlador)
 
     def adicionar(self):
-        Log.log('Digite o nome da nova forma de pagamento a ser cadastrada:')
+        print('Digite o nome da nova forma de pagamento a ser cadastrada:')
         return super().ler_string()
 
     def listar(self, formas_pagamento):
-        Log.clear()
-        Log.info('Mostrando formas de pagamento cadastradas')
+        Terminal.clear_all(self)
+        print(Terminal.info(self, 'Mostrando formas de pagamento cadastradas'))
 
         if len(formas_pagamento) == 0:
-            Log.log('Não há nada cadastrado para ser listado...')
+            print('Não há nada cadastrado para ser listado...')
         else:
             for forma_pagamento in formas_pagamento:
-                Log.log(
+                print(
                     f'- Código: {forma_pagamento.codigo}    |    Método: {forma_pagamento.metodo}')
 
-        Log.warning('Pressione enter para continuar')
+        print(Terminal.warning(self, 'Pressione enter para continuar'))
         input()

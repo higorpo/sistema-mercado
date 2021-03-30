@@ -1,4 +1,4 @@
-import utils.Log as Log
+from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 
 
@@ -7,5 +7,5 @@ class TelaSistema(AbstractTela):
         super().__init__(controlador)
 
     def mostrar_opcoes(self, opcoes=[]):
-        Log.clear()
+        Terminal.clear_all(self)
         return super().mostrar_opcoes('Qual módulo do sistema você deseja acessar?', opcoes)
