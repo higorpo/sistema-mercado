@@ -1,6 +1,8 @@
 from controller.AbstractControlador import AbstractControlador
 from view.TelaFormaPagamento import TelaFormaPagamento
 from model.FormaPagamento import FormaPagamento
+from messages.FormaPagamento import mensagens
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class ControladorFormasPagamento(AbstractControlador):
@@ -9,9 +11,9 @@ class ControladorFormasPagamento(AbstractControlador):
         self.__formas_pagamentos = []
 
     def abre_tela(self):
-        super().abre_tela('O que você deseja fazer?', [
-            'Cadastrar nova forma de pagamento',
-            'Listar todas as formas de pagamento'
+        super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
+            mensagens.get('cadastrar'),
+            mensagens.get('listar')
         ], [
             self.adicionar,
             self.listar
@@ -22,8 +24,7 @@ class ControladorFormasPagamento(AbstractControlador):
         if len([x for x in self.__formas_pagamentos if x.metodo == forma_pagamento]) == 0:
             self.__formas_pagamentos.append(FormaPagamento(forma_pagamento))
         else:
-            super()._sistema.mensagem_sistema.warning(
-                'AVISO: Essa forma de pagamento já foi cadastrada!')
+            super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar()
 
     def listar(self):

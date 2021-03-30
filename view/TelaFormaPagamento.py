@@ -1,5 +1,7 @@
 from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
+from messages.FormaPagamento import mensagens
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaFormaPagamento(AbstractTela):
@@ -7,19 +9,18 @@ class TelaFormaPagamento(AbstractTela):
         super().__init__(controlador)
 
     def adicionar(self):
-        print('Digite o nome da nova forma de pagamento a ser cadastrada:')
+        print(mensagens.get('label_metodo_pagamento'))
         return super().ler_string()
 
     def listar(self, formas_pagamento):
         Terminal.clear_all(self)
-        print(Terminal.info(self, 'Mostrando formas de pagamento cadastradas'))
+        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
 
         if len(formas_pagamento) == 0:
-            print('Não há nada cadastrado para ser listado...')
+            print(mensagens.get('nada_cadastrado'))
         else:
             for forma_pagamento in formas_pagamento:
-                print(
-                    f'- Código: {forma_pagamento.codigo}    |    Método: {forma_pagamento.metodo}')
+                print(mensagens.get('lista_valores')(forma_pagamento))
 
-        print(Terminal.warning(self, 'Pressione enter para continuar'))
+        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
