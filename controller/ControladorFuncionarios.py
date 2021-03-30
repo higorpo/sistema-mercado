@@ -3,12 +3,15 @@ from model.Funcionario import Funcionario
 from view.TelaFuncionario import TelaFuncionario
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
+from utils.faker.Funcionario import fakeFuncionario
 
 
 class ControladorFuncionarios(AbstractControlador):
     def __init__(self, controlador_sistema):
         super().__init__(controlador_sistema, TelaFuncionario(self))
-        self.__funcionarios = []
+        self.__funcionarios = [
+            fakeFuncionario
+        ]
 
     def abre_tela(self):
         super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
