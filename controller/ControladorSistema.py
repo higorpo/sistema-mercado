@@ -27,10 +27,10 @@ class ControladorSistema:
 
     def abre_tela(self):
         lista_opcoes = {
-            4: self.__controlador_cat_produto.abre_tela,
+            3: self.__controlador_cat_produto.abre_tela,
             1: self.__controlador_funcionarios.abre_tela,
-            5: self.__controlador_formas_pagamento.abre_tela,
-            7: exit
+            4: self.__controlador_formas_pagamento.abre_tela,
+            6: exit
         }
 
         while True:

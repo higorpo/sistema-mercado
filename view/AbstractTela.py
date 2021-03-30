@@ -58,7 +58,8 @@ class AbstractTela(ABC):
                     self,
                     'Nenhuma informação encontrada com esse termo de busca...'
                 ))
-                raise NenhumaOpcaoSelecionada
+                time.sleep(1)
+                self.encontrar_opcao(opcoes)
             else:
                 return self.selecionar_a_partir_lista_opcoes(lista_opcoes_encontradas)
 
