@@ -4,6 +4,7 @@ from controller.ControladorFormasPagamento import ControladorFormasPagamento
 from controller.ControladorFuncionarios import ControladorFuncionarios
 from view.TelaSistema import TelaSistema
 from view.TelaMensagemSistema import TelaMensagemSistema
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class ControladorSistema:
@@ -20,8 +21,8 @@ class ControladorSistema:
             self.abre_tela()
         except KeyboardInterrupt:
             self.mensagem_sistema.error(
-                'ERRO: Você interrompeu a entrada de dados via teclado...')
-            self.mensagem_sistema.info('Fechando sistema...')
+                mensagens_sistema.get('erro_interrompeu_entrada')
+            )
             exit(0)
 
     def abre_tela(self):
@@ -34,22 +35,19 @@ class ControladorSistema:
 
         while True:
             opcao_selecionada = self.__tela_sistema.mostrar_opcoes([
-                'Clientes',
-                'Funcionários',
-                'Fornecedores',
-                'Produtos',
-                'Categorias de produto',
-                'Formas de pagamento',  # 5
-                'Pedidos',
-                'Sair do sistema'
+                mensagens_sistema.get('menu_clientes'),
+                mensagens_sistema.get('menu_funcionarios'),
+                mensagens_sistema.get('menu_fornecedores'),
+                mensagens_sistema.get('menu_cat_produto'),
+                mensagens_sistema.get('menu_formas_pagamento'),
+                mensagens_sistema.get('menu_pedidos'),
+                mensagens_sistema.get('menu_sair_sistema')
             ])
 
             try:
                 lista_opcoes[opcao_selecionada]()
             except KeyError:
-                self.mensagem_sistema.error(
-                    'ERRO: A opção selecionada não foi implementada!')
-                time.sleep(2)
+                raise NotImplementedError
 
     @property
     def controlador_cat_produto(self) -> ControladorCategoriasProduto:

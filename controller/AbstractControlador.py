@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class AbstractControlador(ABC):
@@ -10,12 +11,9 @@ class AbstractControlador(ABC):
     @abstractmethod
     def abre_tela(self, titulo, opcoes, acoes):
         if len(opcoes) != len(acoes):
-            # TODO: Remover os prints da tela
-            self._sistema.mensagem_sistema.error(
-                'ERRO: O tamanho da lista de opções e de ações na tela é diferente!')
-            exit(0)
+            raise ValueError
 
-        opcoes.append('<-- Voltar')
+        opcoes.append(mensagens_sistema.get('voltar'))
 
         tela_aberta = True
         while tela_aberta:
@@ -27,10 +25,7 @@ class AbstractControlador(ABC):
                 try:
                     acoes[opcao_selecionada]()
                 except KeyError:
-                    # TODO: Remover os prints da tela
-                    self._sistema.mensagem_sistema.error(
-                        'ERRO: A opção selecionada não foi implementada!')
-                    time.sleep(2)
+                    raise NotImplementedError
 
     def pesquisar_opcoes(self, buscar_por: str):
         raise NotImplementedError
