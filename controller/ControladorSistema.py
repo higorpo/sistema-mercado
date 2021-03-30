@@ -4,6 +4,7 @@ from controller.ControladorCategoriasProduto import ControladorCategoriasProduto
 from controller.ControladorFormasPagamento import ControladorFormasPagamento
 from controller.ControladorFuncionarios import ControladorFuncionarios
 from view.TelaSistema import TelaSistema
+from view.TelaMensagemSistema import TelaMensagemSistema
 
 FAKE_BOOT_TIMER = 0  # use 1
 
@@ -14,20 +15,12 @@ class ControladorSistema:
         self.__controlador_formas_pagamento = ControladorFormasPagamento(self)
         self.__controlador_funcionarios = ControladorFuncionarios(self)
         self.__tela_sistema = TelaSistema(self)
+        self.__tela_mensagem_sistema = TelaMensagemSistema(self)
 
     def inicializa_sistema(self):
         try:
             # TODO: Remover os prints da tela
             Log.clear()
-            Log.log('--------- Sistema de supermercado v1.0 ----------')
-            Log.sucess('• Iniciando sistema')
-            time.sleep(FAKE_BOOT_TIMER * 1)
-            Log.info('• Configurando itens do sistema')
-            time.sleep(FAKE_BOOT_TIMER*1)
-            Log.warning('• Verificando existência de erros')
-            time.sleep(FAKE_BOOT_TIMER*2)
-            Log.info('• Abrindo tela inicial')
-            time.sleep(FAKE_BOOT_TIMER*1)
             self.abre_tela()
         except KeyboardInterrupt:
             # TODO: Remover os prints da tela
@@ -61,11 +54,18 @@ class ControladorSistema:
                 Log.error('ERRO: A opção selecionada não foi implementada!')
                 time.sleep(2)
 
-    def controlador_cat_produto(self):
+    @property
+    def controlador_cat_produto(self) -> ControladorCategoriasProduto:
         return self.__controlador_cat_produto
 
-    def controlador_formas_pagamento(self):
+    @property
+    def controlador_formas_pagamento(self) -> ControladorFormasPagamento:
         return self.__controlador_formas_pagamento
 
-    def controlador_funcionarios(self):
+    @property
+    def controlador_funcionarios(self) -> ControladorFuncionarios:
         return self.__controlador_funcionarios
+
+    @property
+    def mensagem_sistema(self) -> TelaMensagemSistema:
+        return self.__tela_mensagem_sistema
