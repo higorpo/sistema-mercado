@@ -1,4 +1,5 @@
 from datetime import date
+from model.Funcionario import Funcionario
 from utils.Terminal import Terminal
 from utils.exceptions import NenhumaOpcaoSelecionada
 from view.AbstractTela import AbstractTela
@@ -10,7 +11,7 @@ class TelaFuncionario(AbstractTela):
     def __init__(self, controlador):
         super().__init__(controlador)
 
-    def adicionar_funcionarios(self):
+    def adicionar(self):
 
         dados_funcionario = {
             'data_atual': date.today().strftime("%d/%m/%Y"),
@@ -38,7 +39,7 @@ class TelaFuncionario(AbstractTela):
 
         return dados_funcionario
 
-    def excluir_funcionario(self, funcionarios):
+    def excluir(self, funcionarios):
         if len(funcionarios) == 0:
             print(Terminal.error(
                 self,
@@ -49,12 +50,12 @@ class TelaFuncionario(AbstractTela):
 
         return super().encontrar_opcao(funcionarios)
 
-    def editar_funcionario(self):
+    def editar(self):
         # Esperar código do Higor
         pass
 
     # Vamos mudar o modo como é listado dps, fiz assim só pra testar, sei q tá feio
-    def listar_funcionarios(self, funcionarios):
+    def listar(self, funcionarios):
         Terminal.clear_all(self)
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
         for funcionario in funcionarios:
@@ -62,6 +63,14 @@ class TelaFuncionario(AbstractTela):
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
-    def buscar_funcionario(self):
-        # Esperar código do Higor
-        pass
+    def buscar(self, funcionarios) -> Funcionario:
+        if len(funcionarios) == 0:
+            print(Terminal.error(
+                self,
+                mensagens.get('nada_cadastrado_busca')
+            ))
+            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
+            input()
+            raise NenhumaOpcaoSelecionada
+
+        return super().encontrar_opcao(funcionarios)

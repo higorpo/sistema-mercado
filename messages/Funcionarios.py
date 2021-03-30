@@ -15,5 +15,6 @@ mensagens = {
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
     'lista_valores':
         lambda funcionario: f'Nome: {funcionario.nome}\nCPF: {funcionario.cpf}\nTelefone: {funcionario.telefone}\nEmail: {funcionario.email}\nSalário: {funcionario.salario}\nData de contratação: {funcionario.data_contratacao}\n ---',
-    'nada_cadastrado_busca': 'AVISO: Não existe categorias de produto para buscar, cadastre uma primeiro...'
+    'nada_cadastrado_busca': 'AVISO: Não existe funcionários para buscar, cadastre um primeiro...',
+    'erro_excluir': 'ERRO: Erro ao excluir um funcionário...'
 }

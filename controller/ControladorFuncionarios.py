@@ -4,6 +4,7 @@ from view.TelaFuncionario import TelaFuncionario
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.faker.Funcionario import fakeFuncionario
+import time
 
 
 class ControladorFuncionarios(AbstractControlador):
@@ -18,39 +19,54 @@ class ControladorFuncionarios(AbstractControlador):
             mensagens.get('cadastrar'),
             mensagens.get('excluir'),
             mensagens.get('editar'),
-            mensagens.get('listar'),
-            mensagens.get('buscar')
+            mensagens.get('listar')
         ], [
-            self.adicionar_funcionarios,
-            self.excluir_funcionario,
-            self.editar_funcionario,
-            self.listar_funcionarios,
-            self.buscar_funcionario
+            self.adicionar,
+            self.excluir,
+            self.editar,
+            self.listar
         ])
 
-    def adicionar_funcionarios(self):
-        dados_funcionario = super()._tela.adicionar_funcionarios()
+    def adicionar(self):
+        dados_funcionario = super()._tela.adicionar()
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
             self.__funcionarios.append(
                 Funcionario(*dados_funcionario.values()))
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
-            self.adicionar_funcionarios()
+            self.adicionar()
 
-    def excluir_funcionario(self):
-        funcionario_para_excluir = super()._tela.excluir_funcionario(self.__funcionarios)
-        self.__funcionarios.remove(funcionario_para_excluir)
+    def excluir(self):
+        if self.__verifica_tem_dados():
+            try:
+                funcionario = self.buscar()
+                self.__funcionarios.remove(funcionario)
+            except Exception:
+                super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
 
-    def editar_funcionario(self):
-        # Esperar código do HIgor
-        pass
+    def editar(self):
+        if self.__verifica_tem_dados():
+            funcionario = self.buscar()
+            # continua....
 
-    def listar_funcionarios(self):
-        super()._tela.listar_funcionarios(self.__funcionarios)
+    def listar(self):
+        super()._tela.listar(self.__funcionarios)
 
-    def buscar_funcionario(self):
-        # Esperar código do Higor
-        pass
+    def buscar(self) -> Funcionario:
+        return super()._tela.buscar(self.__funcionarios)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__funcionarios))
+
+    def __verifica_tem_dados(self) -> bool:
+        if len(self.__funcionarios) == 0:
+            super()._sistema.mensagem_sistema.log(
+                mensagens.get('nada_cadastrado_busca')
+            )
+            super()._sistema.mensagem_sistema.warning(
+                mensagens_sistema.get('enter_continuar')
+            )
+            input()
+            return False
+        else:
+            return True
