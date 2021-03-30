@@ -1,5 +1,4 @@
 mensagens = {
-    'titulo_tela_opcoes': 'O que você deseja fazer?',
     'adicionar': 'Adicionar nova categoria de produto',
     'listar': 'Listar categorias de produto',
     'buscar': 'Buscar categorias de produto',
