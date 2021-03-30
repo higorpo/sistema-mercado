@@ -35,8 +35,8 @@ class ControladorFuncionarios(AbstractControlador):
             self.adicionar_funcionarios()
 
     def excluir_funcionario(self):
-        # Esperar código do Higor
-        pass
+        funcionario_para_excluir = super()._tela.excluir_funcionario(self.__funcionarios)
+        self.__funcionarios.remove(funcionario_para_excluir)
 
     def editar_funcionario(self):
         # Esperar código do HIgor
@@ -48,3 +48,6 @@ class ControladorFuncionarios(AbstractControlador):
     def buscar_funcionario(self):
         # Esperar código do Higor
         pass
+
+    def pesquisar_opcoes(self, buscar_por: str):
+        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__funcionarios))

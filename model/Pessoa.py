@@ -4,7 +4,7 @@ from model.Endereco import Endereco
 
 class Pessoa(ABC):
     @abstractmethod
-    def __init__(self, nome: str, email: str, telefone: int, cpf: int):
+    def __init__(self, nome: str, email: str, telefone: str, cpf: str):
         self.__nome = nome
         self.__email = email
         self.__telefone = telefone
@@ -28,7 +28,7 @@ class Pessoa(ABC):
         return self.__telefone
 
     @telefone.setter
-    def telefone(self, telefone: int):
+    def telefone(self, telefone: str):
         self.__telefone = telefone
 
     @property

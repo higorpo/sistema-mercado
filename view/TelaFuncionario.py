@@ -1,4 +1,5 @@
 import utils.Log as Log
+from utils.exceptions import NenhumaOpcaoSelecionada
 from view.AbstractTela import AbstractTela
 from datetime import date
 
@@ -35,9 +36,14 @@ class TelaFuncionario(AbstractTela):
 
         return dados_funcionario
 
-    def excluir_funcionario(self):
-        # Esperar código do Higor
-        pass
+    def excluir_funcionario(self, funcionarios):
+        if len(funcionarios) == 0:
+            Log.error(
+                'AVISO: Não há nenhum funcionário para excluir, cadastre um primeiro...')
+            Log.warning('Pressione enter para continuar')
+            input()
+
+        return super().encontrar_opcao(funcionarios)
 
     def editar_funcionario(self):
         # Esperar código do Higor

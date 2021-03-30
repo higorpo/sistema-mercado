@@ -124,12 +124,14 @@ class AbstractTela(ABC):
                 Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
                 exit(0)
 
-    def ler_cpf(self) -> int:
+    def ler_cpf(self) -> str:
         while True:
             try:
                 inputted_cpf = input()
                 if self.validar_cpf(inputted_cpf):
-                    return int(inputted_cpf)
+                    if '.' not in inputted_cpf:
+                        inputted_cpf = cpf.display(inputted_cpf)
+                    return inputted_cpf
                 else:
                     Log.error('ERRO: O CPF digitado é inválido!')
             except IOError:
@@ -141,12 +143,14 @@ class AbstractTela(ABC):
                 Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
                 exit(0)
 
-    def ler_cnpj(self) -> int:
+    def ler_cnpj(self) -> str:
         while True:
             try:
                 inputted_cnpj = input()
                 if self.validar_cnpj(inputted_cnpj):
-                    return int(inputted_cnpj)
+                    if '.' not in inputted_cnpj:
+                        inputted_cnpj = cnpj.display(inputted_cnpj)
+                    return inputted_cnpj
                 else:
                     Log.error('ERRO: O CNPJ digitado é inválido!')
             except IOError:
@@ -158,7 +162,7 @@ class AbstractTela(ABC):
                 Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
                 exit(0)
 
-    def ler_email(self):
+    def ler_email(self) -> str:
         while True:
             try:
                 inputted_email = input()
@@ -172,14 +176,13 @@ class AbstractTela(ABC):
                 Log.error(MENSAGEM_ENTRADA_DADOS_INTERROMPIDA)
                 exit(0)
 
-    def ler_telefone(self):
+    def ler_telefone(self) -> int:
         while True:
             try:
                 inputted_telefone = input()
                 if self.validar_telefone(inputted_telefone):
-                    tel_formatado = "".join(
-                        re.findall('\d+', inputted_telefone))
-                    return int(tel_formatado)
+                    return self.formatar_telefone(inputted_telefone)
+
                 else:
                     Log.error('O telefone digitado é inválido!')
             except IOError:
@@ -203,7 +206,7 @@ class AbstractTela(ABC):
         else:
             return False
 
-    def validar_telefone(self, telefone: str):
+    def validar_telefone(self, telefone: str) -> bool:
         # Fiz assim pro usuário poder inserir telefone de diferentes maneiras (DDD obrigatório)
         # (48) 2020-2020, (48) 20202020, (48) 32020-2020, (48) 320202020
         # 48 {valores acima}, 48{valores acima}
@@ -213,3 +216,13 @@ class AbstractTela(ABC):
             return True
         else:
             return False
+
+    def formatar_telefone(self, telefone: str):
+        tel_soh_numeros = "".join(re.findall('\d+', telefone))
+        lista_pra_formatar = list(tel_soh_numeros)
+        lista_pra_formatar.insert(0, '(')
+        lista_pra_formatar.insert(3, ')')
+        lista_pra_formatar.insert(4, ' ')
+        lista_pra_formatar.insert(-4, '-')
+        telefone_formatado = "".join(lista_pra_formatar)
+        return telefone_formatado

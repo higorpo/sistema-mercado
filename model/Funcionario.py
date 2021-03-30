@@ -3,7 +3,7 @@ import datetime
 
 
 class Funcionario(Pessoa):
-    def __init__(self, data_contratacao: datetime, salario: float, nome: str, email: str, telefone: int, cpf: int):
+    def __init__(self, data_contratacao: datetime, salario: float, nome: str, email: str, telefone: str, cpf: str):
         super().__init__(nome, email, telefone, cpf)
         self.__data_contratacao = data_contratacao
         self.__salario = salario
