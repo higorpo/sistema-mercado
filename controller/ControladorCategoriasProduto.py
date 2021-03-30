@@ -13,12 +13,10 @@ class ControladorCategoriasProduto(AbstractControlador):
     def abre_tela(self):
         super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
             mensagens.get('adicionar'),
-            mensagens.get('listar'),
-            mensagens.get('buscar')
+            mensagens.get('listar')
         ], [
             self.adicionar,
-            self.listar,
-            self.buscar,
+            self.listar
         ])
 
     def adicionar(self):

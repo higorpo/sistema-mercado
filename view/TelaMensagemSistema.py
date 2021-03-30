@@ -10,9 +10,9 @@ class TelaMensagemSistema:
         # Printa uma mensagem de aviso
         print(Terminal.warning(self, message))
 
-    def sucess(self, message: str) -> None:
+    def success(self, message: str) -> None:
         # Printa uma mensagem de sucesso
-        print(Terminal.sucess(self, message))
+        print(Terminal.success(self, message))
 
     def error(self, message: str) -> None:
         # Printa uma mensagem de erro
