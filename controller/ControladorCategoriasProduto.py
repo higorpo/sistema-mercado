@@ -1,6 +1,8 @@
 from controller.AbstractControlador import AbstractControlador
 from view.TelaCategoriaProduto import TelaCategoriaProduto
 from model.CategoriaProduto import CategoriaProduto
+from messages.CategoriaProduto import mensagens
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class ControladorCategoriasProduto(AbstractControlador):
@@ -9,10 +11,10 @@ class ControladorCategoriasProduto(AbstractControlador):
         self.__list_cat_produto = []
 
     def abre_tela(self):
-        super().abre_tela('O que você deseja fazer?', [
-            'Adicionar nova categoria de produto',
-            'Listar categorias de produto',
-            'Buscar categorias de produto'
+        super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
+            mensagens.get('adicionar'),
+            mensagens.get('listar'),
+            mensagens.get('buscar')
         ], [
             self.adicionar,
             self.listar,
@@ -25,7 +27,8 @@ class ControladorCategoriasProduto(AbstractControlador):
             self.__list_cat_produto.append(CategoriaProduto(categoria_produto))
         else:
             super()._sistema.mensagem_sistema.warning(
-                'AVISO: Essa categoria de produto já foi cadastrada!')
+                mensagens.get('ja_cadastrado')
+            )
             self.adicionar()
 
     def listar(self):

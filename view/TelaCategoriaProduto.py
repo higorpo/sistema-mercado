@@ -3,6 +3,8 @@ from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 from model.CategoriaProduto import CategoriaProduto
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+from messages.CategoriaProduto import mensagens
+from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaCategoriaProduto(AbstractTela):
@@ -10,30 +12,29 @@ class TelaCategoriaProduto(AbstractTela):
         super().__init__(controlador)
 
     def adicionar(self):
-        print('Digite o nome da nova categoria de produto a ser cadastrada:')
+        print(mensagens.get('label_nome_categoria'))
         return super().ler_string()
 
     def listar(self, categorias_produto):
         Terminal.clear_all(self)
-        print(Terminal.info(self, 'Mostrando as categorias de produto cadastradas'))
+        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
 
         if len(categorias_produto) == 0:
-            print('Não há nada cadastrado para ser listado...')
+            print(mensagens.get('nada_cadastrado'))
         else:
             for categoria_produto in categorias_produto:
-                print(
-                    f'- Código: {categoria_produto.codigo}    |    Categoria: {categoria_produto.nome}')
+                print(mensagens.get('lista_valores')(categoria_produto))
 
-        print(Terminal.warning(self, 'Pressione enter para continuar'))
+        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
     def buscar(self, categorias_produto) -> CategoriaProduto:
         if len(categorias_produto) == 0:
             print(Terminal.error(
                 self,
-                'AVISO: Não existe categorias de produto para buscar, cadastre uma primeiro...'
+                mensagens.get('nada_cadastrado_busca')
             ))
-            print(Terminal.warning(self, 'Pressione enter para continuar'))
+            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
             raise NenhumaOpcaoSelecionada
 
