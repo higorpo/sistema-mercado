@@ -10,4 +10,13 @@ __dados_funcionario = {
     'cpf': '111.111.111-11'
 }
 
+__dados_endereco = {
+    'rua': 'Rua Vereador Cyro Bacha',
+    'cidade': 'Criciúma',
+    'estado': 'Santa Catarina',
+    'cep': '88880-320',
+    'complemento': 'Casa'
+}
+
 fakeFuncionario = Funcionario(*__dados_funcionario.values())
+fakeFuncionario.definir_endereco(*__dados_endereco.values())

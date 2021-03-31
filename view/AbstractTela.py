@@ -228,6 +228,20 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
+    def ler_cep(self):
+        while True:
+            try:
+                inputted_cep = input()
+                if self.validar_cep(inputted_cep):
+                    return self.formatar_cep(inputted_cep)
+                else:
+                    print(Terminal.error(self, 'O CEP digitado é inválido!'))
+            except IOError:
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
+            except KeyboardInterrupt:
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
+                exit(0)
+
     def validar_cnpj(self, cnpj_string: str) -> bool:
         cnpj_formatado = cnpj.sieve(cnpj_string)
         return cnpj.validate(cnpj_formatado)
@@ -247,19 +261,29 @@ class AbstractTela(ABC):
         # Fiz assim pro usuário poder inserir telefone de diferentes maneiras (DDD obrigatório)
         # (48) 2020-2020, (48) 20202020, (48) 32020-2020, (48) 320202020
         # 48 {valores acima}, 48{valores acima}
-        # Daí no método ler_telefone ele vai pegar só os números e converter pra int
         regex = '(\(?\d{2}\)?\s?)(\d{4,5}\-?\d{4})'
         if re.search(regex, telefone):
             return True
         else:
             return False
 
+    def validar_cep(self, cep: str):
+        regex = '(\d{5})-?(\d{3})'
+        return True if re.search(regex, cep) else False
+
     def formatar_telefone(self, telefone: str):
-        tel_soh_numeros = "".join(re.findall('\d+', telefone))
+        tel_soh_numeros = ''.join(re.findall('\d+', telefone))
         lista_pra_formatar = list(tel_soh_numeros)
         lista_pra_formatar.insert(0, '(')
         lista_pra_formatar.insert(3, ')')
         lista_pra_formatar.insert(4, ' ')
         lista_pra_formatar.insert(-4, '-')
-        telefone_formatado = "".join(lista_pra_formatar)
+        telefone_formatado = ''.join(lista_pra_formatar)
         return telefone_formatado
+
+    def formatar_cep(self, cep: str):
+        cep_soh_numeros = ''.join(re.findall('\d+', cep))
+        lista_numeros_do_cep = list(cep_soh_numeros)
+        lista_numeros_do_cep.insert(-3, '-')
+        cep_formatado = ''.join(lista_numeros_do_cep)
+        return cep_formatado

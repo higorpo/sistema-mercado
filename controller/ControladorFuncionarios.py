@@ -1,6 +1,7 @@
 from controller.AbstractControlador import AbstractControlador
 from model.Funcionario import Funcionario
 from view.TelaFuncionario import TelaFuncionario
+from view.TelaEndereco import TelaEndereco
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.faker.Funcionario import fakeFuncionario
@@ -13,6 +14,7 @@ class ControladorFuncionarios(AbstractControlador):
         self.__funcionarios = [
             fakeFuncionario
         ]
+        self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
         super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
@@ -31,11 +33,14 @@ class ControladorFuncionarios(AbstractControlador):
         dados_funcionario = super()._tela.adicionar()
 
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
-            self.__funcionarios.append(
-                Funcionario(*dados_funcionario.values()))
+            instancia_funcionario = Funcionario(*dados_funcionario.values())
+            self.__funcionarios.append(instancia_funcionario)
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar()
+
+        dados_endereco = self.__tela_endereco.adicionar()
+        instancia_funcionario.definir_endereco(*dados_endereco.values())
 
     def excluir(self):
         if self.__verifica_tem_dados():

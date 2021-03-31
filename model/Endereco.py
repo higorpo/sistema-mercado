@@ -1,5 +1,5 @@
 class Endereco:
-    def __init__(self, rua: str, cidade: str, estado: str, cep: int, complemento: str):
+    def __init__(self, rua: str, cidade: str, estado: str, cep: str, complemento: str):
         self.__rua = rua
         self.__cidade = cidade
         self.__estado = estado

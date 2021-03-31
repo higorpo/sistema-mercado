@@ -35,9 +35,9 @@ class Pessoa(ABC):
     def cpf(self):
         return self.__cpf
 
-    def definir_endereco(self, rua: str, cidade: str, estado: str, cep: int, complemento: str):
+    def definir_endereco(self, rua: str, cidade: str, estado: str, cep: str, complemento: str):
         self.__endereco = Endereco(rua, cidade, estado, cep, complemento)
 
     @property
     def endereco(self):
-        return self.__endereco.pegar_endereco
+        return self.__endereco.pegar_endereco()
