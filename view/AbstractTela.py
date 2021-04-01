@@ -252,20 +252,14 @@ class AbstractTela(ABC):
 
     def validar_email(self, email: str) -> bool:
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        if(re.search(regex, email)):
-            return True
-        else:
-            return False
+        return True if re.search(regex, email) else False
 
     def validar_telefone(self, telefone: str) -> bool:
-        # Fiz assim pro usuário poder inserir telefone de diferentes maneiras (DDD obrigatório)
+        # Maneiras possíveis de inserir o telefone (DDD obrigatório):
         # (48) 2020-2020, (48) 20202020, (48) 32020-2020, (48) 320202020
-        # 48 {valores acima}, 48{valores acima}
+        # 48 {valores acima}, 48{valores acima}, (48){valores acima}
         regex = '(\(?\d{2}\)?\s?)(\d{4,5}\-?\d{4})'
-        if re.search(regex, telefone):
-            return True
-        else:
-            return False
+        return True if re.search(regex, telefone) else False
 
     def validar_cep(self, cep: str):
         regex = '(\d{5})-?(\d{3})'

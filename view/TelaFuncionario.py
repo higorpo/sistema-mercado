@@ -84,7 +84,6 @@ class TelaFuncionario(AbstractTela):
 
         return dados_funcionario
 
-    # Vamos mudar o modo como é listado dps, fiz assim só pra testar, sei q tá feio
     def listar(self, funcionarios):
         Terminal.clear_all(self)
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))

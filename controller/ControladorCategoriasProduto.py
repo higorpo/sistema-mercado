@@ -33,7 +33,7 @@ class ControladorCategoriasProduto(AbstractControlador):
         super()._tela.listar(self.__list_cat_produto)
 
     def buscar(self) -> CategoriaProduto:
-        super()._tela.buscar(self.__list_cat_produto)
+        return super()._tela.buscar(self.__list_cat_produto)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))

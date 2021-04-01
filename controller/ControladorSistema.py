@@ -2,6 +2,7 @@ import time
 from controller.ControladorCategoriasProduto import ControladorCategoriasProduto
 from controller.ControladorFormasPagamento import ControladorFormasPagamento
 from controller.ControladorFuncionarios import ControladorFuncionarios
+from controller.ControladorFornecedores import ControladorFornecedores
 from view.TelaSistema import TelaSistema
 from view.TelaMensagemSistema import TelaMensagemSistema
 from messages.Sistema import mensagens as mensagens_sistema
@@ -12,6 +13,7 @@ class ControladorSistema:
         self.__controlador_cat_produto = ControladorCategoriasProduto(self)
         self.__controlador_formas_pagamento = ControladorFormasPagamento(self)
         self.__controlador_funcionarios = ControladorFuncionarios(self)
+        self.__controlador_fornecedores = ControladorFornecedores(self)
         self.__tela_sistema = TelaSistema(self)
         self.__tela_mensagem_sistema = TelaMensagemSistema(self)
 
@@ -29,6 +31,7 @@ class ControladorSistema:
         lista_opcoes = {
             3: self.__controlador_cat_produto.abre_tela,
             1: self.__controlador_funcionarios.abre_tela,
+            2: self.__controlador_fornecedores.abre_tela,
             4: self.__controlador_formas_pagamento.abre_tela,
             6: exit
         }
@@ -60,6 +63,10 @@ class ControladorSistema:
     @property
     def controlador_funcionarios(self) -> ControladorFuncionarios:
         return self.__controlador_funcionarios
+
+    @property
+    def controlador_fornecedores(self) -> ControladorFornecedores:
+        return self.__controlador_fornecedores
 
     @property
     def mensagem_sistema(self) -> TelaMensagemSistema:
