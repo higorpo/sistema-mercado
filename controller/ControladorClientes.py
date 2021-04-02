@@ -43,14 +43,15 @@ class ControladorClientes(AbstractControlador):
     def excluir(self):
         if self.__verifica_tem_dados():
             try:
-                cliente = self.buscar()
+                cliente = self.buscar(mensagens.get(
+                    'titulo_tela_excluir_cliente'))
                 self.__clientes.remove(cliente)
             except Exception:
                 super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
 
     def editar(self):
         if self.__verifica_tem_dados():
-            cliente = self.buscar()
+            cliente = self.buscar(mensagens.get('titulo_tela_editar_cliente'))
             dados_cliente = self._tela.editar(cliente)
 
             vip, email, telefone = dados_cliente.values()
@@ -62,8 +63,8 @@ class ControladorClientes(AbstractControlador):
     def listar(self):
         super()._tela.listar(self.__clientes)
 
-    def buscar(self):
-        return super()._tela.buscar(self.__clientes)
+    def buscar(self, titulo_tela):
+        return super()._tela.buscar(self.__clientes, titulo_tela)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__clientes))

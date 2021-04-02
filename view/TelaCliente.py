@@ -92,7 +92,7 @@ class TelaCliente(AbstractTela):
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
-    def buscar(self, clientes):
+    def buscar(self, clientes, titulo_tela):
         if len(clientes) == 0:
             print(Terminal.error(
                 self,
@@ -102,4 +102,4 @@ class TelaCliente(AbstractTela):
             input()
             raise NenhumaOpcaoSelecionada
 
-        return super().encontrar_opcao(clientes)
+        return super().encontrar_opcao(clientes, titulo_tela)

@@ -17,5 +17,7 @@ mensagens = {
     'lista_valores':
         lambda cliente: f'Nome: {cliente.nome}\nCPF: {cliente.cpf}\nTelefone: {cliente.telefone}\nEmail: {cliente.email}\nEndereço: {cliente.endereco}\nVIP: {cliente.vip}\n ---',
     'nada_cadastrado_busca': 'AVISO: Não existem clientes para buscar, cadastre um primeiro...',
-    'erro_excluir': 'ERRO: Erro ao excluir um cliente...'
+    'erro_excluir': 'ERRO: Erro ao excluir um cliente...',
+    'titulo_tela_excluir_cliente': 'Qual cliente você deseja excluir do sistema?\nSelecione uma das duas opções abaixo para escolher um cliente para excluir',
+    'titulo_tela_editar_cliente': 'Qual cliente você deseja editar?\nSelecione uma das duas opções abaixo para escolher um cliente para editar',
 }

@@ -32,11 +32,11 @@ class AbstractTela(ABC):
             exit(0)
         return index
 
-    def encontrar_opcao(self, opcoes=[]):
+    def encontrar_opcao(self, opcoes=[], titulo_tela: str = "Selecione uma ação..."):
         option, index = pick([
             'Listar todas as opções...',
             'Pesquisar...'
-        ], 'Selecione uma ação...')
+        ], titulo_tela)
 
         if index == 0:
             return self.selecionar_a_partir_lista_opcoes(opcoes)
