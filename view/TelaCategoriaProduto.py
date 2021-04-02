@@ -29,7 +29,7 @@ class TelaCategoriaProduto(AbstractTela):
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
-    def buscar(self, categorias_produto) -> CategoriaProduto:
+    def buscar(self, categorias_produto, titulo_tela) -> CategoriaProduto:
         if len(categorias_produto) == 0:
             print(Terminal.error(
                 self,
@@ -39,4 +39,4 @@ class TelaCategoriaProduto(AbstractTela):
             input()
             raise NenhumaOpcaoParaSelecionar
 
-        return super().encontrar_opcao(categorias_produto)
+        return super().encontrar_opcao(categorias_produto, titulo_tela)

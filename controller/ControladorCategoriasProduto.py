@@ -19,10 +19,12 @@ class ControladorCategoriasProduto(AbstractControlador):
             self.listar
         ])
 
-    def adicionar(self):
+    def adicionar(self) -> CategoriaProduto:
         categoria_produto = super()._tela.adicionar()
         if len([x for x in self.__list_cat_produto if x.nome == categoria_produto]) == 0:
-            self.__list_cat_produto.append(CategoriaProduto(categoria_produto))
+            nova_categoria = CategoriaProduto(categoria_produto)
+            self.__list_cat_produto.append(nova_categoria)
+            return nova_categoria
         else:
             super()._sistema.mensagem_sistema.warning(
                 mensagens.get('ja_cadastrado')
@@ -32,8 +34,12 @@ class ControladorCategoriasProduto(AbstractControlador):
     def listar(self):
         super()._tela.listar(self.__list_cat_produto)
 
-    def buscar(self) -> CategoriaProduto:
-        return super()._tela.buscar(self.__list_cat_produto)
+    def buscar(self, titulo_tela: str) -> CategoriaProduto:
+        return super()._tela.buscar(self.__list_cat_produto, titulo_tela)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))
+
+    @property
+    def categorias(self):
+        return self.__list_cat_produto

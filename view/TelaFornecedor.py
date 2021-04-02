@@ -58,11 +58,11 @@ class TelaFornecedor(AbstractTela):
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
-    def buscar(self, fornecedores):
+    def buscar(self, fornecedores, titulo_tela):
         if len(fornecedores) == 0:
             print(Terminal.error(self, mensagens.get('nada_cadastrado_busca')))
             print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
             raise NenhumaOpcaoParaSelecionar
 
-        return super().encontrar_opcao(fornecedores)
+        return super().encontrar_opcao(fornecedores, titulo_tela)

@@ -6,6 +6,7 @@ from messages.Sistema import mensagens as mensagens_sistema
 from messages.Fornecedor import mensagens
 from utils.faker.Fornecedor import fakeFornecedor
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 
 
 class ControladorFornecedores(AbstractControlador):
@@ -32,8 +33,22 @@ class ControladorFornecedores(AbstractControlador):
 
     def adicionar(self):
         dados_fornecedor = super()._tela.adicionar()
-        dados_fornecedor['fornece'] = \
-            super()._sistema.controlador_cat_produto.buscar()
+
+        # Verifica se existe categorias de produto para cadastrar, se não possuir, abre a tela para o cadastro.
+        if len(super()._sistema.controlador_cat_produto.categorias) == 0:
+            # Cadastra categoria
+            super()._sistema.mensagem_sistema.clear()
+            dados_fornecedor['fornece'] = \
+                super()._sistema.controlador_cat_produto.adicionar()
+        else:
+            # Seleciona categoria
+            try:
+                dados_fornecedor['fornece'] = \
+                    super()._sistema.controlador_cat_produto.buscar(
+                        mensagens.get('selecionar_categoria_adicionar_fornecedor'))
+            except NenhumaOpcaoParaSelecionar:
+                super()._sistema.mensagem_sistema.error(mensagens.get('erro_cadastrar'))
+                return
 
         if len([x for x in self.__fornecedores if x.cnpj == dados_fornecedor['cnpj']]) == 0:
             instancia_fornecedor = Fornecedor(*dados_fornecedor.values())
@@ -47,7 +62,7 @@ class ControladorFornecedores(AbstractControlador):
     def excluir(self):
         if self.__verifica_tem_dados():
             try:
-                fornecedor = self.buscar()
+                fornecedor = self.buscar(mensagens.get('titulo_tela_excluir'))
                 self.__fornecedores.remove(fornecedor)
             except Exception:
                 super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
@@ -55,7 +70,7 @@ class ControladorFornecedores(AbstractControlador):
     def editar(self):
         if self.__verifica_tem_dados():
             try:
-                fornecedor = self.buscar()
+                fornecedor = self.buscar(mensagens.get('titulo_tela_editar'))
                 dados_fornecedor = super()._tela.editar(fornecedor)
 
                 email, telefone = dados_fornecedor.values()
@@ -70,8 +85,8 @@ class ControladorFornecedores(AbstractControlador):
     def listar(self):
         super()._tela.listar(self.__fornecedores)
 
-    def buscar(self):
-        return super()._tela.buscar(self.__fornecedores)
+    def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
+        return super()._tela.buscar(self.__fornecedores, titulo_tela)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__fornecedores))
