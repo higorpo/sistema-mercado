@@ -56,4 +56,35 @@ class ControladorProdutos(AbstractControlador):
         super()._tela.listar(self.__produtos)
 
     def editar(self):
-        pass
+        if self.__verifica_tem_dados():
+            try:
+                produto = self.buscar(mensagens.get('titulo_tela_editar'))
+                dados_produto = super()._tela.editar(produto)
+
+                nome, qtd_estoque, preco = dados_produto.values()
+
+                produto.nome = nome if nome != '--' else produto.nome
+                produto.preco = preco if preco != '--' else produto.preco
+                produto.qtd_estoque = qtd_estoque if qtd_estoque != '--' else produto.qtd_estoque
+            except Exception:
+                super()._sistema.mensagem_sistema.warning(
+                    mensagens_sistema.get('nenhuma_opcao_selecionada'))
+
+    def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
+        return super()._tela.buscar(self.__produtos, titulo_tela)
+
+    def pesquisar_opcoes(self, buscar_por: str):
+        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__produtos))
+
+    def __verifica_tem_dados(self) -> bool:
+        if len(self.__produtos) == 0:
+            super()._sistema.mensagem_sistema.log(
+                mensagens.get('nada_cadastrado_busca')
+            )
+            super()._sistema.mensagem_sistema.warning(
+                mensagens_sistema.get('enter_continuar')
+            )
+            input()
+            return False
+        else:
+            return True

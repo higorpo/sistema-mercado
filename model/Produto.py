@@ -21,16 +21,24 @@ class Produto:
     def qtd_estoque(self) -> int:
         return self.__qtd_estoque
 
+    @qtd_estoque.setter
+    def qtd_estoque(self, qtd_estoque: int):
+        self.__qtd_estoque = qtd_estoque
+
     @property
     def nome(self) -> str:
         return self.__nome
+
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
 
     @property
     def preco(self) -> float:
         return self.__preco
 
     @preco.setter
-    def preco(self, preco: float) -> float:
+    def preco(self, preco: float):
         self.__preco = preco
 
     @property

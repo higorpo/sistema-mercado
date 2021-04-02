@@ -35,7 +35,6 @@ class TelaProduto(AbstractTela):
         dados_produto = {
             'nome': None,
             'qtd_estoque': None,
-            'marca': None,
             'preco': None
         }
 
@@ -64,19 +63,6 @@ class TelaProduto(AbstractTela):
         )
 
         dados_produto['qtd_estoque'] = super().ler_inteiro(modo_edicao=True)
-
-        print(mensagens.get('label_marca'))
-        print(
-            Terminal.warning(
-                self,
-                mensagens.get('label_atualmente')
-                (
-                    'Marca', dados_produto['marca']
-                )
-            )
-        )
-
-        dados_produto['marca'] = super().ler_string(modo_edicao=True)
 
         print(mensagens.get('label_preco'))
         print(
