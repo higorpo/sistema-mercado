@@ -1,7 +1,7 @@
 from datetime import date
 from model.Funcionario import Funcionario
 from utils.Terminal import Terminal
-from utils.exceptions import NenhumaOpcaoSelecionada
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from view.AbstractTela import AbstractTela
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
@@ -100,6 +100,6 @@ class TelaFuncionario(AbstractTela):
             ))
             print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
-            raise NenhumaOpcaoSelecionada
+            raise NenhumaOpcaoParaSelecionar
 
         return super().encontrar_opcao(funcionarios, titulo_tela)

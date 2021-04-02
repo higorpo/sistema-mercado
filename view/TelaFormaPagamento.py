@@ -2,7 +2,7 @@ from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 from messages.FormaPagamento import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
-from utils.exceptions import NenhumaOpcaoSelecionada
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 
 
 class TelaFormaPagamento(AbstractTela):
@@ -34,6 +34,6 @@ class TelaFormaPagamento(AbstractTela):
             ))
             print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
-            raise NenhumaOpcaoSelecionada
+            raise NenhumaOpcaoParaSelecionar
 
         return super().encontrar_opcao(formas_pagamento, titulo_tela)

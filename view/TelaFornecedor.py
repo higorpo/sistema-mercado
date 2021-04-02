@@ -1,5 +1,5 @@
 from view.AbstractTela import AbstractTela
-from utils.exceptions import NenhumaOpcaoSelecionada
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.Terminal import Terminal
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Fornecedor import mensagens
@@ -63,6 +63,6 @@ class TelaFornecedor(AbstractTela):
             print(Terminal.error(self, mensagens.get('nada_cadastrado_busca')))
             print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
-            raise NenhumaOpcaoSelecionada
+            raise NenhumaOpcaoParaSelecionar
 
         return super().encontrar_opcao(fornecedores)

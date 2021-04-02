@@ -50,14 +50,19 @@ class ControladorClientes(AbstractControlador):
 
     def editar(self):
         if self.__verifica_tem_dados():
-            cliente = self.buscar(mensagens.get('titulo_tela_editar'))
-            dados_cliente = self._tela.editar(cliente)
+            try:
+                cliente = self.buscar(mensagens.get('titulo_tela_editar'))
+                dados_cliente = self._tela.editar(cliente)
 
-            vip, email, telefone = dados_cliente.values()
+                vip, email, telefone = dados_cliente.values()
 
-            cliente.vip = vip if vip != '--' else cliente.vip
-            cliente.email = email if email != '--' else cliente.email
-            cliente.telefone = telefone if telefone != '--' else cliente.telefone
+                cliente.vip = vip if vip != '--' else cliente.vip
+                cliente.email = email if email != '--' else cliente.email
+                cliente.telefone = telefone if telefone != '--' else cliente.telefone
+            except Exception:
+                super()._sistema.mensagem_sistema.warning(
+                    mensagens_sistema.get('nenhuma_opcao_selecionada'))
+                self.editar()
 
     def listar(self):
         super()._tela.listar(self.__clientes)

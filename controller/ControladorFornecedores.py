@@ -32,8 +32,8 @@ class ControladorFornecedores(AbstractControlador):
 
     def adicionar(self):
         dados_fornecedor = super()._tela.adicionar()
-        dados_fornecedor['fornece'] = super(
-        )._sistema.controlador_cat_produto.buscar()
+        dados_fornecedor['fornece'] = \
+            super()._sistema.controlador_cat_produto.buscar()
 
         if len([x for x in self.__fornecedores if x.cnpj == dados_fornecedor['cnpj']]) == 0:
             instancia_fornecedor = Fornecedor(*dados_fornecedor.values())
@@ -62,7 +62,7 @@ class ControladorFornecedores(AbstractControlador):
 
                 fornecedor.email = email if email != '--' else fornecedor.email
                 fornecedor.telefone = telefone if telefone != '--' else fornecedor.telefone
-            except NenhumaOpcaoSelecionada:
+            except Exception:
                 super()._sistema.mensagem_sistema.warning(
                     mensagens_sistema.get('nenhuma_opcao_selecionada'))
                 self.editar()
