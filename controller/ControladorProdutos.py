@@ -6,12 +6,14 @@ from messages.Produto import mensagens
 from view.TelaProduto import TelaProduto
 from utils.faker.Produto import fakeProdutos
 from datetime import date
+from configs.settings import Settings
 
 
 class ControladorProdutos(AbstractControlador):
     def __init__(self, controlador_sistema):
         super().__init__(controlador_sistema, TelaProduto(self))
-        self.__produtos = [*fakeProdutos]
+        self.__produtos = \
+            [*fakeProdutos] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
 
     def abre_tela(self):
         super().abre_tela(mensagens_sistema.get('titulo_opcoes'), [

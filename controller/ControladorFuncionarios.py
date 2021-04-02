@@ -6,15 +6,15 @@ from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.faker.Funcionario import fakeFuncionario
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+from configs.settings import Settings
 import time
 
 
 class ControladorFuncionarios(AbstractControlador):
     def __init__(self, controlador_sistema):
         super().__init__(controlador_sistema, TelaFuncionario(self))
-        self.__funcionarios = [
-            fakeFuncionario
-        ]
+        self.__funcionarios = \
+            [fakeFuncionario] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):

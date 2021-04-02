@@ -7,12 +7,14 @@ from messages.Fornecedor import mensagens
 from utils.faker.Fornecedor import fakeFornecedor
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from configs.settings import Settings
 
 
 class ControladorFornecedores(AbstractControlador):
     def __init__(self, controlador_sistema):
         super().__init__(controlador_sistema, TelaFornecedor(self))
-        self.__fornecedores = [fakeFornecedor]
+        self.__fornecedores = \
+            [fakeFornecedor] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):

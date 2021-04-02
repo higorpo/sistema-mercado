@@ -5,12 +5,14 @@ from messages.Sistema import mensagens as mensagens_sistema
 from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
 from utils.faker.Cliente import fakeClientes
+from configs.settings import Settings
 
 
 class ControladorClientes(AbstractControlador):
     def __init__(self, controlador_sistema):
         super().__init__(controlador_sistema, TelaCliente(self))
-        self.__clientes = [*fakeClientes]
+        self.__clientes = \
+            [*fakeClientes] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
