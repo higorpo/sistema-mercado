@@ -63,8 +63,14 @@ class AbstractTela(ABC):
             else:
                 return self.selecionar_a_partir_lista_opcoes(lista_opcoes_encontradas)
 
+    # TODO eu fiz um try/except ali pq o FormaPagamento n tem o atributo nome,
+    # então talvez seja melhor, por exemplo, passar todos os atributos do objeto para um dicionario
+    # pra tentar fazer uma solução mais geral?
     def selecionar_a_partir_lista_opcoes(self, opcoes):
-        lista_opcoes = list(map(lambda x: x.nome, opcoes))
+        try:
+            lista_opcoes = list(map(lambda x: x.nome, opcoes))
+        except AttributeError:
+            lista_opcoes = list(map(lambda x: x.metodo, opcoes))
 
         selecionado = self.mostrar_opcoes(
             'Selecione uma opção abaixo',
@@ -236,6 +242,27 @@ class AbstractTela(ABC):
                     return self.formatar_cep(inputted_cep)
                 else:
                     print(Terminal.error(self, 'O CEP digitado é inválido!'))
+            except IOError:
+                print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
+            except KeyboardInterrupt:
+                print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
+                exit(0)
+
+    def ler_vip(self, modo_edicao: bool = False) -> str:
+        while True:
+            try:
+                inputted_boolean = input()
+
+                if inputted_boolean == '--' and modo_edicao == True:
+                    return inputted_boolean
+
+                if inputted_boolean.lower() == 's':
+                    return 'sim'
+                elif inputted_boolean.lower() == 'n':
+                    return 'não'
+                else:
+                    print(Terminal.error(
+                        self, 'O valor digitado é inválido! Digite \'s\' para \'sim\', ou \'n\' para \'não\'!'))
             except IOError:
                 print(Terminal.error(self, MENSAGEM_ERRO_LEITURA_VALOR))
             except KeyboardInterrupt:

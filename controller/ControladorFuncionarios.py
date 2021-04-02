@@ -21,12 +21,14 @@ class ControladorFuncionarios(AbstractControlador):
             mensagens.get('cadastrar'),
             mensagens.get('excluir'),
             mensagens.get('editar'),
-            mensagens.get('listar')
+            mensagens.get('listar'),
+            mensagens.get('buscar')
         ], [
             self.adicionar,
             self.excluir,
             self.editar,
-            self.listar
+            self.listar,
+            self.buscar
         ])
 
     def adicionar(self):
@@ -34,13 +36,12 @@ class ControladorFuncionarios(AbstractControlador):
 
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
             instancia_funcionario = Funcionario(*dados_funcionario.values())
+            dados_endereco = self.__tela_endereco.adicionar()
+            instancia_funcionario.definir_endereco(*dados_endereco.values())
             self.__funcionarios.append(instancia_funcionario)
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar()
-
-        dados_endereco = self.__tela_endereco.adicionar()
-        instancia_funcionario.definir_endereco(*dados_endereco.values())
 
     def excluir(self):
         if self.__verifica_tem_dados():
@@ -55,13 +56,11 @@ class ControladorFuncionarios(AbstractControlador):
             funcionario = self.buscar()
             dados_funcionarios = super()._tela.editar(funcionario)
 
-            email = dados_funcionarios['email']
-            telefone = dados_funcionarios['telefone']
-            salario = dados_funcionarios['salario']
+            salario, email, telefone = dados_funcionarios.values()
 
+            funcionario.salario = salario if salario != '--' else funcionario.salario
             funcionario.email = email if email != '--' else funcionario.email
             funcionario.telefone = telefone if telefone != '--' else funcionario.telefone
-            funcionario.salario = salario if salario != '--' else funcionario.salario
 
     def listar(self):
         super()._tela.listar(self.__funcionarios)

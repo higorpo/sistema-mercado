@@ -1,5 +1,5 @@
 import itertools
-from CategoriaProduto import CategoriaProduto
+from model.CategoriaProduto import CategoriaProduto
 
 
 class Produto:

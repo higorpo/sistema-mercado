@@ -37,13 +37,12 @@ class ControladorFornecedores(AbstractControlador):
 
         if len([x for x in self.__fornecedores if x.cnpj == dados_fornecedor['cnpj']]) == 0:
             instancia_fornecedor = Fornecedor(*dados_fornecedor.values())
+            dados_endereco = self.__tela_endereco.adicionar()
+            instancia_fornecedor.definir_endereco(*dados_endereco.values())
             self.__fornecedores.append(instancia_fornecedor)
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar()
-
-        dados_endereco = self.__tela_endereco.adicionar()
-        instancia_fornecedor.definir_endereco(*dados_endereco.values())
 
     def excluir(self):
         if self.__verifica_tem_dados():
@@ -58,8 +57,7 @@ class ControladorFornecedores(AbstractControlador):
             fornecedor = self.buscar()
             dados_fornecedor = super()._tela.editar(fornecedor)
 
-            email = dados_fornecedor['email']
-            telefone = dados_fornecedor['telefone']
+            email, telefone = dados_fornecedor.values()
 
             fornecedor.email = email if email != '--' else fornecedor.email
             fornecedor.telefone = telefone if telefone != '--' else fornecedor.telefone

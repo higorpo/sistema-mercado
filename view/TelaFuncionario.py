@@ -14,7 +14,7 @@ class TelaFuncionario(AbstractTela):
     def adicionar(self):
 
         dados_funcionario = {
-            'data_atual': date.today().strftime("%d/%m/%Y"),
+            'data_atual': date.today().strftime('%d/%m/%Y'),
             'salario': None,
             'nome': None,
             'email': None,

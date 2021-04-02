@@ -2,6 +2,7 @@ from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 from messages.FormaPagamento import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
+from utils.exceptions import NenhumaOpcaoSelecionada
 
 
 class TelaFormaPagamento(AbstractTela):
@@ -24,3 +25,15 @@ class TelaFormaPagamento(AbstractTela):
 
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
+
+    def buscar(self, formas_pagamento):
+        if len(formas_pagamento) == 0:
+            print(Terminal.error(
+                self,
+                mensagens.get('nada_cadastrado_busca')
+            ))
+            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
+            input()
+            raise NenhumaOpcaoSelecionada
+
+        return super().encontrar_opcao(formas_pagamento)
