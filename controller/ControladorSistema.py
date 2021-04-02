@@ -38,8 +38,8 @@ class ControladorSistema:
             2: self.__controlador_fornecedores.abre_tela,
             3: self.__controlador_cat_produto.abre_tela,
             4: self.__controlador_formas_pagamento.abre_tela,
-            5: self.__controlador_pedidos.abre_tela,
-            6: exit
+            6: self.__controlador_pedidos.abre_tela,
+            7: exit
         }
 
         while True:
@@ -49,6 +49,7 @@ class ControladorSistema:
                 mensagens_sistema.get('menu_fornecedores'),
                 mensagens_sistema.get('menu_cat_produto'),
                 mensagens_sistema.get('menu_formas_pagamento'),
+                mensagens_sistema.get('menu_produtos'),
                 mensagens_sistema.get('menu_pedidos'),
                 mensagens_sistema.get('menu_sair_sistema')
             ])

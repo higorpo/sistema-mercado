@@ -10,5 +10,6 @@ mensagens = {
     'menu_cat_produto': 'Categorias de produto',
     'menu_formas_pagamento': 'Formas de pagamento',
     'menu_pedidos': 'Pedidos',
+    'menu_produtos': 'Produtos',
     'menu_sair_sistema': 'Sair do sistema',
 }
