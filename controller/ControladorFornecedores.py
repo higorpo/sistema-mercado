@@ -5,6 +5,7 @@ from view.TelaEndereco import TelaEndereco
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Fornecedor import mensagens
 from utils.faker.Fornecedor import fakeFornecedor
+from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 
 
 class ControladorFornecedores(AbstractControlador):
@@ -14,8 +15,7 @@ class ControladorFornecedores(AbstractControlador):
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
-        super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'),
-                          [
+        super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
             mensagens.get('cadastrar'),
             mensagens.get('excluir'),
             mensagens.get('editar'),
@@ -54,13 +54,18 @@ class ControladorFornecedores(AbstractControlador):
 
     def editar(self):
         if self.__verifica_tem_dados():
-            fornecedor = self.buscar()
-            dados_fornecedor = super()._tela.editar(fornecedor)
+            try:
+                fornecedor = self.buscar()
+                dados_fornecedor = super()._tela.editar(fornecedor)
 
-            email, telefone = dados_fornecedor.values()
+                email, telefone = dados_fornecedor.values()
 
-            fornecedor.email = email if email != '--' else fornecedor.email
-            fornecedor.telefone = telefone if telefone != '--' else fornecedor.telefone
+                fornecedor.email = email if email != '--' else fornecedor.email
+                fornecedor.telefone = telefone if telefone != '--' else fornecedor.telefone
+            except NenhumaOpcaoSelecionada:
+                super()._sistema.mensagem_sistema.warning(
+                    mensagens_sistema.get('nenhuma_opcao_selecionada'))
+                self.editar()
 
     def listar(self):
         super()._tela.listar(self.__fornecedores)

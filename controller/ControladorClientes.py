@@ -18,14 +18,12 @@ class ControladorClientes(AbstractControlador):
             mensagens.get('cadastrar'),
             mensagens.get('excluir'),
             mensagens.get('editar'),
-            mensagens.get('listar'),
-            mensagens.get('buscar')
+            mensagens.get('listar')
         ], [
             self.cadastrar,
             self.excluir,
             self.editar,
-            self.listar,
-            self.buscar,
+            self.listar
         ])
 
     def cadastrar(self):

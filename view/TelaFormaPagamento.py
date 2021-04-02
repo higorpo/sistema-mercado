@@ -26,7 +26,7 @@ class TelaFormaPagamento(AbstractTela):
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
-    def buscar(self, formas_pagamento):
+    def buscar(self, formas_pagamento, titulo_tela):
         if len(formas_pagamento) == 0:
             print(Terminal.error(
                 self,
@@ -36,4 +36,4 @@ class TelaFormaPagamento(AbstractTela):
             input()
             raise NenhumaOpcaoSelecionada
 
-        return super().encontrar_opcao(formas_pagamento)
+        return super().encontrar_opcao(formas_pagamento, titulo_tela)

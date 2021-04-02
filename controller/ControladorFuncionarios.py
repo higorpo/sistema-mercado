@@ -5,6 +5,7 @@ from view.TelaEndereco import TelaEndereco
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.faker.Funcionario import fakeFuncionario
+from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 import time
 
 
@@ -21,14 +22,12 @@ class ControladorFuncionarios(AbstractControlador):
             mensagens.get('cadastrar'),
             mensagens.get('excluir'),
             mensagens.get('editar'),
-            mensagens.get('listar'),
-            mensagens.get('buscar')
+            mensagens.get('listar')
         ], [
             self.adicionar,
             self.excluir,
             self.editar,
-            self.listar,
-            self.buscar
+            self.listar
         ])
 
     def adicionar(self):
@@ -53,14 +52,20 @@ class ControladorFuncionarios(AbstractControlador):
 
     def editar(self):
         if self.__verifica_tem_dados():
-            funcionario = self.buscar(mensagens.get('titulo_tela_editar'))
-            dados_funcionarios = super()._tela.editar(funcionario)
+            try:
+                funcionario = self.buscar(mensagens.get('titulo_tela_editar'))
 
-            salario, email, telefone = dados_funcionarios.values()
+                dados_funcionarios = super()._tela.editar(funcionario)
 
-            funcionario.salario = salario if salario != '--' else funcionario.salario
-            funcionario.email = email if email != '--' else funcionario.email
-            funcionario.telefone = telefone if telefone != '--' else funcionario.telefone
+                salario, email, telefone = dados_funcionarios.values()
+
+                funcionario.salario = salario if salario != '--' else funcionario.salario
+                funcionario.email = email if email != '--' else funcionario.email
+                funcionario.telefone = telefone if telefone != '--' else funcionario.telefone
+            except NenhumaOpcaoSelecionada:
+                super()._sistema.mensagem_sistema.warning(
+                    mensagens_sistema.get('nenhuma_opcao_selecionada'))
+                self.editar()
 
     def listar(self):
         super()._tela.listar(self.__funcionarios)
