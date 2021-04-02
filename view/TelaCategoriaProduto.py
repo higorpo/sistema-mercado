@@ -3,7 +3,7 @@ from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 # TODO: Perguntar pro professor...
 from model.CategoriaProduto import CategoriaProduto
-from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 
@@ -37,6 +37,6 @@ class TelaCategoriaProduto(AbstractTela):
             ))
             print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
-            raise NenhumaOpcaoSelecionada
+            raise NenhumaOpcaoParaSelecionar
 
         return super().encontrar_opcao(categorias_produto)
