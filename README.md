@@ -13,3 +13,5 @@ Para executar o sistema digite o seguinte comando:
 ```
 python3 main.py
 ```
+
+Você pode escolher iniciar o sistema com ou sem dados fakes alterando o arquivo `configs/settings.py` na opção `INICIAR_SISTEMA_COM_DADOS_FAKES`.
