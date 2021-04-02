@@ -7,6 +7,7 @@ class CategoriaProduto:
     def __init__(self, nome: str):
         self.__codigo = next(CategoriaProduto.novo_codigo)
         self.__nome = nome
+        self.__produtos = []
 
     @property
     def codigo(self) -> str:
@@ -15,3 +16,7 @@ class CategoriaProduto:
     @property
     def nome(self) -> str:
         return self.__nome
+
+    def adicionar_produto(self, produto):
+        if produto not in self.__produtos:
+            self.__produtos.append(produto)

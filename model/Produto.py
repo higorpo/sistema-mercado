@@ -5,7 +5,7 @@ from model.CategoriaProduto import CategoriaProduto
 class Produto:
     novo_codigo = itertools.count()
 
-    def __init__(self, qtd_estoque: int, nome: str, marca: str, preco: float, categoria: CategoriaProduto):
+    def __init__(self, nome: str, qtd_estoque: int, marca: str, preco: float, categoria: CategoriaProduto):
         self.__codigo = next(Produto.novo_codigo)
         self.__qtd_estoque = qtd_estoque
         self.__nome = nome

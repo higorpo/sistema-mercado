@@ -53,8 +53,13 @@ class TelaFornecedor(AbstractTela):
     def listar(self, fornecedores):
         Terminal.clear_all(self)
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-        for fornecedor in fornecedores:
-            print(mensagens.get('lista_valores')(fornecedor))
+
+        if len(fornecedores) == 0:
+            print(mensagens.get('nada_cadastrado'))
+        else:
+            for fornecedor in fornecedores:
+                print(mensagens.get('lista_valores')(fornecedor))
+
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 

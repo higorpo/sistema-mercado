@@ -5,6 +5,7 @@ from controller.ControladorFuncionarios import ControladorFuncionarios
 from controller.ControladorFornecedores import ControladorFornecedores
 from controller.ControladorClientes import ControladorClientes
 from controller.ControladorPedidos import ControladorPedidos
+from controller.ControladorProdutos import ControladorProdutos
 from view.TelaSistema import TelaSistema
 from view.TelaMensagemSistema import TelaMensagemSistema
 from messages.Sistema import mensagens as mensagens_sistema
@@ -18,6 +19,7 @@ class ControladorSistema:
         self.__controlador_fornecedores = ControladorFornecedores(self)
         self.__controlador_clientes = ControladorClientes(self)
         self.__controlador_pedidos = ControladorPedidos(self)
+        self.__controlador_produtos = ControladorProdutos(self)
         self.__tela_sistema = TelaSistema(self)
         self.__tela_mensagem_sistema = TelaMensagemSistema(self)
 
@@ -38,6 +40,7 @@ class ControladorSistema:
             2: self.__controlador_fornecedores.abre_tela,
             3: self.__controlador_cat_produto.abre_tela,
             4: self.__controlador_formas_pagamento.abre_tela,
+            5: self.__controlador_produtos.abre_tela,
             6: self.__controlador_pedidos.abre_tela,
             7: exit
         }

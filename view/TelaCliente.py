@@ -87,8 +87,14 @@ class TelaCliente(AbstractTela):
     def listar(self, clientes):
         Terminal.clear_all(self)
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-        for cliente in clientes:
-            print(mensagens.get('lista_valores')(cliente))
+
+        if len(clientes) == 0:
+            # TODO: Transformar essas mensagens para mensagens do sistema
+            print(mensagens.get('nada_cadastrado'))
+        else:
+            for cliente in clientes:
+                print(mensagens.get('lista_valores')(cliente))
+
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 

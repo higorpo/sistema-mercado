@@ -17,7 +17,10 @@ class TelaPedido(AbstractTela):
     def listar(self, pedidos):
         Terminal.clear_all(self)
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-        for pedido in pedidos:
-            print(mensagens.get('lista_valores')(pedido))
+        if len(pedidos) == 0:
+            print(mensagens.get('nada_cadastrado'))
+        else:
+            for pedido in pedidos:
+                print(mensagens.get('lista_valores')(pedido))
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
