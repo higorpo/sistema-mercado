@@ -4,13 +4,13 @@ from view.TelaCliente import TelaCliente
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
-from utils.faker.Cliente import fakeCliente
+from utils.faker.Cliente import fakeClientes
 
 
 class ControladorClientes(AbstractControlador):
     def __init__(self, controlador_sistema):
         super().__init__(controlador_sistema, TelaCliente(self))
-        self.__clientes = [fakeCliente]
+        self.__clientes = [*fakeClientes]
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
