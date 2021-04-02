@@ -92,7 +92,7 @@ class TelaFuncionario(AbstractTela):
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()
 
-    def buscar(self, funcionarios) -> Funcionario:
+    def buscar(self, funcionarios, titulo_tela) -> Funcionario:
         if len(funcionarios) == 0:
             print(Terminal.error(
                 self,
@@ -102,4 +102,4 @@ class TelaFuncionario(AbstractTela):
             input()
             raise NenhumaOpcaoSelecionada
 
-        return super().encontrar_opcao(funcionarios)
+        return super().encontrar_opcao(funcionarios, titulo_tela)

@@ -17,5 +17,8 @@ mensagens = {
     'lista_valores':
         lambda funcionario: f'Nome: {funcionario.nome}\nCPF: {funcionario.cpf}\nTelefone: {funcionario.telefone}\nEmail: {funcionario.email}\nEndereço: {funcionario.endereco}\nSalário: {funcionario.salario}\nData de contratação: {funcionario.data_contratacao}\n ---',
     'nada_cadastrado_busca': 'AVISO: Não existe funcionários para buscar, cadastre um primeiro...',
-    'erro_excluir': 'ERRO: Erro ao excluir um funcionário...'
+    'erro_excluir': 'ERRO: Erro ao excluir um funcionário...',
+    'titulo_tela_excluir': 'Qual funcionário você deseja excluir do sistema?\nSelecione uma das duas opções abaixo para escolher um funcionário para excluir',
+    'titulo_tela_editar': 'Qual funcionário você deseja editar?\nSelecione uma das duas opções abaixo para escolher um funcionário para editar',
+    'titulo_tela_buscar': 'Selecione uma das opções abaixo para buscar por um funcionário...',
 }

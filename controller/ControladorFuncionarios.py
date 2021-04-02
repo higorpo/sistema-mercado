@@ -46,14 +46,14 @@ class ControladorFuncionarios(AbstractControlador):
     def excluir(self):
         if self.__verifica_tem_dados():
             try:
-                funcionario = self.buscar()
+                funcionario = self.buscar(mensagens.get('titulo_tela_excluir'))
                 self.__funcionarios.remove(funcionario)
             except Exception:
                 super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
 
     def editar(self):
         if self.__verifica_tem_dados():
-            funcionario = self.buscar()
+            funcionario = self.buscar(mensagens.get('titulo_tela_editar'))
             dados_funcionarios = super()._tela.editar(funcionario)
 
             salario, email, telefone = dados_funcionarios.values()
@@ -65,8 +65,8 @@ class ControladorFuncionarios(AbstractControlador):
     def listar(self):
         super()._tela.listar(self.__funcionarios)
 
-    def buscar(self) -> Funcionario:
-        return super()._tela.buscar(self.__funcionarios)
+    def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')) -> Funcionario:
+        return super()._tela.buscar(self.__funcionarios, titulo_tela)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__funcionarios))
