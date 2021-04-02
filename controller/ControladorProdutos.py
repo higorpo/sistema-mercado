@@ -4,13 +4,14 @@ from model.Produto import Produto
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Produto import mensagens
 from view.TelaProduto import TelaProduto
+from utils.faker.Produto import fakeProdutos
 from datetime import date
 
 
 class ControladorProdutos(AbstractControlador):
     def __init__(self, controlador_sistema):
         super().__init__(controlador_sistema, TelaProduto(self))
-        self.__produtos = []
+        self.__produtos = [*fakeProdutos]
 
     def abre_tela(self):
         super().abre_tela(mensagens_sistema.get('titulo_opcoes'), [
