@@ -24,9 +24,29 @@ class ControladorPedidos(AbstractControlador):
         observacao = super()._tela.adicionar()
         data_atual = date.today().strftime('%d/%m/%Y')
         cliente = super()._sistema.controlador_clientes.buscar()
+        # Funcionario
+        # Forma pagamento
         forma_pagamento = super()._sistema.controlador_formas_pagamento.buscar()
-        self.__pedidos.append(
-            Pedido(observacao, data_atual, cliente, forma_pagamento))
+
+        pedido = Pedido(observacao, data_atual, cliente, forma_pagamento)
+
+        # Produtos
+        produtos = ...
+
+        for produto in produtos:
+            # Chamar no controlador de produto uma tela para pedir a quantidade de produtos em cada um dos produtos
+            quantidade_comprada = ...
+
+            # Verifica se tem no estoque
+            if ...:
+                produto.qtd_estoque -= 1  # diminuir do estoque
+                pedido.adicionar_item_pedido(
+                    ItemPedido(self, produto, quantidade_comprada))
+                cliente.adicionar_pedidos(pedido)
+            else:
+                # ...
+
+        self.__pedidos.append(pedido)
 
     def listar_pedido(self):
         super()._tela.listar(self.__pedidos)

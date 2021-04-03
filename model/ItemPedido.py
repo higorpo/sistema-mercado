@@ -1,8 +1,10 @@
+from model.Pedido import Pedido
 from model.Produto import Produto
 
 
 class ItemPedido:
-    def __init__(self, quantidade: int, produto: Produto):
+    def __init__(self, pedido: Pedido, produto: Produto, quantidade: int):
+        self.__pedido = pedido
         self.__quantidade = quantidade
         self.__produto = produto
 
