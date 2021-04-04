@@ -87,5 +87,9 @@ class ControladorSistema:
         return self.__controlador_pedidos
 
     @property
+    def controlador_produtos(self) -> ControladorProdutos:
+        return self.__controlador_produtos
+
+    @property
     def mensagem_sistema(self) -> TelaMensagemSistema:
         return self.__tela_mensagem_sistema

@@ -1,5 +1,4 @@
 from model.Pessoa import Pessoa
-#from model.Pedido import Pedido
 
 
 class Cliente(Pessoa):
@@ -20,5 +19,11 @@ class Cliente(Pessoa):
     def vip(self, cliente_vip: bool) -> str:
         self.__vip = cliente_vip
 
-    def adicionar_novo_pedido(self):
-        pass
+    def adicionar_novo_pedido(self, pedido):
+        self.__pedidos.append(pedido)
+
+    def obter_pedidos(self):
+        msg = ''
+        for pedido in self.__pedidos:
+            msg += f'\n\tCódigo {pedido.codigo} ({pedido.data_pedido})'
+        return msg

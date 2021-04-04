@@ -6,5 +6,5 @@ mensagens = {
     'mostrando_cadastros': 'Mostrando pedidos cadastrados',
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
     'lista_valores':
-        lambda pedido: f'Código: {pedido.codigo}\nObservação: {pedido.observacao}\nData: {pedido.data_pedido}\nCliente: {pedido.cliente.nome}\nForma de pagamento: {pedido.forma_pagamento.metodo}\n ---',
+        lambda pedido: f'Código: {pedido.codigo}\nObservação: {pedido.observacao}\nData: {pedido.data_pedido}\nCliente: {pedido.cliente.nome}\nForma de pagamento: {pedido.forma_pagamento.metodo}\nItem(s) pedido:\n{pedido.obter_itens_pedido()} ---',
 }

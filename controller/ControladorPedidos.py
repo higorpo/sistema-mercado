@@ -3,6 +3,7 @@ from model.Pedido import Pedido
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Pedido import mensagens
 from view.TelaPedido import TelaPedido
+from model.ItemPedido import ItemPedido
 from datetime import date
 
 
@@ -24,27 +25,28 @@ class ControladorPedidos(AbstractControlador):
         observacao = super()._tela.adicionar()
         data_atual = date.today().strftime('%d/%m/%Y')
         cliente = super()._sistema.controlador_clientes.buscar()
-        # Funcionario
-        # Forma pagamento
+        # Funcionario #(é pra ter funcionário no pedido também?)
         forma_pagamento = super()._sistema.controlador_formas_pagamento.buscar()
 
         pedido = Pedido(observacao, data_atual, cliente, forma_pagamento)
 
-        # Produtos
-        produtos = ...
+        produtos = super()._sistema.controlador_produtos.selecionar_produtos()
 
         for produto in produtos:
-            # Chamar no controlador de produto uma tela para pedir a quantidade de produtos em cada um dos produtos
-            quantidade_comprada = ...
-
-            # Verifica se tem no estoque
-            if ...:
-                produto.qtd_estoque -= 1  # diminuir do estoque
-                pedido.adicionar_item_pedido(
-                    ItemPedido(self, produto, quantidade_comprada))
-                cliente.adicionar_pedidos(pedido)
-            else:
-                # ...
+            flag = True
+            while flag:
+                quantidade_comprada = super(
+                )._sistema.controlador_produtos.definir_quantidade_comprada(produto)
+                # Verifica se tem no estoque
+                if (produto.qtd_estoque - quantidade_comprada) >= 0:
+                    produto.qtd_estoque -= quantidade_comprada
+                    pedido.adicionar_item_pedido(
+                        ItemPedido(pedido, produto, quantidade_comprada))
+                    cliente.adicionar_novo_pedido(pedido)
+                    flag = False
+                else:
+                    super()._sistema.mensagem_sistema.warning(
+                        mensagens_sistema.get('nao_tem_estoque'))
 
         self.__pedidos.append(pedido)
 

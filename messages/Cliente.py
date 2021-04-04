@@ -15,7 +15,7 @@ mensagens = {
     'mostrando_cadastros': 'Mostrando clientes cadastrados',
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
     'lista_valores':
-        lambda cliente: f'Nome: {cliente.nome}\nCPF: {cliente.cpf}\nTelefone: {cliente.telefone}\nEmail: {cliente.email}\nEndereço: {cliente.endereco}\nVIP: {cliente.vip}\n ---',
+        lambda cliente: f'Nome: {cliente.nome}\nCPF: {cliente.cpf}\nTelefone: {cliente.telefone}\nEmail: {cliente.email}\nEndereço: {cliente.endereco}\nVIP: {cliente.vip}\nPedidos: {cliente.obter_pedidos()}\n ---',
     'nada_cadastrado_busca': 'AVISO: Não existem clientes para buscar, cadastre um primeiro...',
     'erro_excluir': 'ERRO: Erro ao excluir um cliente...',
     'titulo_tela_excluir': 'Qual cliente você deseja excluir do sistema?\nSelecione uma das duas opções abaixo para escolher um cliente para excluir',

@@ -1,3 +1,4 @@
+# TODO coloquei 'nao_tem_estoque' aqui pq eu tinha que dar uma mensagem no ControladorPedidos, mas se estiver errado me fala que eu arrumo
 mensagens = {
     'titulo_tela_opcoes': 'O que você deseja fazer?',
     'titulo_tela_opcoes_modulo': 'Qual módulo do sistema você deseja acessar?',
@@ -12,5 +13,7 @@ mensagens = {
     'menu_pedidos': 'Pedidos',
     'menu_produtos': 'Produtos',
     'menu_sair_sistema': 'Sair do sistema',
-    'nenhuma_opcao_selecionada': 'ERRO: Nenhuma opção seleconada... você precisa selecionar uma opção para realizar a operação!'
+    'nenhuma_opcao_selecionada': 'ERRO: Nenhuma opção seleconada... você precisa selecionar uma opção para realizar a operação!',
+    'nao_tem_estoque': 'ERRO: Esta quantidade não está disponível no estoque! Digite outra:',
+    'estoque_vazio': 'Não há itens em estoque!'
 }

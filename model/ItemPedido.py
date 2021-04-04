@@ -4,10 +4,10 @@ from model.Produto import Produto
 
 class ItemPedido:
     def __init__(self, pedido: Pedido, produto: Produto, quantidade: int):
+        # TODO não sei o que fazer com pedido aqui
         self.__pedido = pedido
         self.__quantidade = quantidade
         self.__produto = produto
 
-    # def adicionar_item_pedido(self, item_pedido: ItemPedido):
-        # Ver se isso aqui tá correto mesmo
-        # pass
+    def obter_dados_item_pedido(self) -> str:
+        return f'\t{self.__quantidade} {self.__produto.nome.lower()}(s)\n'

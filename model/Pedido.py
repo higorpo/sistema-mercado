@@ -1,5 +1,6 @@
 from model.FormaPagamento import FormaPagamento
-from model.ItemPedido import ItemPedido
+# TODO circular import error, não dá pra especificar o tipo
+# from model.ItemPedido import ItemPedido
 from model.Cliente import Cliente
 import datetime
 import itertools
@@ -14,6 +15,7 @@ class Pedido:
         self.__data_pedido = data_pedido
         self.__cliente = cliente
         self.__forma_pagamento = forma_pagamento
+        self.__itens_pedido = []
 
     @property
     def codigo(self) -> int:
@@ -39,10 +41,11 @@ class Pedido:
         # Implementar o resto antes
         pass
 
-    def adicionar_item_pedido(self, item_pedido: ItemPedido) -> ItemPedido:
-        # Implementar o resto antes
-        pass
+    def adicionar_item_pedido(self, item_pedido):
+        self.__itens_pedido.append(item_pedido)
 
-    def obter_itens_pedido(self):
-        # Implementr o resto antes
-        pass
+    def obter_itens_pedido(self) -> list:
+        msg = ''
+        for item_pedido in self.__itens_pedido:
+            msg += item_pedido.obter_dados_item_pedido()
+        return msg

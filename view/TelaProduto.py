@@ -3,6 +3,7 @@ from utils.Terminal import Terminal
 from messages.Produto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from pick import pick
 
 
 class TelaProduto(AbstractTela):
@@ -102,3 +103,21 @@ class TelaProduto(AbstractTela):
             raise NenhumaOpcaoParaSelecionar
 
         return super().encontrar_opcao(produtos, titulo_tela)
+
+    def selecionar_produtos(self, opcoes, titulo_tela):
+        if len(opcoes) == 0:
+            print(Terminal.warning(self, mensagens_sistema.get('estoque_vazio')))
+            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
+            input()
+            raise ValueError
+
+        lista_opcoes = list(map(lambda x: x.nome, opcoes))
+        produtos_selecionados = pick(
+            lista_opcoes, titulo_tela, multiselect=True, min_selection_count=1)
+        produtos, index = zip(*produtos_selecionados)
+        return [x for x in opcoes if x.nome in produtos]
+
+    def definir_quantidade_comprada(self, produto_selecionado, qtd_estoque: int):
+        print(mensagens.get('label_quantidade_desejada')
+              (produto_selecionado, qtd_estoque))
+        return int(super().ler_inteiro())

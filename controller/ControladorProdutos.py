@@ -7,6 +7,7 @@ from view.TelaProduto import TelaProduto
 from utils.faker.Produto import fakeProdutos
 from datetime import date
 from configs.settings import Settings
+from utils.exceptions import NenhumaOpcaoParaSelecionar
 
 
 class ControladorProdutos(AbstractControlador):
@@ -78,6 +79,17 @@ class ControladorProdutos(AbstractControlador):
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__produtos))
+
+    # TODO Não sei se tem diferença em deixar 'produtos_em_estoque' aqui ou na tela
+    def selecionar_produtos(self, titulo_tela: str = mensagens.get('titulo_tela_selecionar')):
+        produtos_em_estoque = [x for x in self.__produtos if x.qtd_estoque > 0]
+        try:
+            return super()._tela.selecionar_produtos(produtos_em_estoque, titulo_tela)
+        except ValueError:
+            super()._sistema.abre_tela()
+
+    def definir_quantidade_comprada(self, produto_selecionado: Produto):
+        return super()._tela.definir_quantidade_comprada(produto_selecionado, produto_selecionado.qtd_estoque)
 
     def __verifica_tem_dados(self) -> bool:
         if len(self.__produtos) == 0:

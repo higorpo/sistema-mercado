@@ -14,9 +14,11 @@ mensagens = {
     'nada_cadastrado_busca': 'AVISO: Não existem produtos para buscar, cadastre um primeiro...',
     'titulo_tela_editar': 'Qual produto você deseja editar?\nSelecione uma das duas opções abaixo para escolher um produto para editar',
     'titulo_tela_buscar': 'Selecione uma das opções abaixo para buscar por um produto...',
+    'titulo_tela_selecionar': 'Selecione os produtos desejados (pressione ESPAÇO para marcar, ENTER para continuar):',
     'label_nome': 'Digite o nome do produto',
     'label_preco': 'Digite o preço do produto',
     'label_estoque': 'Digite a quantidade do estoque inicial do produto',
     'label_marca': 'Digite a marca do produto',
-    'selecionar_categoria_adicionar_produtos': 'A qual categoria de produto este produto pertence?\nSelecione uma das duas opções abaixo para escolher uma categoria de produto'
+    'selecionar_categoria_adicionar_produtos': 'A qual categoria de produto este produto pertence?\nSelecione uma das duas opções abaixo para escolher uma categoria de produto',
+    'label_quantidade_desejada': lambda produto, estoque: f'Digite a quantidade desejada para o produto {produto.nome} (em estoque: {produto.qtd_estoque}):'
 }
