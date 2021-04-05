@@ -103,3 +103,14 @@ class ControladorProdutos(AbstractControlador):
             return False
         else:
             return True
+
+    @property
+    def tem_produtos_estoque(self) -> bool:
+        tem_produtos_estoque = False
+
+        for produto in self.__produtos:
+            if produto.qtd_estoque > 0:
+                tem_produtos_estoque = True
+                break
+
+        return tem_produtos_estoque

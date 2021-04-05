@@ -22,6 +22,17 @@ class ControladorPedidos(AbstractControlador):
         ])
 
     def adicionar_pedido(self):
+        # Verifica se existem produtos cadastrados em estoque antes de realizar o cadastro de um pedido
+        if not super()._sistema.controlador_produtos.tem_produtos_estoque:
+            super()._sistema.mensagem_sistema.error(
+                mensagens.get('sem_produtos_estoque')
+            )
+            super()._sistema.mensagem_sistema.warning(
+                mensagens_sistema.get('enter_continuar')
+            )
+            input()
+            return
+
         observacao = super()._tela.adicionar()
         data_atual = date.today().strftime('%d/%m/%Y')
 

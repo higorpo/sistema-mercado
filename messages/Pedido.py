@@ -13,4 +13,5 @@ mensagens = {
     'cadastro_funcionario_adicionar_pedido': 'Cadastre um novo funcionário para adicionar a este pedido.',
     'selecionar_forma_pagamento_adicionar_pedido': 'Qual é a forma de pagamento para este pedido?\nSelecione uma das duas opções abaixo para escolher uma forma de pagamento.',
     'cadastro_forma_pagamento_adicionar_pedido': 'Cadastre uma nova forma de pagamento para adicionar a este pedido.',
+    'sem_produtos_estoque': 'Não há produtos em estoque, cadastre-os primeiro...'
 }
