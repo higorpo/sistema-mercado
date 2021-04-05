@@ -51,7 +51,7 @@ class Pedido:
         if cliente_vip:
             total_compra = total_compra * 0.9
 
-        return total_compra
+        return round(total_compra)
 
     def adicionar_item_pedido(self, item_pedido):
         self.__itens_pedido.append(item_pedido)
