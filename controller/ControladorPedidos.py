@@ -60,11 +60,11 @@ class ControladorPedidos(AbstractControlador):
             super()._sistema.mensagem_sistema.clear()
             super()._sistema.mensagem_sistema.info(
                 mensagens.get('cadastro_funcionario_adicionar_pedido'))
-            cliente = \
+            funcionario = \
                 super()._sistema.controlador_funcionarios.adicionar()
         else:
             try:
-                cliente = \
+                funcionario = \
                     super()._sistema.controlador_funcionarios.buscar(
                         mensagens.get(
                             'selecionar_funcionario_adicionar_pedido'
@@ -93,7 +93,8 @@ class ControladorPedidos(AbstractControlador):
                 super()._sistema.mensagem_sistema.error(mensagens.get('erro_cadastrar'))
                 return
 
-        pedido = Pedido(observacao, data_atual, cliente, forma_pagamento)
+        pedido = Pedido(observacao, data_atual,
+                        cliente, funcionario, forma_pagamento)
 
         produtos = super()._sistema.controlador_produtos.selecionar_produtos()
 

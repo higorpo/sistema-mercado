@@ -2,6 +2,7 @@ from model.FormaPagamento import FormaPagamento
 # TODO circular import error, não dá pra especificar o tipo
 # from model.ItemPedido import ItemPedido
 from model.Cliente import Cliente
+from model.Funcionario import Funcionario
 import datetime
 import itertools
 
@@ -9,11 +10,12 @@ import itertools
 class Pedido:
     novo_codigo = itertools.count()
 
-    def __init__(self, observacao: str, data_pedido: datetime, cliente: Cliente, forma_pagamento: FormaPagamento):
+    def __init__(self, observacao: str, data_pedido: datetime, cliente: Cliente, funcionario: Funcionario, forma_pagamento: FormaPagamento):
         self.__codigo = next(Pedido.novo_codigo)
         self.__observacao = observacao
         self.__data_pedido = data_pedido
         self.__cliente = cliente
+        self.__funcionario = funcionario
         self.__forma_pagamento = forma_pagamento
         self.__itens_pedido = []
 
@@ -32,6 +34,10 @@ class Pedido:
     @property
     def cliente(self) -> Cliente:
         return self.__cliente
+
+    @property
+    def funcionario(self) -> Funcionario:
+        return self.__funcionario
 
     @property
     def forma_pagamento(self) -> FormaPagamento:

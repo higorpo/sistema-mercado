@@ -22,7 +22,9 @@ class ControladorFormasPagamento(AbstractControlador):
     def adicionar(self):
         forma_pagamento = super()._tela.adicionar()
         if len([x for x in self.__formas_pagamentos if x.metodo == forma_pagamento]) == 0:
-            self.__formas_pagamentos.append(FormaPagamento(forma_pagamento))
+            forma_pagamento = FormaPagamento(forma_pagamento)
+            self.__formas_pagamentos.append(forma_pagamento)
+            return forma_pagamento
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar()
