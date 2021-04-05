@@ -24,7 +24,26 @@ class ControladorPedidos(AbstractControlador):
     def adicionar_pedido(self):
         observacao = super()._tela.adicionar()
         data_atual = date.today().strftime('%d/%m/%Y')
-        cliente = super()._sistema.controlador_clientes.buscar()
+
+        # Verifica se existe clientes para cadastrar, se não possuir, abre a tela para o cadastro.
+        if len(super()._sistema.controlador_clientes.clientes) == 0:
+            # Cadastra categoria
+            super()._sistema.mensagem_sistema.clear()
+            cliente = \
+                super()._sistema.controlador_clientes.cadastrar()
+        else:
+            # Seleciona categoria
+            try:
+                cliente = \
+                    super()._sistema.controlador_clientes.buscar(
+                        mensagens.get(
+                            'selecionar_cliente_adicionar_pedido'
+                        )
+                    )
+            except NenhumaOpcaoParaSelecionar:
+                super()._sistema.mensagem_sistema.error(mensagens.get('erro_cadastrar'))
+                return
+
         # Funcionario #(é pra ter funcionário no pedido também?)
         forma_pagamento = super()._sistema.controlador_formas_pagamento.buscar()
 

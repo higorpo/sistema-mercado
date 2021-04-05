@@ -36,6 +36,7 @@ class ControladorClientes(AbstractControlador):
             dados_endereco = self.__tela_endereco.adicionar()
             instancia_cliente.definir_endereco(*dados_endereco.values())
             self.__clientes.append(instancia_cliente)
+            return instancia_cliente
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.cadastrar()
@@ -84,6 +85,11 @@ class ControladorClientes(AbstractControlador):
                 mensagens_sistema.get('enter_continuar')
             )
             input()
+
             return False
         else:
             return True
+
+    @property
+    def clientes(self):
+        return self.__clientes
