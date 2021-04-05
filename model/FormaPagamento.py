@@ -9,7 +9,7 @@ class FormaPagamento:
         self.__metodo = metodo
 
     @property
-    def codigo(self) -> str:
+    def codigo(self) -> int:
         return self.__codigo
 
     @property
