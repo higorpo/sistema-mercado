@@ -5,7 +5,7 @@ from messages.Pedido import mensagens
 from view.TelaPedido import TelaPedido
 from model.ItemPedido import ItemPedido
 from datetime import date
-from utils.exceptions import NenhumaOpcaoParaSelecionar
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 
 
 class ControladorPedidos(AbstractControlador):

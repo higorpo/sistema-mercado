@@ -7,6 +7,7 @@ from view.TelaEndereco import TelaEndereco
 from utils.faker.Cliente import fakeClientes
 from configs.settings import Settings
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from utils.exceptions.NadaParaListar import NadaParaListar
 
 
 class ControladorClientes(AbstractControlador):
@@ -74,7 +75,10 @@ class ControladorClientes(AbstractControlador):
         super()._tela.listar(self.__clientes, mensagens)
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        return super()._tela.buscar(self.__clientes, titulo_tela, mensagens)
+        try:
+            return super()._tela.buscar(self.__clientes, titulo_tela, mensagens)
+        except NenhumaOpcaoParaSelecionar:
+            self.abre_tela()
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__clientes))
@@ -98,19 +102,11 @@ class ControladorClientes(AbstractControlador):
             try:
                 cliente = self.buscar()
                 return super()._tela.listar_compras(cliente.pedidos)
-            except NenhumaOpcaoParaSelecionar:
-                super()._sistema.mensagem_sistema.error(
-                    mensagens_sistema.get('nada_cadastrado_busca'))
+            except NadaParaListar:
                 super()._sistema.mensagem_sistema.warning(
                     mensagens_sistema.get('enter_continuar')
                 )
                 input()
-            except Exception:
-                super()._sistema.mensagem_sistema.warning(
-                    mensagens_sistema.get('enter_continuar')
-                )
-                input()
-                self.abre_tela()
 
     @property
     def clientes(self):

@@ -17,6 +17,10 @@ class CategoriaProduto:
     def nome(self) -> str:
         return self.__nome
 
+    @property
+    def produtos(self) -> list:
+        return self.__produtos
+
     def adicionar_produto(self, produto):
         if produto not in self.__produtos:
             self.__produtos.append(produto)
