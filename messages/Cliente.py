@@ -12,7 +12,6 @@ mensagens = {
     'label_vip': 'O cliente é VIP? (s/n)',
     'nada_cad_excluir': 'AVISO: Não há nenhum cliente para excluir, cadastre um primeiro...',
     'mostrando_cadastros': 'Mostrando clientes cadastrados',
-    'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
     'lista_valores':
         lambda cliente: f'Nome: {cliente.nome}\nCPF: {cliente.cpf}\nTelefone: {cliente.telefone}\nEmail: {cliente.email}\nEndereço: {cliente.endereco}\nVIP: {cliente.vip}\nPedidos: {cliente.obter_pedidos()}\n ---',
     'nada_cadastrado_busca': 'AVISO: Não existem clientes para buscar, cadastre um primeiro...',

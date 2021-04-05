@@ -20,7 +20,7 @@ class TelaCategoriaProduto(AbstractTela):
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
 
         if len(categorias_produto) == 0:
-            print(mensagens.get('nada_cadastrado'))
+            print(mensagens_sistema.get('nada_cadastrado'))
         else:
             for categoria_produto in categorias_produto:
                 print(mensagens.get('lista_valores')(categoria_produto))

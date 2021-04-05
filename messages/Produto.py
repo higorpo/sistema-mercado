@@ -6,7 +6,6 @@ mensagens = {
     'buscar': 'Buscar produtos',
     'ja_cadastrado': 'AVISO: Este produto já foi cadastrado anteriormente',
     'mostrando_cadastros': 'Mostrando produtos cadastrados',
-    'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
     'lista_valores':
         lambda produto: f'Código do produto: {produto.codigo}\nNome do produto: {produto.nome}\nPreço: {produto.preco}\nQuantidade em estoque: {produto.qtd_estoque}\nMarca: {produto.marca}\nCategoria: {produto.categoria.nome}\n ---',
     'nada_cadastrado_busca': 'AVISO: Não existem produtos para buscar, cadastre um primeiro...',

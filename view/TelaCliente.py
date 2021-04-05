@@ -89,8 +89,7 @@ class TelaCliente(AbstractTela):
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
 
         if len(clientes) == 0:
-            # TODO: Transformar essas mensagens para mensagens do sistema
-            print(mensagens.get('nada_cadastrado'))
+            print(mensagens_sistema.get('nada_cadastrado'))
         else:
             for cliente in clientes:
                 print(mensagens.get('lista_valores')(cliente))

@@ -88,7 +88,7 @@ class TelaFuncionario(AbstractTela):
         Terminal.clear_all(self)
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
         if len(funcionarios) == 0:
-            print(mensagens.get('nada_cadastrado'))
+            print(mensagens_sistema.get('nada_cadastrado'))
         else:
             for funcionario in funcionarios:
                 print(mensagens.get('lista_valores')(funcionario))

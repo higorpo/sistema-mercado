@@ -18,7 +18,7 @@ class TelaFormaPagamento(AbstractTela):
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
 
         if len(formas_pagamento) == 0:
-            print(mensagens.get('nada_cadastrado'))
+            print(mensagens_sistema.get('nada_cadastrado'))
         else:
             for forma_pagamento in formas_pagamento:
                 print(mensagens.get('lista_valores')(forma_pagamento))

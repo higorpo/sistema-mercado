@@ -55,7 +55,7 @@ class TelaFornecedor(AbstractTela):
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
 
         if len(fornecedores) == 0:
-            print(mensagens.get('nada_cadastrado'))
+            print(mensagens_sistema.get('nada_cadastrado'))
         else:
             for fornecedor in fornecedores:
                 print(mensagens.get('lista_valores')(fornecedor))

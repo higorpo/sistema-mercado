@@ -85,7 +85,7 @@ class TelaProduto(AbstractTela):
         Terminal.clear_all(self)
         print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
         if len(produtos) == 0:
-            print(mensagens.get('nada_cadastrado'))
+            print(mensagens_sistema.get('nada_cadastrado'))
         else:
             for produto in produtos:
                 print(mensagens.get('lista_valores')(produto))

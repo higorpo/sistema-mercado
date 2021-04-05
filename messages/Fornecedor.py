@@ -11,7 +11,6 @@ mensagens = {
     'label_telefone': 'Digite o telefone (com DDD) do fornecedor:',
     'nada_cad_excluir': 'AVISO: Não há nenhum fornecedor para excluir, cadastre um primeiro...',
     'mostrando_cadastros': 'Mostrando fornecedores cadastrados',
-    'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
     'lista_valores':
         lambda fornecedor: f'Nome: {fornecedor.nome}\nCNPJ: {fornecedor.cnpj}\nTelefone: {fornecedor.telefone}\nEmail: {fornecedor.email}\nEndereço: {fornecedor.endereco}\nFornece: {fornecedor.fornece.nome}\n ---',
     'nada_cadastrado_busca': 'AVISO: Não existem fornecedores para buscar, cadastre um primeiro...',
