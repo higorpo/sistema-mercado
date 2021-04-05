@@ -1,6 +1,37 @@
 from view.AbstractTela import AbstractTela
 from utils.Terminal import Terminal
 from messages.Endereco import mensagens
+from pick import pick
+
+LISTA_ESTADOS = [
+    'Acre',
+    'Alagoas',
+    'Amapá',
+    'Amazonas',
+    'Bahia',
+    'Ceará',
+    'Distrito Federal',
+    'Espirito Santo',
+    'Goiás',
+    'Maranhão',
+    'Mato Grosso do Sul',
+    'Mato Grosso',
+    'Minas Gerais',
+    'Pará',
+    'Paraíba',
+    'Paraná',
+    'Pernambuco',
+    'Piauí',
+    'Rio de Janeiro',
+    'Rio Grande do Norte',
+    'Rio Grande do Sul',
+    'Rondônia',
+    'Roraima',
+    'Santa Catarina',
+    'São Paulo',
+    'Sergipe',
+    'Tocantins'
+]
 
 
 class TelaEndereco(AbstractTela):
@@ -25,7 +56,9 @@ class TelaEndereco(AbstractTela):
         dados_endereco['cidade'] = super().ler_string()
 
         print(mensagens.get('label_estado'))
-        dados_endereco['estado'] = super().ler_string()
+        option = pick(LISTA_ESTADOS, mensagens.get('label_estado'))
+        print(option[0])
+        dados_endereco['estado'] = option[0]
 
         print(mensagens.get('label_cep'))
         dados_endereco['cep'] = super().ler_cep()
