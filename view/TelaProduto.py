@@ -80,8 +80,6 @@ class TelaProduto(AbstractTela):
 
         return dados_produto
 
-    # TODO: Os metodos de listar e buscar talvez agora possam ser passados para o Abstract
-
     def selecionar_produtos(self, opcoes, titulo_tela):
         if len(opcoes) == 0:
             print(Terminal.warning(self, mensagens.get('estoque_vazio')))
