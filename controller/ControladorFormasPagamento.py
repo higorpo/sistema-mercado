@@ -35,3 +35,7 @@ class ControladorFormasPagamento(AbstractControlador):
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.metodo.lower(), self.__formas_pagamentos))
+
+    @property
+    def formas_pagamento(self):
+        return self.__formas_pagamentos

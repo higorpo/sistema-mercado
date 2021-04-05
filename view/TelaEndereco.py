@@ -17,7 +17,7 @@ class TelaEndereco(AbstractTela):
             'complemento': None
         }
 
-        print(mensagens.get('titulo_cadastro'))
+        print(Terminal.info(self, mensagens.get('titulo_cadastro')))
         print(mensagens.get('label_rua'))
         dados_endereco['rua'] = super().ler_string()
 

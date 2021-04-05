@@ -27,12 +27,12 @@ class ControladorPedidos(AbstractControlador):
 
         # Verifica se existe clientes para cadastrar, se não possuir, abre a tela para o cadastro.
         if len(super()._sistema.controlador_clientes.clientes) == 0:
-            # Cadastra categoria
             super()._sistema.mensagem_sistema.clear()
+            super()._sistema.mensagem_sistema.info(
+                mensagens.get('cadastro_cliente_adicionar_pedido'))
             cliente = \
                 super()._sistema.controlador_clientes.cadastrar()
         else:
-            # Seleciona categoria
             try:
                 cliente = \
                     super()._sistema.controlador_clientes.buscar(
@@ -44,8 +44,43 @@ class ControladorPedidos(AbstractControlador):
                 super()._sistema.mensagem_sistema.error(mensagens.get('erro_cadastrar'))
                 return
 
-        # Funcionario #(é pra ter funcionário no pedido também?)
-        forma_pagamento = super()._sistema.controlador_formas_pagamento.buscar()
+        # Verifica se existe funcionário para cadastrar, se não possuir, abre a tela para o cadastro.
+        if len(super()._sistema.controlador_funcionarios.funcionarios) == 0:
+            super()._sistema.mensagem_sistema.clear()
+            super()._sistema.mensagem_sistema.info(
+                mensagens.get('cadastro_funcionario_adicionar_pedido'))
+            cliente = \
+                super()._sistema.controlador_funcionarios.adicionar()
+        else:
+            try:
+                cliente = \
+                    super()._sistema.controlador_funcionarios.buscar(
+                        mensagens.get(
+                            'selecionar_funcionario_adicionar_pedido'
+                        )
+                    )
+            except NenhumaOpcaoParaSelecionar:
+                super()._sistema.mensagem_sistema.error(mensagens.get('erro_cadastrar'))
+                return
+
+        # Verifica se existe formas de pagamento para cadastrar, se não possuir, abre a tela para o cadastro.
+        if len(super()._sistema.controlador_formas_pagamento.formas_pagamento) == 0:
+            super()._sistema.mensagem_sistema.clear()
+            super()._sistema.mensagem_sistema.info(
+                mensagens.get('cadastro_forma_pagamento_adicionar_pedido'))
+            forma_pagamento = \
+                super()._sistema.controlador_formas_pagamento.adicionar()
+        else:
+            try:
+                forma_pagamento = \
+                    super()._sistema.controlador_formas_pagamento.buscar(
+                        mensagens.get(
+                            'selecionar_forma_pagamento_adicionar_pedido'
+                        )
+                    )
+            except NenhumaOpcaoParaSelecionar:
+                super()._sistema.mensagem_sistema.error(mensagens.get('erro_cadastrar'))
+                return
 
         pedido = Pedido(observacao, data_atual, cliente, forma_pagamento)
 

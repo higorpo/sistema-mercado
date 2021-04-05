@@ -88,3 +88,7 @@ class ControladorFuncionarios(AbstractControlador):
             return False
         else:
             return True
+
+    @property
+    def funcionarios(self):
+        return self.__funcionarios
