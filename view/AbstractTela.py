@@ -5,6 +5,7 @@ from brutils import cpf, cnpj
 from pick import pick
 from utils.Terminal import Terminal
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+from messages.Sistema import mensagens as mensagens_sistema
 
 MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'
 MENSAGEM_ERRO_LEITURA_VALOR = 'ERRO: Ocorreu um erro ao fazer a leitura do valor'
@@ -75,6 +76,29 @@ class AbstractTela(ABC):
         )
 
         return opcoes[selecionado]
+
+    def listar(self, lista, mensagens):
+        Terminal.clear_all(self)
+        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
+        if len(lista) == 0:
+            print(mensagens_sistema.get('nada_cadastrado'))
+        else:
+            for item in lista:
+                print(mensagens.get('lista_valores')(item))
+        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
+        input()
+
+    def buscar(self, lista, titulo_tela, mensagens):
+        if len(lista) == 0:
+            print(Terminal.error(
+                self,
+                mensagens.get('nada_cadastrado_busca')
+            ))
+            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
+            input()
+            raise NenhumaOpcaoParaSelecionar
+
+        return self.encontrar_opcao(lista, titulo_tela)
 
     def ler_string(self, modo_edicao: bool = False) -> str:
         while True:

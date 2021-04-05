@@ -68,10 +68,10 @@ class ControladorClientes(AbstractControlador):
                 self.editar()
 
     def listar(self):
-        super()._tela.listar(self.__clientes)
+        super()._tela.listar(self.__clientes, mensagens)
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        return super()._tela.buscar(self.__clientes, titulo_tela)
+        return super()._tela.buscar(self.__clientes, titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__clientes))

@@ -81,28 +81,6 @@ class TelaProduto(AbstractTela):
         return dados_produto
 
     # TODO: Os metodos de listar e buscar talvez agora possam ser passados para o Abstract
-    def listar(self, produtos):
-        Terminal.clear_all(self)
-        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-        if len(produtos) == 0:
-            print(mensagens_sistema.get('nada_cadastrado'))
-        else:
-            for produto in produtos:
-                print(mensagens.get('lista_valores')(produto))
-        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-        input()
-
-    def buscar(self, produtos, titulo_tela):
-        if len(produtos) == 0:
-            print(Terminal.error(
-                self,
-                mensagens.get('nada_cadastrado_busca')
-            ))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
-            raise NenhumaOpcaoParaSelecionar
-
-        return super().encontrar_opcao(produtos, titulo_tela)
 
     def selecionar_produtos(self, opcoes, titulo_tela):
         if len(opcoes) == 0:

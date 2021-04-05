@@ -32,10 +32,10 @@ class ControladorCategoriasProduto(AbstractControlador):
             self.adicionar()
 
     def listar(self):
-        super()._tela.listar(self.__list_cat_produto)
+        super()._tela.listar(self.__list_cat_produto, mensagens)
 
     def buscar(self, titulo_tela: str) -> CategoriaProduto:
-        return super()._tela.buscar(self.__list_cat_produto, titulo_tela)
+        return super()._tela.buscar(self.__list_cat_produto, titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))

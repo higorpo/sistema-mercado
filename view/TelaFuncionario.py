@@ -83,26 +83,3 @@ class TelaFuncionario(AbstractTela):
         dados_funcionario['salario'] = super().ler_float(modo_edicao=True)
 
         return dados_funcionario
-
-    def listar(self, funcionarios):
-        Terminal.clear_all(self)
-        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-        if len(funcionarios) == 0:
-            print(mensagens_sistema.get('nada_cadastrado'))
-        else:
-            for funcionario in funcionarios:
-                print(mensagens.get('lista_valores')(funcionario))
-        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-        input()
-
-    def buscar(self, funcionarios, titulo_tela) -> Funcionario:
-        if len(funcionarios) == 0:
-            print(Terminal.error(
-                self,
-                mensagens.get('nada_cadastrado_busca')
-            ))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
-            raise NenhumaOpcaoParaSelecionar
-
-        return super().encontrar_opcao(funcionarios, titulo_tela)

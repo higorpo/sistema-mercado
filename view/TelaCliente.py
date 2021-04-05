@@ -83,28 +83,3 @@ class TelaCliente(AbstractTela):
         dados_cliente['telefone'] = super().ler_telefone(modo_edicao=True)
 
         return dados_cliente
-
-    def listar(self, clientes):
-        Terminal.clear_all(self)
-        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-
-        if len(clientes) == 0:
-            print(mensagens_sistema.get('nada_cadastrado'))
-        else:
-            for cliente in clientes:
-                print(mensagens.get('lista_valores')(cliente))
-
-        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-        input()
-
-    def buscar(self, clientes, titulo_tela):
-        if len(clientes) == 0:
-            print(Terminal.error(
-                self,
-                mensagens.get('nada_cadastrado_busca')
-            ))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
-            raise NenhumaOpcaoParaSelecionar
-
-        return super().encontrar_opcao(clientes, titulo_tela)

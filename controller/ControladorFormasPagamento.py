@@ -30,10 +30,10 @@ class ControladorFormasPagamento(AbstractControlador):
             self.adicionar()
 
     def listar(self):
-        super()._tela.listar(self.__formas_pagamentos)
+        super()._tela.listar(self.__formas_pagamentos, mensagens)
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')) -> FormaPagamento:
-        return super()._tela.buscar(self.__formas_pagamentos, titulo_tela)
+        return super()._tela.buscar(self.__formas_pagamentos, titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.metodo.lower(), self.__formas_pagamentos))

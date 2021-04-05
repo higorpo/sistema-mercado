@@ -49,25 +49,3 @@ class TelaFornecedor(AbstractTela):
         dados_fornecedor['telefone'] = super().ler_telefone(modo_edicao=True)
 
         return dados_fornecedor
-
-    def listar(self, fornecedores):
-        Terminal.clear_all(self)
-        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-
-        if len(fornecedores) == 0:
-            print(mensagens_sistema.get('nada_cadastrado'))
-        else:
-            for fornecedor in fornecedores:
-                print(mensagens.get('lista_valores')(fornecedor))
-
-        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-        input()
-
-    def buscar(self, fornecedores, titulo_tela):
-        if len(fornecedores) == 0:
-            print(Terminal.error(self, mensagens.get('nada_cadastrado_busca')))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
-            raise NenhumaOpcaoParaSelecionar
-
-        return super().encontrar_opcao(fornecedores, titulo_tela)

@@ -68,10 +68,10 @@ class ControladorFuncionarios(AbstractControlador):
                 self.editar()
 
     def listar(self):
-        super()._tela.listar(self.__funcionarios)
+        super()._tela.listar(self.__funcionarios, mensagens)
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')) -> Funcionario:
-        return super()._tela.buscar(self.__funcionarios, titulo_tela)
+        return super()._tela.buscar(self.__funcionarios, titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__funcionarios))

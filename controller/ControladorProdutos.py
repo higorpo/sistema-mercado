@@ -57,7 +57,7 @@ class ControladorProdutos(AbstractControlador):
             time.sleep(1)
 
     def listar(self):
-        super()._tela.listar(self.__produtos)
+        super()._tela.listar(self.__produtos, mensagens)
 
     def editar(self):
         if self.__verifica_tem_dados():
@@ -75,7 +75,7 @@ class ControladorProdutos(AbstractControlador):
                     mensagens_sistema.get('nenhuma_opcao_selecionada'))
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        return super()._tela.buscar(self.__produtos, titulo_tela)
+        return super()._tela.buscar(self.__produtos, titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__produtos))

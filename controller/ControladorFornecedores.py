@@ -83,10 +83,10 @@ class ControladorFornecedores(AbstractControlador):
                 self.editar()
 
     def listar(self):
-        super()._tela.listar(self.__fornecedores)
+        super()._tela.listar(self.__fornecedores, mensagens)
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        return super()._tela.buscar(self.__fornecedores, titulo_tela)
+        return super()._tela.buscar(self.__fornecedores, titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__fornecedores))

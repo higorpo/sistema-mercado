@@ -14,28 +14,3 @@ class TelaCategoriaProduto(AbstractTela):
     def adicionar(self):
         print(mensagens.get('label_nome_categoria'))
         return super().ler_string()
-
-    def listar(self, categorias_produto):
-        Terminal.clear_all(self)
-        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-
-        if len(categorias_produto) == 0:
-            print(mensagens_sistema.get('nada_cadastrado'))
-        else:
-            for categoria_produto in categorias_produto:
-                print(mensagens.get('lista_valores')(categoria_produto))
-
-        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-        input()
-
-    def buscar(self, categorias_produto, titulo_tela) -> CategoriaProduto:
-        if len(categorias_produto) == 0:
-            print(Terminal.error(
-                self,
-                mensagens.get('nada_cadastrado_busca')
-            ))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
-            raise NenhumaOpcaoParaSelecionar
-
-        return super().encontrar_opcao(categorias_produto, titulo_tela)
