@@ -83,3 +83,15 @@ class TelaCliente(AbstractTela):
         dados_cliente['telefone'] = super().ler_telefone(modo_edicao=True)
 
         return dados_cliente
+
+    def listar_compras(self, lista_pedidos):
+        if len(lista_pedidos) == 0:
+            print(Terminal.warning(self, mensagens.get(
+                'cliente_nao_possui_pedidos')))
+            raise Exception
+        else:
+            print(Terminal.info(self, mensagens.get('mostrando_lista_compras')))
+            for pedido in lista_pedidos:
+                print(mensagens.get('lista_pedidos_por_cliente')(pedido))
+            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
+            input()

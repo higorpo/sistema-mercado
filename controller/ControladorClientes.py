@@ -6,6 +6,7 @@ from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
 from utils.faker.Cliente import fakeClientes
 from configs.settings import Settings
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 
 
 class ControladorClientes(AbstractControlador):
@@ -20,12 +21,14 @@ class ControladorClientes(AbstractControlador):
             mensagens.get('cadastrar'),
             mensagens.get('excluir'),
             mensagens.get('editar'),
-            mensagens.get('listar')
+            mensagens.get('listar'),
+            mensagens.get('listar_compras')
         ], [
             self.cadastrar,
             self.excluir,
             self.editar,
-            self.listar
+            self.listar,
+            self.listar_compras
         ])
 
     def cadastrar(self):
@@ -89,6 +92,25 @@ class ControladorClientes(AbstractControlador):
             return False
         else:
             return True
+
+    def listar_compras(self):
+        if self.__verifica_tem_dados():
+            try:
+                cliente = self.buscar()
+                return super()._tela.listar_compras(cliente.pedidos)
+            except NenhumaOpcaoParaSelecionar:
+                super()._sistema.mensagem_sistema.error(
+                    mensagens_sistema.get('nada_cadastrado_busca'))
+                super()._sistema.mensagem_sistema.warning(
+                    mensagens_sistema.get('enter_continuar')
+                )
+                input()
+            except Exception:
+                super()._sistema.mensagem_sistema.warning(
+                    mensagens_sistema.get('enter_continuar')
+                )
+                input()
+                self.abre_tela()
 
     @property
     def clientes(self):

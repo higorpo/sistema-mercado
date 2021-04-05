@@ -5,6 +5,7 @@ from brutils import cpf, cnpj
 from pick import pick
 from utils.Terminal import Terminal
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from messages.Sistema import mensagens as mensagens_sistema
 
 MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'

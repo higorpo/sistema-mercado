@@ -5,6 +5,7 @@ from messages.Pedido import mensagens
 from view.TelaPedido import TelaPedido
 from model.ItemPedido import ItemPedido
 from datetime import date
+from utils.exceptions import NenhumaOpcaoParaSelecionar
 
 
 class ControladorPedidos(AbstractControlador):
@@ -109,12 +110,12 @@ class ControladorPedidos(AbstractControlador):
                     pedido.adicionar_item_pedido(
                         ItemPedido(pedido, produto, quantidade_comprada)
                     )
-                    cliente.adicionar_novo_pedido(pedido)
                     flag = False
                 else:
                     super()._sistema.mensagem_sistema \
                         .warning(mensagens.get('nao_tem_estoque'))
 
+        cliente.adicionar_novo_pedido(pedido)
         self.__pedidos.append(pedido)
 
         # Entrega o faturamento do pedido

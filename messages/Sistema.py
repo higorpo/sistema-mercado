@@ -12,7 +12,7 @@ mensagens = {
     'menu_pedidos': 'Pedidos',
     'menu_produtos': 'Produtos',
     'menu_sair_sistema': 'Sair do sistema',
-    'nenhuma_opcao_selecionada': 'ERRO: Nenhuma opção seleconada... você precisa selecionar uma opção para realizar a operação!',
+    'nenhuma_opcao_selecionada': 'ERRO: Nenhuma opção selecionada... você precisa selecionar uma opção para realizar a operação!',
     'label_atualmente': lambda atributo, valor: f'@ {atributo} cadastrado(a) atualmente é \'{valor}\'. Digite -- se você quer manter esse valor!',
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
 }
