@@ -10,7 +10,7 @@ class TelaCliente(AbstractTela):
     def __init__(self, controlador):
         super().__init__(controlador)
 
-    def cadastar(self):
+    def adicionar(self):
         dados_cliente = {
             'vip': None,
             'nome': None,

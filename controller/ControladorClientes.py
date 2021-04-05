@@ -18,21 +18,21 @@ class ControladorClientes(AbstractControlador):
 
     def abre_tela(self):
         super().abre_tela(mensagens_sistema.get('titulo_opcoes'), [
-            mensagens.get('cadastrar'),
+            mensagens.get('adicionar'),
             mensagens.get('excluir'),
             mensagens.get('editar'),
             mensagens.get('listar'),
             mensagens.get('listar_compras')
         ], [
-            self.cadastrar,
+            self.adicionar,
             self.excluir,
             self.editar,
             self.listar,
             self.listar_compras
         ])
 
-    def cadastrar(self):
-        dados_cliente = super()._tela.cadastar()
+    def adicionar(self):
+        dados_cliente = super()._tela.adicionar()
 
         if len([x for x in self.__clientes if x.cpf == dados_cliente['cpf']]) == 0:
             instancia_cliente = Cliente(*dados_cliente.values())
@@ -42,7 +42,7 @@ class ControladorClientes(AbstractControlador):
             return instancia_cliente
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
-            self.cadastrar()
+            self.adicionar()
 
     def excluir(self):
         if self.__verifica_tem_dados():

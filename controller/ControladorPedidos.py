@@ -129,5 +129,5 @@ class ControladorPedidos(AbstractControlador):
         )
         input()
 
-    def listar_pedido(self):
+    def listar_pedidos(self):
         super()._tela.listar(self.__pedidos, mensagens)

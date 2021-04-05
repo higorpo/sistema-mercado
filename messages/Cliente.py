@@ -1,5 +1,5 @@
 mensagens = {
-    'cadastrar': 'Cadastrar novo cliente',
+    'adicionar': 'Cadastrar novo cliente',
     'excluir': 'Excluir cliente',
     'editar': 'Editar cliente',
     'listar': 'Listar clientes',
