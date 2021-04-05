@@ -9,7 +9,6 @@ mensagens = {
     'label_nome': 'Digite o nome do fornecedor:',
     'label_email': 'Digite o email do fornecedor:',
     'label_telefone': 'Digite o telefone (com DDD) do fornecedor:',
-    'label_atualmente': lambda atributo, valor: f'@ {atributo} cadastrado(a) atualmente é {valor}. Digite -- se você quer manter esse valor!',
     'nada_cad_excluir': 'AVISO: Não há nenhum fornecedor para excluir, cadastre um primeiro...',
     'mostrando_cadastros': 'Mostrando fornecedores cadastrados',
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',

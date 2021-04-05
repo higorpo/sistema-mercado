@@ -1,6 +1,4 @@
 from model.FormaPagamento import FormaPagamento
-# TODO circular import error, não dá pra especificar o tipo
-# from model.ItemPedido import ItemPedido
 from model.Cliente import Cliente
 from model.Funcionario import Funcionario
 import datetime

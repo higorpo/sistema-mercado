@@ -10,7 +10,6 @@ mensagens = {
     'label_email': 'Digite o email do cliente:',
     'label_telefone': 'Digite o telefone (com DDD) do cliente:',
     'label_vip': 'O cliente é VIP? (s/n)',
-    'label_atualmente': lambda atributo, valor: f'@ {atributo} cadastrado(a) atualmente é \'{valor}\'. Digite -- se você quer manter esse valor!',
     'nada_cad_excluir': 'AVISO: Não há nenhum cliente para excluir, cadastre um primeiro...',
     'mostrando_cadastros': 'Mostrando clientes cadastrados',
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',

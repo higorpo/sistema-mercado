@@ -3,7 +3,6 @@ from messages.Pedido import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from datetime import date
 from utils.Terminal import Terminal
-# TODO pegar data na tela?
 
 
 class TelaPedido(AbstractTela):

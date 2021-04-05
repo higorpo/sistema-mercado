@@ -47,7 +47,7 @@ class TelaCliente(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'VIP', dados_cliente['vip']
                 )
@@ -60,7 +60,7 @@ class TelaCliente(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'E-mail', dados_cliente['email']
                 )
@@ -73,7 +73,7 @@ class TelaCliente(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'Telefone', dados_cliente['telefone']
                 )

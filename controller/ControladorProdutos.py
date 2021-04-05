@@ -80,7 +80,6 @@ class ControladorProdutos(AbstractControlador):
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__produtos))
 
-    # TODO Não sei se tem diferença em deixar 'produtos_em_estoque' aqui ou na tela
     def selecionar_produtos(self, titulo_tela: str = mensagens.get('titulo_tela_selecionar')):
         produtos_em_estoque = [x for x in self.__produtos if x.qtd_estoque > 0]
         try:

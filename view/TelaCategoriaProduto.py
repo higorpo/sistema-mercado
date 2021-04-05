@@ -1,7 +1,6 @@
 import time
 from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
-# TODO: Perguntar pro professor...
 from model.CategoriaProduto import CategoriaProduto
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from messages.CategoriaProduto import mensagens

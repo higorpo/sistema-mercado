@@ -9,8 +9,6 @@ mensagens = {
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',
     'lista_valores':
         lambda produto: f'Código do produto: {produto.codigo}\nNome do produto: {produto.nome}\nPreço: {produto.preco}\nQuantidade em estoque: {produto.qtd_estoque}\nMarca: {produto.marca}\nCategoria: {produto.categoria.nome}\n ---',
-    # TODO: Talvez seja melhor centralizar isso no Sistema
-    'label_atualmente': lambda atributo, valor: f'@ {atributo} cadastrado(a) atualmente é {valor}. Digite -- se você quer manter esse valor!',
     'nada_cadastrado_busca': 'AVISO: Não existem produtos para buscar, cadastre um primeiro...',
     'titulo_tela_editar': 'Qual produto você deseja editar?\nSelecione uma das duas opções abaixo para escolher um produto para editar',
     'titulo_tela_buscar': 'Selecione uma das opções abaixo para buscar por um produto...',
@@ -20,5 +18,6 @@ mensagens = {
     'label_estoque': 'Digite a quantidade do estoque inicial do produto',
     'label_marca': 'Digite a marca do produto',
     'selecionar_categoria_adicionar_produtos': 'A qual categoria de produto este produto pertence?\nSelecione uma das duas opções abaixo para escolher uma categoria de produto',
-    'label_quantidade_desejada': lambda produto, estoque: f'Digite a quantidade desejada para o produto {produto.nome} (em estoque: {produto.qtd_estoque}):'
+    'label_quantidade_desejada': lambda produto, estoque: f'Digite a quantidade desejada para o produto {produto.nome} (em estoque: {produto.qtd_estoque}):',
+    'estoque_vazio': 'Não há itens em estoque!'
 }

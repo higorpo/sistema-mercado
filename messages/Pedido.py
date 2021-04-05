@@ -15,4 +15,5 @@ mensagens = {
     'cadastro_forma_pagamento_adicionar_pedido': 'Cadastre uma nova forma de pagamento para adicionar a este pedido.',
     'sem_produtos_estoque': 'Não há produtos em estoque, cadastre-os primeiro...',
     'preco_compra': lambda total_preco: f'O preço total desta compra foi de R$ {round(total_preco, 2)}.',
+    'nao_tem_estoque': 'ERRO: Esta quantidade não está disponível no estoque! Digite outra:',
 }

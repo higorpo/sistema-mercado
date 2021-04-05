@@ -10,7 +10,6 @@ mensagens = {
     'label_email': 'Digite o email do funcionário:',
     'label_telefone': 'Digite o telefone (com DDD) do funcionário:',
     'label_salario': 'Digite o salario do funcionário:',
-    'label_atualmente': lambda atributo, valor: f'@ {atributo} cadastrado(a) atualmente é {valor}. Digite -- se você quer manter esse valor!',
     'nada_cad_excluir': 'AVISO: Não há nenhum funcionário para excluir, cadastre um primeiro...',
     'mostrando_cadastros': 'Mostrando funcionários cadastrados',
     'nada_cadastrado': 'Não há nada cadastrado para ser listado...',

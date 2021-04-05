@@ -43,7 +43,7 @@ class TelaProduto(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'Nome', dados_produto['nome']
                 )
@@ -56,7 +56,7 @@ class TelaProduto(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'Estoque', dados_produto['qtd_estoque']
                 )
@@ -69,7 +69,7 @@ class TelaProduto(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'Preco', dados_produto['preco']
                 )
@@ -106,7 +106,7 @@ class TelaProduto(AbstractTela):
 
     def selecionar_produtos(self, opcoes, titulo_tela):
         if len(opcoes) == 0:
-            print(Terminal.warning(self, mensagens_sistema.get('estoque_vazio')))
+            print(Terminal.warning(self, mensagens.get('estoque_vazio')))
             print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
             raise ValueError

@@ -113,7 +113,7 @@ class ControladorPedidos(AbstractControlador):
                     flag = False
                 else:
                     super()._sistema.mensagem_sistema \
-                        .warning(mensagens_sistema.get('nao_tem_estoque'))
+                        .warning(mensagens.get('nao_tem_estoque'))
 
         self.__pedidos.append(pedido)
 

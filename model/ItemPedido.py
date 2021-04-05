@@ -4,7 +4,6 @@ from model.Produto import Produto
 
 class ItemPedido:
     def __init__(self, pedido: Pedido, produto: Produto, quantidade: int):
-        # TODO não sei o que fazer com pedido aqui
         self.__pedido = pedido
         self.__quantidade = quantidade
         self.__produto = produto

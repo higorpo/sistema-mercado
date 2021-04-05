@@ -63,9 +63,6 @@ class AbstractTela(ABC):
             else:
                 return self.selecionar_a_partir_lista_opcoes(lista_opcoes_encontradas)
 
-    # TODO eu fiz um try/except ali pq o FormaPagamento n tem o atributo nome,
-    # então talvez seja melhor, por exemplo, passar todos os atributos do objeto para um dicionario
-    # pra tentar fazer uma solução mais geral?
     def selecionar_a_partir_lista_opcoes(self, opcoes):
         try:
             lista_opcoes = list(map(lambda x: x.nome, opcoes))

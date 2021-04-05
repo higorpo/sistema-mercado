@@ -37,14 +37,14 @@ class TelaFornecedor(AbstractTela):
         }
 
         print(mensagens.get('label_email'))
-        print(Terminal.warning(self, mensagens.get(
-            'label_atualmente')('Email', dados_fornecedor['email'])))
+        print(Terminal.warning(self,
+                               mensagens_sistema.get('label_atualmente')('Email', dados_fornecedor['email'])))
 
         dados_fornecedor['email'] = super().ler_email(modo_edicao=True)
 
         print(mensagens.get('label_telefone'))
-        print(Terminal.warning(self, mensagens.get('label_atualmente')
-                               ('Telefone', dados_fornecedor['telefone'])))
+        print(Terminal.warning(self,
+                               mensagens_sistema.get('label_atualmente')('Telefone', dados_fornecedor['telefone'])))
 
         dados_fornecedor['telefone'] = super().ler_telefone(modo_edicao=True)
 

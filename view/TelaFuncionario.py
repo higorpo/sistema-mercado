@@ -50,7 +50,7 @@ class TelaFuncionario(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'E-mail', dados_funcionario['email']
                 )
@@ -62,7 +62,7 @@ class TelaFuncionario(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'Telefone', dados_funcionario['telefone']
                 )
@@ -74,7 +74,7 @@ class TelaFuncionario(AbstractTela):
         print(
             Terminal.warning(
                 self,
-                mensagens.get('label_atualmente')
+                mensagens_sistema.get('label_atualmente')
                 (
                     'Salário', dados_funcionario['salario']
                 )
