@@ -6,7 +6,6 @@ from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecion
 from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
-from utils.exceptions.NadaParaListar import NadaParaListar
 
 
 class TelaCategoriaProduto(AbstractTela):
@@ -20,11 +19,10 @@ class TelaCategoriaProduto(AbstractTela):
     def listar_produtos_por_categoria(self, categoria: CategoriaProduto):
         if len(categoria.produtos) == 0:
             print(Terminal.error(self, mensagens.get('nenhum_produto_cadastrado')))
-            raise NadaParaListar
-
-        print(Terminal.info(self, mensagens.get(
-            'mostrando_produtos_categoria')(categoria)))
-        for produto in categoria.produtos:
-            print(mensagens.get('lista_produtos_por_cateogria')(produto))
+        else:
+            print(Terminal.info(self, mensagens.get(
+                'mostrando_produtos_categoria')(categoria)))
+            for produto in categoria.produtos:
+                print(mensagens.get('lista_produtos_por_cateogria')(produto))
         print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
         input()

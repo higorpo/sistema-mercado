@@ -4,7 +4,6 @@ from model.CategoriaProduto import CategoriaProduto
 from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
-from utils.exceptions.NadaParaListar import NadaParaListar
 
 
 class ControladorCategoriasProduto(AbstractControlador):
@@ -47,16 +46,14 @@ class ControladorCategoriasProduto(AbstractControlador):
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))
 
+    # TODO coloquei um try/except aqui pq como eu tô passando um obj q pode n estar instanciado ele vai ser passado como None
     def listar_produtos_por_categoria(self):
         categoria_selecionada = \
             self.buscar(mensagens.get('mostrando_cadastros_para_selecionar'))
         try:
             return super()._tela.listar_produtos_por_categoria(categoria_selecionada)
-        except NadaParaListar:
-            super()._sistema.mensagem_sistema.warning(
-                mensagens_sistema.get('enter_continuar')
-            )
-            input()
+        except AttributeError:
+            self._sistema.abre_tela()
 
     @property
     def categorias(self):

@@ -7,7 +7,6 @@ from view.TelaEndereco import TelaEndereco
 from utils.faker.Cliente import fakeClientes
 from configs.settings import Settings
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
-from utils.exceptions.NadaParaListar import NadaParaListar
 
 
 class ControladorClientes(AbstractControlador):
@@ -99,14 +98,8 @@ class ControladorClientes(AbstractControlador):
 
     def listar_compras(self):
         if self.__verifica_tem_dados():
-            try:
-                cliente = self.buscar()
-                return super()._tela.listar_compras(cliente.pedidos)
-            except NadaParaListar:
-                super()._sistema.mensagem_sistema.warning(
-                    mensagens_sistema.get('enter_continuar')
-                )
-                input()
+            cliente = self.buscar()
+            return super()._tela.listar_compras(cliente.pedidos)
 
     @property
     def clientes(self):
