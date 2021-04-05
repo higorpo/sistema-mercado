@@ -101,20 +101,32 @@ class ControladorPedidos(AbstractControlador):
         for produto in produtos:
             flag = True
             while flag:
-                quantidade_comprada = super(
-                )._sistema.controlador_produtos.definir_quantidade_comprada(produto)
+                quantidade_comprada = \
+                    super()._sistema.controlador_produtos.definir_quantidade_comprada(produto)
                 # Verifica se tem no estoque
                 if (produto.qtd_estoque - quantidade_comprada) >= 0:
                     produto.qtd_estoque -= quantidade_comprada
                     pedido.adicionar_item_pedido(
-                        ItemPedido(pedido, produto, quantidade_comprada))
+                        ItemPedido(pedido, produto, quantidade_comprada)
+                    )
                     cliente.adicionar_novo_pedido(pedido)
                     flag = False
                 else:
-                    super()._sistema.mensagem_sistema.warning(
-                        mensagens_sistema.get('nao_tem_estoque'))
+                    super()._sistema.mensagem_sistema \
+                        .warning(mensagens_sistema.get('nao_tem_estoque'))
 
         self.__pedidos.append(pedido)
+
+        # Entrega o faturamento do pedido
+        total_preco = pedido.obter_dados_faturamento()
+
+        super()._sistema.mensagem_sistema \
+            .info(mensagens.get('preco_compra')(total_preco))
+
+        super()._sistema.mensagem_sistema.warning(
+            mensagens_sistema.get('enter_continuar')
+        )
+        input()
 
     def listar_pedido(self):
         super()._tela.listar(self.__pedidos)

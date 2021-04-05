@@ -9,5 +9,13 @@ class ItemPedido:
         self.__quantidade = quantidade
         self.__produto = produto
 
+    @property
+    def quantidade(self) -> int:
+        return self.__quantidade
+
+    @property
+    def produto(self) -> Produto:
+        return self.__produto
+
     def obter_dados_item_pedido(self) -> str:
         return f'\t{self.__quantidade} {self.__produto.nome.lower()}(s)\n'

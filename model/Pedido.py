@@ -44,8 +44,16 @@ class Pedido:
         return self.__forma_pagamento
 
     def obter_dados_faturamento(self) -> str:
-        # Implementar o resto antes
-        pass
+        cliente_vip = self.__cliente.vip
+        total_compra = 0.0
+
+        for itens_pedido in self.__itens_pedido:
+            total_compra += itens_pedido.produto.preco * itens_pedido.quantidade
+
+        if cliente_vip:
+            total_compra = total_compra * 0.9
+
+        return total_compra
 
     def adicionar_item_pedido(self, item_pedido):
         self.__itens_pedido.append(item_pedido)
