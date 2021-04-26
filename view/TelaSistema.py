@@ -14,7 +14,7 @@ class TelaSistema(AbstractTela):
 
     def init_components(self):
         sg.ChangeLookAndFeel('Reddit')
-        lista_botoes = map(lambda message: [sg.Button(message, button_color='#52b1eb' if mensagens_sistema.get('menu_sair_sistema') != message else '#f03737', auto_size_button=False, size=(30, 2))], [
+        lista_botoes = map(lambda x: [sg.Button(x[1], key=x[0], button_color='#52b1eb' if mensagens_sistema.get('menu_sair_sistema') != x[1] else '#f03737', auto_size_button=False, size=(30, 2))], enumerate([
             mensagens_sistema.get('menu_clientes'),
             mensagens_sistema.get('menu_funcionarios'),
             mensagens_sistema.get('menu_fornecedores'),
@@ -23,7 +23,7 @@ class TelaSistema(AbstractTela):
             mensagens_sistema.get('menu_produtos'),
             mensagens_sistema.get('menu_pedidos'),
             mensagens_sistema.get('menu_sair_sistema')
-        ])
+        ]))
 
         layout = [
             [sg.Text('Selecione uma das opções abaixo..'), ],
@@ -34,7 +34,14 @@ class TelaSistema(AbstractTela):
             'Sistema Supermacado 2.0').Layout(layout)
 
     def mostrar_opcoes(self, opcoes=[]):
-        self.__window.Read()
+        self.init_components()
+        botao, values = self.__window.Read()
+        return botao
+
+    def fechar(self):
+        self.__window.close()
+        sg.Popup('O sistema fechou!')
+        exit()
 
         # Terminal.clear_all(self)
         # return super().mostrar_opcoes(mensagens_sistema.get('titulo_tela_opcoes_modulo'), opcoes)

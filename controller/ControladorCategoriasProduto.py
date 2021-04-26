@@ -46,7 +46,6 @@ class ControladorCategoriasProduto(AbstractControlador):
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))
 
-    # TODO coloquei um try/except aqui pq como eu tô passando um obj q pode n estar instanciado ele vai ser passado como None
     def listar_produtos_por_categoria(self):
         categoria_selecionada = \
             self.buscar(mensagens.get('mostrando_cadastros_para_selecionar'))

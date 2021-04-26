@@ -42,7 +42,7 @@ class ControladorSistema:
             4: self.__controlador_formas_pagamento.abre_tela,
             5: self.__controlador_produtos.abre_tela,
             6: self.__controlador_pedidos.abre_tela,
-            7: exit
+            7: self.__tela_sistema.fechar
         }
 
         while True:
