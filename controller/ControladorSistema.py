@@ -27,10 +27,7 @@ class ControladorSistema:
         try:
             self.mensagem_sistema.clear()
             self.abre_tela()
-        except KeyboardInterrupt:
-            self.mensagem_sistema.error(
-                mensagens_sistema.get('erro_interrompeu_entrada')
-            )
+        except NotImplementedError:
             exit(0)
 
     def abre_tela(self):
