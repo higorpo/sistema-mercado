@@ -103,8 +103,9 @@ class TelaEndereco(AbstractTela):
             elif event == 'input_estado':
                 valido[2] = super().validar_input(
                     event,
+                    values[event] not in LISTA_ESTADOS and
                     super().validar_string(values[event]) == False,
-                    'Estado inválido, digite um estado válido.'
+                    'Estado inválido, selecione um estado válido.'
                 )
                 continue
             elif event == 'input_cep':
