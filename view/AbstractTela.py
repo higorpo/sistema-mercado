@@ -1,11 +1,13 @@
 import re
 import time
+import PySimpleGUI as sg
 from abc import ABC, abstractmethod
 from brutils import cpf, cnpj
 from pick import pick
 from utils.Terminal import Terminal
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from utils.exceptions.LayoutNotDefined import LayoutNotDefined
 from messages.Sistema import mensagens as mensagens_sistema
 
 MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'
@@ -14,12 +16,86 @@ MENSAGEM_ERRO_LEITURA_VALOR = 'ERRO: Ocorreu um erro ao fazer a leitura do valor
 
 class AbstractTela(ABC):
     @abstractmethod
-    def __init__(self, controlador):
+    def __init__(self, controlador, nome_tela=''):
         self.__controlador = controlador
+        self.__nome_tela = nome_tela
+        self.__window = None
+
+        self.__table_key = None
+        self.__layout_tabela = False
 
     @property
     def _controlador(self):
         return self.__controlador
+
+    @property
+    def _window(self):
+        return self.__window
+
+    def abrir_tela(self):
+        return self.__window.Read()
+
+    def set_tela_layout(self, layout, size=(900, 680)):
+        if layout == None:
+            raise LayoutNotDefined
+
+        self.__window = sg.Window(self.__nome_tela, size=size).Layout(layout)
+
+    def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_deletar_enabled=True, btn_editar_enabled=True):
+        self.__table_key = key
+        self.__layout_tabela = True
+
+        buttons = []
+
+        if btn_deletar_enabled:
+            buttons.append(sg.Button(
+                f'Deletar {modulo_nome}',
+                key='btn_deletar',
+                button_color='#e32f2f',
+                size=(40, 2)
+            ))
+
+        if btn_editar_enabled:
+            buttons.append(sg.Button(
+                f'Editar {modulo_nome}',
+                key='btn_editar',
+                button_color='#000000',
+                size=(40, 2)
+            ))
+
+        return [
+            [
+                sg.Table(
+                    values=values,
+                    headings=headings,
+                    enable_events=True,
+                    auto_size_columns=True,
+                    hide_vertical_scroll=False,
+                    num_rows=20,
+                    justification='center',
+                    key='-TABLE-',
+                    row_height=30,
+                    alternating_row_color='#e0e0e0',
+                    select_mode=sg.TABLE_SELECT_MODE_BROWSE,
+                )
+            ],
+            [
+                [
+                    sg.Button(
+                        f'Cadastrar novo(a) {modulo_nome}',
+                        key='btn_cadastrar',
+                        size=(40, 2)
+                    ),
+                    sg.Column(
+                        [
+                            buttons
+                        ],
+                        key='column_editar_deletar',
+                        visible=False
+                    )
+                ]
+            ]
+        ]
 
     def mostrar_opcoes(self, titulo, opcoes=[]):
         Terminal.clear_all(self)

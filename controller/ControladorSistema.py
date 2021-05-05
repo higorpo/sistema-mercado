@@ -56,6 +56,7 @@ class ControladorSistema:
 
             try:
                 lista_opcoes[opcao_selecionada]()
+
             except KeyError:
                 raise NotImplementedError
 

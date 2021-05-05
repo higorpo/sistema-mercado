@@ -18,17 +18,24 @@ class ControladorFuncionarios(AbstractControlador):
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
-        super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
-            mensagens.get('cadastrar'),
-            mensagens.get('excluir'),
-            mensagens.get('editar'),
-            mensagens.get('listar')
-        ], [
-            self.adicionar,
-            self.excluir,
-            self.editar,
-            self.listar
-        ])
+        while True:
+            event, values = super()._tela.abrir_tela(self.map_object_to_array())
+            if event == 'exited':
+                break
+        # super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
+        #     mensagens.get('cadastrar'),
+        #     mensagens.get('excluir'),
+        #     mensagens.get('editar'),
+        #     mensagens.get('listar')
+        # ], [
+        #     self.adicionar,
+        #     self.excluir,
+        #     self.editar,
+        #     self.listar
+        # ])
+
+    def map_object_to_array(self):
+        return list(map(lambda item: [item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
 
     def adicionar(self):
         dados_funcionario = super()._tela.adicionar()

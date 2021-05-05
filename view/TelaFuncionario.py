@@ -5,11 +5,48 @@ from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecion
 from view.AbstractTela import AbstractTela
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
+import PySimpleGUI as sg
+import time
 
 
 class TelaFuncionario(AbstractTela):
     def __init__(self, controlador):
-        super().__init__(controlador)
+        sg.ChangeLookAndFeel('Reddit')
+
+        super().__init__(controlador, nome_tela='Funcionários')
+
+    def init_components(self, data):
+        headings = ['Nome', 'E-mail', 'Telefone', 'CPF', 'Endereço']
+
+        layout = super()\
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='funcionário')
+
+        super().set_tela_layout(layout)
+
+    def abrir_tela(self, data):
+        self.init_components(data)
+
+        while True:
+            event, values = super().abrir_tela()
+
+            print(event)
+            print(values)
+
+            # Quando fechar a tela
+            if event == sg.WIN_CLOSED:
+                return ('exited', None)
+            if event == '-TABLE-' and len(values['-TABLE-']) != 0:
+                column_editar_deletar = super()._window.FindElement(
+                    'column_editar_deletar'
+                )
+                column_editar_deletar.Update(visible=True)
+            elif (event == 'Editar funcionário' or event == 'Deletar funcionário') and len(values['-TABLE-']) == 0:
+                sg.popup_no_buttons(
+                    'Você precisa selecionar um item da lista para\npoder realizar esta ação.',
+                    title='Erro'
+                )
+            else:
+                return (event, values)
 
     def adicionar(self):
 
