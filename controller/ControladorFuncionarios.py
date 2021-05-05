@@ -1,6 +1,7 @@
 from controller.AbstractControlador import AbstractControlador
 from model.Funcionario import Funcionario
 from view.TelaFuncionario import TelaFuncionario
+from view.TelaFuncionarioCadastro import TelaFuncionarioCadastro
 from view.TelaEndereco import TelaEndereco
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
@@ -12,7 +13,11 @@ import time
 
 class ControladorFuncionarios(AbstractControlador):
     def __init__(self, controlador_sistema):
-        super().__init__(controlador_sistema, TelaFuncionario(self))
+        super().__init__(
+            controlador_sistema,
+            TelaFuncionario(self),
+            TelaFuncionarioCadastro(self)
+        )
         self.__funcionarios = \
             [fakeFuncionario] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
@@ -22,17 +27,20 @@ class ControladorFuncionarios(AbstractControlador):
             event, values = super()._tela.abrir_tela(self.map_object_to_array())
             if event == 'exited':
                 break
-        # super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
-        #     mensagens.get('cadastrar'),
-        #     mensagens.get('excluir'),
-        #     mensagens.get('editar'),
-        #     mensagens.get('listar')
-        # ], [
-        #     self.adicionar,
-        #     self.excluir,
-        #     self.editar,
-        #     self.listar
-        # ])
+            elif event == 'btn_cadastrar':
+                super()._tela.fechar_tela()
+                super()._tela_cadastro.abrir_tela(False, None)
+                # super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
+                #     mensagens.get('cadastrar'),
+                #     mensagens.get('excluir'),
+                #     mensagens.get('editar'),
+                #     mensagens.get('listar')
+                # ], [
+                #     self.adicionar,
+                #     self.excluir,
+                #     self.editar,
+                #     self.listar
+                # ])
 
     def map_object_to_array(self):
         return list(map(lambda item: [item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))

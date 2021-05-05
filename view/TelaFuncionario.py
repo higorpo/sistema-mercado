@@ -48,6 +48,9 @@ class TelaFuncionario(AbstractTela):
             else:
                 return (event, values)
 
+    def fechar_tela(self):
+        super()._window.close()
+
     def adicionar(self):
 
         dados_funcionario = {

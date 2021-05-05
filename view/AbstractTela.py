@@ -39,7 +39,59 @@ class AbstractTela(ABC):
         if layout == None:
             raise LayoutNotDefined
 
-        self.__window = sg.Window(self.__nome_tela, size=size).Layout(layout)
+        self.__window = sg.Window(
+            self.__nome_tela, size=size
+        ).Layout(layout(size))
+
+    def layout_tela_cadastro(self, inputs):
+
+        lista_inputs = list(map(lambda input: [
+            sg.Column([
+                [
+                    sg.Text(input['label'])
+                ],
+                [
+                    sg.Input(
+                        key='input_' + input['key'],
+                        default_text=input['default_text'] if 'default_text' in input else '',
+                        background_color='#ffffff',
+                        font=('Arial', 15),
+                        size=(22, 2)
+                    )
+                ],
+                [
+                    sg.Text(
+                        'Nome digitado é inválido.',
+                        key='input_hint' + input['key'],
+                        font=('Arial', 8),
+                        text_color='#ff0000',
+                        visible=False
+                    )
+                ]
+            ])
+        ], inputs))
+
+        lista_inputs.append([
+            sg.Button(
+                'Salvar',
+                key='btn_salvar',
+                size=(32, 2)
+            )
+        ])
+
+        def callable(size):
+            return [
+                [
+                    sg.Column(
+                        lista_inputs,
+                        size=size,
+                        pad=(0, 0),
+                        scrollable=True, vertical_scroll_only=True
+                    )
+                ]
+            ]
+
+        return callable
 
     def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_deletar_enabled=True, btn_editar_enabled=True):
         self.__table_key = key
@@ -63,39 +115,42 @@ class AbstractTela(ABC):
                 size=(40, 2)
             ))
 
-        return [
-            [
-                sg.Table(
-                    values=values,
-                    headings=headings,
-                    enable_events=True,
-                    auto_size_columns=True,
-                    hide_vertical_scroll=False,
-                    num_rows=20,
-                    justification='center',
-                    key='-TABLE-',
-                    row_height=30,
-                    alternating_row_color='#e0e0e0',
-                    select_mode=sg.TABLE_SELECT_MODE_BROWSE,
-                )
-            ],
-            [
+        def callable(size):
+            return [
                 [
-                    sg.Button(
-                        f'Cadastrar novo(a) {modulo_nome}',
-                        key='btn_cadastrar',
-                        size=(40, 2)
-                    ),
-                    sg.Column(
-                        [
-                            buttons
-                        ],
-                        key='column_editar_deletar',
-                        visible=False
+                    sg.Table(
+                        values=values,
+                        headings=headings,
+                        enable_events=True,
+                        auto_size_columns=True,
+                        hide_vertical_scroll=False,
+                        num_rows=20,
+                        justification='center',
+                        key='-TABLE-',
+                        row_height=30,
+                        alternating_row_color='#e0e0e0',
+                        select_mode=sg.TABLE_SELECT_MODE_BROWSE,
                     )
+                ],
+                [
+                    [
+                        sg.Button(
+                            f'Cadastrar novo(a) {modulo_nome}',
+                            key='btn_cadastrar',
+                            size=(40, 2)
+                        ),
+                        sg.Column(
+                            [
+                                buttons
+                            ],
+                            key='column_editar_deletar',
+                            visible=False
+                        )
+                    ]
                 ]
             ]
-        ]
+
+        return callable
 
     def mostrar_opcoes(self, titulo, opcoes=[]):
         Terminal.clear_all(self)

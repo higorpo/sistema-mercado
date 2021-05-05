@@ -4,9 +4,10 @@ from messages.Sistema import mensagens as mensagens_sistema
 
 class AbstractControlador(ABC):
     @abstractmethod
-    def __init__(self, controlador_sistema, tela):
+    def __init__(self, controlador_sistema, tela, tela_cadastro=None):
         self.__controlador_sistema = controlador_sistema
         self.__tela = tela
+        self.__tela_cadastro = tela_cadastro
 
     @abstractmethod
     def abre_tela(self, titulo, opcoes, acoes):
@@ -33,6 +34,10 @@ class AbstractControlador(ABC):
     @property
     def _tela(self):
         return self.__tela
+
+    @property
+    def _tela_cadastro(self):
+        return self.__tela_cadastro
 
     @property
     def _sistema(self):
