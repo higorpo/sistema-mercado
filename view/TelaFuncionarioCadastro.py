@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 from datetime import date
 from model.Funcionario import Funcionario
 from utils.Validators import Validators
+from utils.Formatters import Formatters
 from view.AbstractTela import AbstractTela
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
@@ -117,7 +118,8 @@ class TelaFuncionarioCadastro(AbstractTela):
                             'nome': values['input_nome_funcionario'],
                             'email': values['input_email'],
                             'telefone': values['input_telefone'],
-                            'cpf': values['input_cpf'],
+                            # por questões de validação...
+                            'cpf': Formatters.formatar_cpf(values['input_cpf']),
                         }
                     )
             else:
