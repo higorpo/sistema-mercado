@@ -36,11 +36,6 @@ class TelaFornecedor(AbstractTela):
                     'column_editar_deletar'
                 )
                 column_editar_deletar.Update(visible=True)
-            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) == 0:
-                sg.popup_no_buttons(
-                    'Você precisa selecionar um item da lista para\npoder realizar esta ação.',
-                    title='Erro'
-                )
             elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
                 return (event, values['-TABLE-'][0])
             else:
