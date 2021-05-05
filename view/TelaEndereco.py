@@ -57,7 +57,8 @@ class TelaEndereco(AbstractTela):
             {
                 'key': 'estado',
                 'label': mensagens.get('label_estado'),
-                'type': 'combo', 'values': LISTA_ESTADOS
+                'type': 'combo',
+                'values': LISTA_ESTADOS
             },
             {
                 'key': 'cep',
