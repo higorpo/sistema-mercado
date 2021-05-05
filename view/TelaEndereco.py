@@ -1,3 +1,5 @@
+import PySimpleGUI as sg
+
 from view.AbstractTela import AbstractTela
 from utils.Terminal import Terminal
 from messages.Endereco import mensagens
@@ -36,8 +38,94 @@ LISTA_ESTADOS = [
 
 class TelaEndereco(AbstractTela):
     def __init__(self, controlador):
-        super().__init__(controlador)
+        sg.ChangeLookAndFeel('Reddit')
 
+        super().__init__(controlador, nome_tela='Endereço')
+
+    def init_components(self):
+        layout = super().layout_tela_cadastro([
+            {'key': 'rua', 'label': mensagens.get('label_rua')},
+            {'key': 'cidade', 'label': mensagens.get('label_cidade')},
+            {'key': 'estado', 'label': mensagens.get('label_estado')},
+            {'key': 'cep', 'label': mensagens.get('label_cep')},
+            {'key': 'complemento', 'label': mensagens.get('label_complemento')}
+        ])
+
+        super().set_tela_layout(layout, size=(300, 400))
+
+    def abrir_tela(self):
+        self.init_components()
+
+        # Armazena para cada um dos inputs se ele está válido ou não.
+        valido = [False, False, False, False, False]
+
+        while True:
+            event, values = super().abrir_tela()
+
+            # Caso o usuário feche a janela do programa
+            if event == sg.WIN_CLOSED:
+                return ('exited', None)
+
+            # Valida os inputs de texto
+            elif event == 'input_rua':
+                valido[0] = super().validar_input(
+                    event,
+                    super().validar_string(values[event]) == False,
+                    'Endereço inválido, digite um endereço válido.'
+                )
+                continue
+            elif event == 'input_cidade':
+                valido[1] = super().validar_input(
+                    event,
+                    super().validar_string(values[event]) == False,
+                    'Cidade inválida, digite uma cidade válida.'
+                )
+                continue
+            elif event == 'input_estado':
+                valido[2] = super().validar_input(
+                    event,
+                    super().validar_string(values[event]) == False,
+                    'Estado inválido, digite um estado válido.'
+                )
+                continue
+            elif event == 'input_cep':
+                valido[3] = super().validar_input(
+                    event,
+                    super().validar_cep(values[event]) == False,
+                    'CEP inválido, digite um CEP válido.'
+                )
+                continue
+            elif event == 'input_complemento':
+                valido[4] = super().validar_input(
+                    event,
+                    super().validar_string(values[event]) == False,
+                    'Complemento inválido, digite um complemento válido.'
+                )
+                continue
+            elif event == 'btn_salvar':
+                # Verifica se todos os campos são válidos, se não forem, exibe mensagem de erro.
+                if False in valido:
+                    sg.popup_no_buttons(
+                        'Existem campos inválidos, corrija-os antes de salvar.',
+                        title='Erro'
+                    )
+                    continue
+                else:
+                    super().fechar_tela()
+                    return (
+                        # TODO: Transferir os validators e formatters pra outro arquivo para usá-los (formatar CPF e tal).
+                        'criar', {
+                            'rua': values['input_rua'],
+                            'cidade': values['input_cidade'],
+                            'estado': values['input_estado'],
+                            'cep': values['input_cep'],
+                            'complemento': values['input_complemento'],
+                        }
+                    )
+            else:
+                return (event, values)
+
+    # TODO: Remover método quando não for mais usado.
     def adicionar(self):
         Terminal.clear_all(self)
         dados_endereco = {

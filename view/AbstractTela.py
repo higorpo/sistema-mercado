@@ -459,6 +459,10 @@ class AbstractTela(ABC):
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         return True if re.search(regex, email) else False
 
+    def validar_string(self, string: str) -> bool:
+        regex = '^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9 ]+$'
+        return True if re.search(regex, string) else False
+
     def validar_numero(self, numero: str) -> bool:
         regex = '^([\s\d]+)$'
         return True if re.search(regex, numero) else False

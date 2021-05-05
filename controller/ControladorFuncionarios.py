@@ -55,9 +55,15 @@ class ControladorFuncionarios(AbstractControlador):
 
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
             instancia_funcionario = Funcionario(*dados_funcionario.values())
-            dados_endereco = self.__tela_endereco.adicionar()
-            instancia_funcionario.definir_endereco(*dados_endereco.values())
-            self.__funcionarios.append(instancia_funcionario)
+            event, dados_endereco = self.__tela_endereco.abrir_tela()
+
+            if event == 'exited':
+                return
+            elif event == 'criar':
+                instancia_funcionario.definir_endereco(
+                    *dados_endereco.values()
+                )
+                self.__funcionarios.append(instancia_funcionario)
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar()
