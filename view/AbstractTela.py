@@ -9,6 +9,7 @@ from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.exceptions.LayoutNotDefined import LayoutNotDefined
 from messages.Sistema import mensagens as mensagens_sistema
+from utils.Validators import Validators
 
 MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'
 MENSAGEM_ERRO_LEITURA_VALOR = 'ERRO: Ocorreu um erro ao fazer a leitura do valor'
@@ -371,7 +372,7 @@ class AbstractTela(ABC):
                 if inputted_cpf == '--' and modo_edicao == True:
                     return inputted_cpf
 
-                if self.validar_cpf(inputted_cpf):
+                if Validators.validar_cpf(inputted_cpf):
                     if '.' not in inputted_cpf:
                         inputted_cpf = cpf.display(inputted_cpf)
                     return inputted_cpf
@@ -394,7 +395,7 @@ class AbstractTela(ABC):
                 if inputted_cnpj == '--' and modo_edicao == True:
                     return inputted_cnpj
 
-                if self.validar_cnpj(inputted_cnpj):
+                if Validators.validar_cnpj(inputted_cnpj):
                     if '.' not in inputted_cnpj:
                         inputted_cnpj = cnpj.display(inputted_cnpj)
                     return inputted_cnpj
@@ -417,7 +418,7 @@ class AbstractTela(ABC):
                 if inputted_email == '--' and modo_edicao == True:
                     return inputted_email
 
-                if self.validar_email(inputted_email):
+                if Validators.validar_email(inputted_email):
                     return inputted_email
                 else:
                     print(Terminal.error(self, 'O email digitado é inválido!'))
@@ -435,7 +436,7 @@ class AbstractTela(ABC):
                 if inputted_telefone == '--' and modo_edicao == True:
                     return inputted_telefone
 
-                if self.validar_telefone(inputted_telefone):
+                if Validators.validar_telefone(inputted_telefone):
                     return self.formatar_telefone(inputted_telefone)
 
                 else:
@@ -450,7 +451,7 @@ class AbstractTela(ABC):
         while True:
             try:
                 inputted_cep = input()
-                if self.validar_cep(inputted_cep):
+                if Validators.validar_cep(inputted_cep):
                     return self.formatar_cep(inputted_cep)
                 else:
                     print(Terminal.error(self, 'O CEP digitado é inválido!'))
@@ -492,41 +493,6 @@ class AbstractTela(ABC):
         else:
             hint.Update(visible=False)
             return True
-
-    def validar_nome(self, nome: str) -> bool:
-        regex = '^[A-ZÀ-Ÿ][A-zÀ-ÿ\']+\s([A-zÀ-ÿ\']\s?)*[A-ZÀ-Ÿ][A-zÀ-ÿ\']+$'
-        return True if re.search(regex, nome) else False
-
-    def validar_cnpj(self, cnpj_string: str) -> bool:
-        cnpj_formatado = cnpj.sieve(cnpj_string)
-        return cnpj.validate(cnpj_formatado)
-
-    def validar_cpf(self, cpf_string: str) -> bool:
-        cpf_formatado = cpf.sieve(cpf_string)
-        return cpf.validate(cpf_formatado)
-
-    def validar_email(self, email: str) -> bool:
-        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        return True if re.search(regex, email) else False
-
-    def validar_string(self, string: str) -> bool:
-        regex = '^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9 ]+$'
-        return True if re.search(regex, string) else False
-
-    def validar_numero(self, numero: str) -> bool:
-        regex = '^([\s\d]+)$'
-        return True if re.search(regex, numero) else False
-
-    def validar_telefone(self, telefone: str) -> bool:
-        # Maneiras possíveis de inserir o telefone (DDD obrigatório):
-        # (48) 2020-2020, (48) 20202020, (48) 32020-2020, (48) 320202020
-        # 48 {valores acima}, 48{valores acima}, (48){valores acima}
-        regex = '(\(?\d{2}\)?\s?)(\d{4,5}\-?\d{4})'
-        return True if re.search(regex, telefone) else False
-
-    def validar_cep(self, cep: str):
-        regex = '(\d{5})-?(\d{3})'
-        return True if re.search(regex, cep) else False
 
     def formatar_telefone(self, telefone: str):
         tel_soh_numeros = ''.join(re.findall('\d+', telefone))

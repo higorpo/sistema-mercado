@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 
 from view.AbstractTela import AbstractTela
 from utils.Terminal import Terminal
+from utils.Validators import Validators
 from messages.Endereco import mensagens
 from pick import pick
 
@@ -89,14 +90,14 @@ class TelaEndereco(AbstractTela):
             elif event == 'input_rua':
                 valido[0] = super().validar_input(
                     event,
-                    super().validar_string(values[event]) == False,
+                    Validators.validar_string(values[event]) == False,
                     'Endereço inválido, digite um endereço válido.'
                 )
                 continue
             elif event == 'input_cidade':
                 valido[1] = super().validar_input(
                     event,
-                    super().validar_string(values[event]) == False,
+                    Validators.validar_string(values[event]) == False,
                     'Cidade inválida, digite uma cidade válida.'
                 )
                 continue
@@ -104,21 +105,21 @@ class TelaEndereco(AbstractTela):
                 valido[2] = super().validar_input(
                     event,
                     values[event] not in LISTA_ESTADOS and
-                    super().validar_string(values[event]) == False,
+                    Validators.validar_string(values[event]) == False,
                     'Estado inválido, selecione um estado válido.'
                 )
                 continue
             elif event == 'input_cep':
                 valido[3] = super().validar_input(
                     event,
-                    super().validar_cep(values[event]) == False,
+                    Validators.validar_cep(values[event]) == False,
                     'CEP inválido, digite um CEP válido.'
                 )
                 continue
             elif event == 'input_complemento':
                 valido[4] = super().validar_input(
                     event,
-                    super().validar_string(values[event]) == False,
+                    Validators.validar_string(values[event]) == False,
                     'Complemento inválido, digite um complemento válido.'
                 )
                 continue

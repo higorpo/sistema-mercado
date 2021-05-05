@@ -3,6 +3,7 @@ from datetime import date
 from model.Funcionario import Funcionario
 from utils.Terminal import Terminal
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from utils.Validators import Validators
 from view.AbstractTela import AbstractTela
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
@@ -45,35 +46,35 @@ class TelaFuncionarioCadastro(AbstractTela):
             elif event == 'input_nome_funcionario':
                 valido[0] = super().validar_input(
                     event,
-                    super().validar_nome(values[event]) == False,
+                    Validators.validar_nome(values[event]) == False,
                     'Nome inválido, digite um nome e sobrenome válido.'
                 )
                 continue
             elif event == 'input_email':
                 valido[1] = super().validar_input(
                     event,
-                    super().validar_email(values[event]) == False,
+                    Validators.validar_email(values[event]) == False,
                     'E-mail inválido, digite um e-mail válido.'
                 )
                 continue
             elif event == 'input_telefone':
                 valido[2] = super().validar_input(
                     event,
-                    super().validar_telefone(values[event]) == False,
+                    Validators.validar_telefone(values[event]) == False,
                     'Telefone inválido, digite um telefone válido.'
                 )
                 continue
             elif event == 'input_cpf':
                 valido[3] = super().validar_input(
                     event,
-                    super().validar_cpf(values[event]) == False,
+                    Validators.validar_cpf(values[event]) == False,
                     'CPF inválido, digite um CPF válido.'
                 )
                 continue
             elif event == 'input_salario':
                 valido[4] = super().validar_input(
                     event,
-                    super().validar_numero(values[event]) == False,
+                    Validators.validar_numero(values[event]) == False,
                     'Salário inválido, digite um salário válido.'
                 )
                 continue
