@@ -31,17 +31,13 @@ class TelaSistema(AbstractTela):
         ]
 
         self.__window = sg.Window(
-            'Sistema Supermacado 2.0').Layout(layout)
+            'Sistema Supermacado 2.0'
+        ).Layout(layout)
 
     def mostrar_opcoes(self, opcoes=[]):
         self.init_components()
         botao, values = self.__window.Read()
         return botao
 
-    def fechar(self):
+    def fechar_tela(self):
         self.__window.close()
-        sg.Popup('O sistema fechou!')
-        exit()
-
-        # Terminal.clear_all(self)
-        # return super().mostrar_opcoes(mensagens_sistema.get('titulo_tela_opcoes_modulo'), opcoes)
