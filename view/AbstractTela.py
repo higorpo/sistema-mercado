@@ -10,6 +10,7 @@ from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecion
 from utils.exceptions.LayoutNotDefined import LayoutNotDefined
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.Validators import Validators
+from utils.Formatters import Formatters
 
 MENSAGEM_ENTRADA_DADOS_INTERROMPIDA = 'AVISO: Entrada de dados interrompida!'
 MENSAGEM_ERRO_LEITURA_VALOR = 'ERRO: Ocorreu um erro ao fazer a leitura do valor'
@@ -437,7 +438,7 @@ class AbstractTela(ABC):
                     return inputted_telefone
 
                 if Validators.validar_telefone(inputted_telefone):
-                    return self.formatar_telefone(inputted_telefone)
+                    return Formatters.formatar_telefone(inputted_telefone)
 
                 else:
                     print(Terminal.error(self, 'O telefone digitado é inválido!'))
@@ -452,7 +453,7 @@ class AbstractTela(ABC):
             try:
                 inputted_cep = input()
                 if Validators.validar_cep(inputted_cep):
-                    return self.formatar_cep(inputted_cep)
+                    return Formatters.formatar_cep(inputted_cep)
                 else:
                     print(Terminal.error(self, 'O CEP digitado é inválido!'))
             except IOError:
@@ -493,20 +494,3 @@ class AbstractTela(ABC):
         else:
             hint.Update(visible=False)
             return True
-
-    def formatar_telefone(self, telefone: str):
-        tel_soh_numeros = ''.join(re.findall('\d+', telefone))
-        lista_pra_formatar = list(tel_soh_numeros)
-        lista_pra_formatar.insert(0, '(')
-        lista_pra_formatar.insert(3, ')')
-        lista_pra_formatar.insert(4, ' ')
-        lista_pra_formatar.insert(-4, '-')
-        telefone_formatado = ''.join(lista_pra_formatar)
-        return telefone_formatado
-
-    def formatar_cep(self, cep: str):
-        cep_soh_numeros = ''.join(re.findall('\d+', cep))
-        lista_numeros_do_cep = list(cep_soh_numeros)
-        lista_numeros_do_cep.insert(-3, '-')
-        cep_formatado = ''.join(lista_numeros_do_cep)
-        return cep_formatado

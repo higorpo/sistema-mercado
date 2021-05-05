@@ -1,4 +1,5 @@
 import re
+from brutils import cpf, cnpj
 
 
 class Validators:

@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from model.Endereco import Endereco
+from utils.Formatters import Formatters
 
 
 class Pessoa(ABC):
@@ -7,8 +8,8 @@ class Pessoa(ABC):
     def __init__(self, nome: str, email: str, telefone: str, cpf: str):
         self.__nome = nome
         self.__email = email
-        self.__telefone = telefone
-        self.__cpf = cpf
+        self.__telefone = Formatters.formatar_telefone(telefone)
+        self.__cpf = Formatters.formatar_cpf(cpf)
         self.__endereco = None
 
     @property
