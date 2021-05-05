@@ -1,16 +1,24 @@
+import itertools
 from model.Endereco import Endereco
 from model.CategoriaProduto import CategoriaProduto
 from utils.Formatters import Formatters
 
 
 class Fornecedor:
+    novo_codigo = itertools.count()
+
     def __init__(self, nome: str, cnpj: str, email: str, telefone: str, fornece: CategoriaProduto):
+        self.__codigo = next(Fornecedor.novo_codigo)
         self.__nome = nome
         self.__cnpj = Formatters.formatar_cnpj(cnpj)
         self.__email = email
         self.__telefone = Formatters.formatar_telefone(telefone)
         self.__fornece = fornece
         self.__endereco = None
+
+    @property
+    def codigo(self) -> int:
+        return self.__codigo
 
     @property
     def nome(self):

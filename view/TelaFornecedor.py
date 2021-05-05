@@ -1,3 +1,5 @@
+import PySimpleGUI as sg
+
 from view.AbstractTela import AbstractTela
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.Terminal import Terminal
@@ -7,45 +9,39 @@ from messages.Fornecedor import mensagens
 
 class TelaFornecedor(AbstractTela):
     def __init__(self, controlador):
-        super().__init__(controlador)
+        sg.ChangeLookAndFeel('Reddit')
 
-    def adicionar(self):
+        super().__init__(controlador, nome_tela='Fornecedores')
 
-        dados_fornecedor = {
-            'nome': None,
-            'cnpj': None,
-            'email': None,
-            'telefone': None,
-            'fornece': None
-        }
+    def init_components(self, data):
+        headings = ['Código', 'Nome', 'E-mail',
+                    'Telefone', 'CNPJ', 'Fornece', 'Endereço']
 
-        print(mensagens.get('label_cnpj'))
-        dados_fornecedor['cnpj'] = super().ler_cnpj()
+        layout = super()\
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='fornecedor')
 
-        print(mensagens.get('label_nome'))
-        dados_fornecedor['nome'] = super().ler_string()
+        super().set_tela_layout(layout)
 
-        print(mensagens.get('label_email'))
-        dados_fornecedor['email'] = super().ler_email()
+    def abrir_tela(self, data):
+        self.init_components(data)
 
-        return dados_fornecedor
+        while True:
+            event, values = super().abrir_tela()
 
-    def editar(self, fornecedor):
-        dados_fornecedor = {
-            'email': fornecedor.email,
-            'telefone': fornecedor.telefone
-        }
-
-        print(mensagens.get('label_email'))
-        print(Terminal.warning(self,
-                               mensagens_sistema.get('label_atualmente')('Email', dados_fornecedor['email'])))
-
-        dados_fornecedor['email'] = super().ler_email(modo_edicao=True)
-
-        print(mensagens.get('label_telefone'))
-        print(Terminal.warning(self,
-                               mensagens_sistema.get('label_atualmente')('Telefone', dados_fornecedor['telefone'])))
-
-        dados_fornecedor['telefone'] = super().ler_telefone(modo_edicao=True)
-
-        return dados_fornecedor
+            # Quando fechar a tela
+            if event == sg.WIN_CLOSED:
+                return ('exited', None)
+            if event == '-TABLE-' and len(values['-TABLE-']) != 0:
+                column_editar_deletar = super()._window.FindElement(
+                    'column_editar_deletar'
+                )
+                column_editar_deletar.Update(visible=True)
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) == 0:
+                sg.popup_no_buttons(
+                    'Você precisa selecionar um item da lista para\npoder realizar esta ação.',
+                    title='Erro'
+                )
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
+                return (event, values['-TABLE-'][0])
+            else:
+                return (event, values)

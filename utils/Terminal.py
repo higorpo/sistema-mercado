@@ -19,4 +19,5 @@ class Terminal:
         return f'\033[96m{message}\033[0m'
 
     def clear_all(self) -> None:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        # os.system('cls' if os.name == 'nt' else 'clear')
+        pass
