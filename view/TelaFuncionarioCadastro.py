@@ -21,7 +21,8 @@ class TelaFuncionarioCadastro(AbstractTela):
                 'key': 'nome_funcionario',
                 'label': 'Nome do funcionário',
                 'type': 'text',
-                'default_text': '' if modo_edicao == False else data.nome
+                'default_text': '' if modo_edicao == False else data.nome,
+                'disabled': True
             },
             {
                 'key': 'email',
@@ -39,7 +40,8 @@ class TelaFuncionarioCadastro(AbstractTela):
                 'key': 'cpf',
                 'label': 'CPF do funcionário',
                 'type': 'text',
-                'default_text': '' if modo_edicao == False else data.cpf
+                'default_text': '' if modo_edicao == False else data.cpf,
+                'disabled': True
             },
             {
                 'key': 'salario',
@@ -47,7 +49,7 @@ class TelaFuncionarioCadastro(AbstractTela):
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.salario
             },
-        ])
+        ], modo_edicao)
 
         super().set_tela_layout(layout, size=(300, 400))
 

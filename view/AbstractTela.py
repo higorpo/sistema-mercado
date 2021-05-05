@@ -48,7 +48,7 @@ class AbstractTela(ABC):
             self.__nome_tela, size=size
         ).Layout(layout(size))
 
-    def layout_tela_cadastro(self, inputs):
+    def layout_tela_cadastro(self, inputs, modo_edicao: bool = False):
         def map_inputs(input):
             inputElement = None
 
@@ -68,7 +68,8 @@ class AbstractTela(ABC):
                     background_color='#ffffff',
                     font=('Arial', 15),
                     size=(22, 2),
-                    enable_events=True
+                    enable_events=True,
+                    disabled=input['disabled'] if 'disabled' in input else False
                 )
 
             return [
@@ -81,7 +82,7 @@ class AbstractTela(ABC):
                     ],
                     [
                         sg.Text(
-                            'Preencha este campo.',
+                            'Preencha este campo.' if modo_edicao == False else '',
                             key='input_' + input['key'] + '_hint',
                             font=('Arial', 8),
                             text_color='#ff0000',
