@@ -11,37 +11,36 @@ from configs.settings import Settings
 import time
 
 
-class ControladorFuncionarios(AbstractControlador):
+class ControladorFuncionarios:
     def __init__(self, controlador_sistema):
-        super().__init__(
-            controlador_sistema,
-            TelaFuncionario(self),
-            TelaFuncionarioCadastro(self)
-        )
+        self.__controlador_sistema = controlador_sistema
+        self.__tela = TelaFuncionario(self)
+        self.__tela_cadastro = TelaFuncionarioCadastro(self)
+
         self.__funcionarios = \
             [fakeFuncionario] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
         while True:
-            event, values = super()._tela.abrir_tela(self.map_object_to_array())
+            event, values = self.__tela.abrir_tela(self.map_object_to_array())
             if event == 'exited':
                 break
             elif event == 'btn_cadastrar':
-                super()._tela.fechar_tela()
+                self.__tela.fechar_tela()
                 self.adicionar()
             elif event == 'btn_deletar':
                 self.excluir(values)
-                super()._tela.fechar_tela()
+                self.__tela.fechar_tela()
             elif event == 'btn_editar':
-                super()._tela.fechar_tela()
+                self.__tela.fechar_tela()
                 self.editar(values)
 
     def map_object_to_array(self):
         return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
 
     def adicionar(self):
-        event, dados_funcionario = super()._tela_cadastro.abrir_tela(False, None)
+        event, dados_funcionario = self.__tela_cadastro.abrir_tela(False, None)
 
         if event == 'criar':
             if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
@@ -57,19 +56,22 @@ class ControladorFuncionarios(AbstractControlador):
                     )
                     self.__funcionarios.append(instancia_funcionario)
             else:
-                super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
+                self.__controlador_sistema\
+                    .mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
 
     def excluir(self, funcionarioIndex):
         try:
             self.__funcionarios.remove(self.__funcionarios[funcionarioIndex])
         except Exception:
-            super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
+            self.__controlador_sistema\
+                .mensagem_sistema.error(mensagens.get('erro_excluir'))
 
     def editar(self, funcionarioIndex):
         try:
             funcionario = self.__funcionarios[funcionarioIndex]
 
-            event, dados_funcionarios = super()._tela_cadastro.abrir_tela(True, funcionario)
+            event, dados_funcionarios = self.__tela_cadastro.abrir_tela(
+                True, funcionario)
 
             if event == 'exited':
                 return
@@ -81,18 +83,18 @@ class ControladorFuncionarios(AbstractControlador):
                 funcionario.telefone = telefone
 
         except NenhumaOpcaoSelecionada:
-            super()._sistema.mensagem_sistema.warning(
-                mensagens_sistema.get('nenhuma_opcao_selecionada')
-            )
+            self.__controlador_sistema\
+                .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada')
+                                          )
 
     # TODO: Remover no futuro
     def listar(self):
-        super()._tela.listar(self.__funcionarios, mensagens)
+        self.__tela.listar(self.__funcionarios, mensagens)
 
     # TODO: Remover no futuro
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')) -> Funcionario:
-        return super()._tela.buscar(self.__funcionarios, titulo_tela, mensagens)
+        return self.__tela.buscar(self.__funcionarios, titulo_tela, mensagens)
 
     # TODO: Remover no futuro
 
