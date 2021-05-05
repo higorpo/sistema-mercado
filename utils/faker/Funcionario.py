@@ -7,7 +7,7 @@ __dados_funcionario = {
     'nome': 'Higor Pires Oliveira',
     'email': 'higor@teste.com',
     'telefone': '(48) 99645-3859',
-    'cpf': '111.111.111-11'
+    'cpf': '109.716.579-55'
 }
 
 __dados_endereco = {
