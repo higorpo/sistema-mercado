@@ -39,7 +39,7 @@ class ControladorFuncionarios(AbstractControlador):
                 super()._tela.fechar_tela()
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
+        return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
 
     def adicionar(self, dados_funcionario):
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
@@ -55,7 +55,6 @@ class ControladorFuncionarios(AbstractControlador):
                 self.__funcionarios.append(instancia_funcionario)
         else:
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
-            self.adicionar()
 
     def excluir(self, funcionarioIndex):
         try:

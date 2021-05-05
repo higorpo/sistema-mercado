@@ -16,7 +16,7 @@ class TelaFuncionario(AbstractTela):
         super().__init__(controlador, nome_tela='Funcionários')
 
     def init_components(self, data):
-        headings = ['Nome', 'E-mail', 'Telefone', 'CPF', 'Endereço']
+        headings = ['Código', 'Nome', 'E-mail', 'Telefone', 'CPF', 'Endereço']
 
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='funcionário')
