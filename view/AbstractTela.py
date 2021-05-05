@@ -56,16 +56,19 @@ class AbstractTela(ABC):
                         default_text=input['default_text'] if 'default_text' in input else '',
                         background_color='#ffffff',
                         font=('Arial', 15),
-                        size=(22, 2)
+                        size=(22, 2),
+                        enable_events=True
                     )
                 ],
                 [
                     sg.Text(
                         'Nome digitado é inválido.',
-                        key='input_hint' + input['key'],
+                        key='input_' + input['key'] + '_hint',
                         font=('Arial', 8),
                         text_color='#ff0000',
-                        visible=False
+                        visible=False,
+                        auto_size_text=True,
+                        size=(40, 1)
                     )
                 ]
             ])
@@ -422,6 +425,20 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
+    def validar_input(self, key: str, validator: bool, error_message: str):
+        hint = self._window.FindElement(key + '_hint')
+        if validator:
+            return hint.Update(
+                error_message,
+                visible=True
+            )
+        else:
+            return hint.Update(visible=False)
+
+    def validar_nome(self, nome: str) -> bool:
+        regex = '^[A-ZÀ-Ÿ][A-zÀ-ÿ\']+\s([A-zÀ-ÿ\']\s?)*[A-ZÀ-Ÿ][A-zÀ-ÿ\']+$'
+        return True if re.search(regex, nome) else False
+
     def validar_cnpj(self, cnpj_string: str) -> bool:
         cnpj_formatado = cnpj.sieve(cnpj_string)
         return cnpj.validate(cnpj_formatado)
@@ -432,6 +449,10 @@ class AbstractTela(ABC):
 
     def validar_email(self, email: str) -> bool:
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        return True if re.search(regex, email) else False
+
+    def validar_numero(self, email: str) -> bool:
+        regex = '(\b[0-9]\b)/g'
         return True if re.search(regex, email) else False
 
     def validar_telefone(self, telefone: str) -> bool:

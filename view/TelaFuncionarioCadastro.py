@@ -37,5 +37,41 @@ class TelaFuncionarioCadastro(AbstractTela):
 
             if event == sg.WIN_CLOSED:
                 return ('exited', None)
+            if event == 'input_nome_funcionario':
+                super().validar_input(
+                    event,
+                    super().validar_nome(values[event]) == False,
+                    'Nome inválido, digite um nome e sobrenome válido.'
+                )
+                continue
+            if event == 'input_email':
+                super().validar_input(
+                    event,
+                    super().validar_email(values[event]) == False,
+                    'E-mail inválido, digite um e-mail válido.'
+                )
+                continue
+            if event == 'input_telefone':
+                super().validar_input(
+                    event,
+                    super().validar_telefone(values[event]) == False,
+                    'Telefone inválido, digite um telefone válido.'
+                )
+                continue
+            if event == 'input_cpf':
+                super().validar_input(
+                    event,
+                    super().validar_cpf(values[event]) == False,
+                    'CPF inválido, digite um CPF válido.'
+                )
+                continue
+            if event == 'input_salario':
+                super().validar_input(
+                    event,
+                    super().validar_numero(values[event]) == False,
+                    'Salário inválido, digite um salário válido.'
+                )
+                continue
+
             else:
                 return (event, values)
