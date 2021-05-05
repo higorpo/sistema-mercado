@@ -15,28 +15,50 @@ class TelaFuncionarioCadastro(AbstractTela):
 
         super().__init__(controlador, nome_tela='Funcionários')
 
-    def init_components(self, modo_edicao, data):
+    def init_components(self, modo_edicao, data: Funcionario):
         layout = super().layout_tela_cadastro([
-            {'key': 'nome_funcionario', 'label': 'Nome do funcionário', 'type': 'text'},
-            {'key': 'email', 'label': 'E-mail do funcionário', 'type': 'text'},
-            {'key': 'telefone', 'label': 'Telefone do funcionário', 'type': 'text'},
-            {'key': 'cpf', 'label': 'CPF do funcionário', 'type': 'text'},
-            {'key': 'salario', 'label': 'Salário do funcionário', 'type': 'text'},
+            {
+                'key': 'nome_funcionario',
+                'label': 'Nome do funcionário',
+                'type': 'text',
+                'default_text': '' if modo_edicao == False else data.nome
+            },
+            {
+                'key': 'email',
+                'label': 'E-mail do funcionário',
+                'type': 'text',
+                'default_text': '' if modo_edicao == False else data.email
+            },
+            {
+                'key': 'telefone',
+                'label': 'Telefone do funcionário',
+                'type': 'text',
+                'default_text': '' if modo_edicao == False else data.telefone
+            },
+            {
+                'key': 'cpf',
+                'label': 'CPF do funcionário',
+                'type': 'text',
+                'default_text': '' if modo_edicao == False else data.cpf
+            },
+            {
+                'key': 'salario',
+                'label': 'Salário do funcionário',
+                'type': 'text',
+                'default_text': '' if modo_edicao == False else data.salario
+            },
         ])
 
         super().set_tela_layout(layout, size=(300, 400))
 
-    def abrir_tela(self, modo_edicao, data):
+    def abrir_tela(self, modo_edicao, data: Funcionario):
         self.init_components(modo_edicao, data)
 
         # Armazena para cada um dos inputs se ele está válido ou não.
-        valido = [False, False, False, False, False]
+        valido = [modo_edicao] * 5
 
         while True:
             event, values = super().abrir_tela()
-
-            print(event)
-            print(values)
 
             # Caso o usuário feche a janela do programa
             if event == sg.WIN_CLOSED:
@@ -87,6 +109,7 @@ class TelaFuncionarioCadastro(AbstractTela):
                     )
                     continue
                 else:
+                    super().fechar_tela()
                     return (
                         'criar', {
                             'data_atual': date.today().strftime('%d/%m/%Y'),

@@ -29,32 +29,35 @@ class ControladorFuncionarios(AbstractControlador):
                 break
             elif event == 'btn_cadastrar':
                 super()._tela.fechar_tela()
-                event, values = super()._tela_cadastro.abrir_tela(False, None)
-
-                if event == 'criar':
-                    super()._tela_cadastro.fechar_tela()
-                    self.adicionar(values)
+                self.adicionar()
             elif event == 'btn_deletar':
                 self.excluir(values)
                 super()._tela.fechar_tela()
+            elif event == 'btn_editar':
+                super()._tela.fechar_tela()
+                self.editar(values)
 
     def map_object_to_array(self):
         return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
 
-    def adicionar(self, dados_funcionario):
-        if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
-            instancia_funcionario = Funcionario(*dados_funcionario.values())
-            event, dados_endereco = self.__tela_endereco.abrir_tela()
+    def adicionar(self):
+        event, dados_funcionario = super()._tela_cadastro.abrir_tela(False, None)
 
-            if event == 'exited':
-                return
-            elif event == 'criar':
-                instancia_funcionario.definir_endereco(
-                    *dados_endereco.values()
-                )
-                self.__funcionarios.append(instancia_funcionario)
-        else:
-            super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
+        if event == 'criar':
+            if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
+                instancia_funcionario = Funcionario(
+                    *dados_funcionario.values())
+                event, dados_endereco = self.__tela_endereco.abrir_tela()
+
+                if event == 'exited':
+                    return
+                elif event == 'criar':
+                    instancia_funcionario.definir_endereco(
+                        *dados_endereco.values()
+                    )
+                    self.__funcionarios.append(instancia_funcionario)
+            else:
+                super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
 
     def excluir(self, funcionarioIndex):
         try:
@@ -62,44 +65,39 @@ class ControladorFuncionarios(AbstractControlador):
         except Exception:
             super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
 
-    def editar(self):
-        if self.__verifica_tem_dados():
-            try:
-                funcionario = self.buscar(mensagens.get('titulo_tela_editar'))
+    def editar(self, funcionarioIndex):
+        try:
+            funcionario = self.__funcionarios[funcionarioIndex]
 
-                dados_funcionarios = super()._tela.editar(funcionario)
+            event, dados_funcionarios = super()._tela_cadastro.abrir_tela(True, funcionario)
 
-                salario, email, telefone = dados_funcionarios.values()
+            if event == 'exited':
+                return
+            elif event == 'criar':
+                _, salario, _, email, telefone, _ = dados_funcionarios.values()
 
-                funcionario.salario = salario if salario != '--' else funcionario.salario
-                funcionario.email = email if email != '--' else funcionario.email
-                funcionario.telefone = telefone if telefone != '--' else funcionario.telefone
-            except NenhumaOpcaoSelecionada:
-                super()._sistema.mensagem_sistema.warning(
-                    mensagens_sistema.get('nenhuma_opcao_selecionada'))
-                self.editar()
+                funcionario.salario = salario
+                funcionario.email = email
+                funcionario.telefone = telefone
 
+        except NenhumaOpcaoSelecionada:
+            super()._sistema.mensagem_sistema.warning(
+                mensagens_sistema.get('nenhuma_opcao_selecionada')
+            )
+
+    # TODO: Remover no futuro
     def listar(self):
         super()._tela.listar(self.__funcionarios, mensagens)
+
+    # TODO: Remover no futuro
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')) -> Funcionario:
         return super()._tela.buscar(self.__funcionarios, titulo_tela, mensagens)
 
+    # TODO: Remover no futuro
+
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__funcionarios))
-
-    def __verifica_tem_dados(self) -> bool:
-        if len(self.__funcionarios) == 0:
-            super()._sistema.mensagem_sistema.log(
-                mensagens.get('nada_cadastrado_busca')
-            )
-            super()._sistema.mensagem_sistema.warning(
-                mensagens_sistema.get('enter_continuar')
-            )
-            input()
-            return False
-        else:
-            return True
 
     @property
     def funcionarios(self):
