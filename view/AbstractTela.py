@@ -47,35 +47,51 @@ class AbstractTela(ABC):
         ).Layout(layout(size))
 
     def layout_tela_cadastro(self, inputs):
+        def map_inputs(input):
+            inputElement = None
 
-        lista_inputs = list(map(lambda input: [
-            sg.Column([
-                [
-                    sg.Text(input['label'])
-                ],
-                [
-                    sg.Input(
-                        key='input_' + input['key'],
-                        default_text=input['default_text'] if 'default_text' in input else '',
-                        background_color='#ffffff',
-                        font=('Arial', 15),
-                        size=(22, 2),
-                        enable_events=True
-                    )
-                ],
-                [
-                    sg.Text(
-                        'Preencha este campo.',
-                        key='input_' + input['key'] + '_hint',
-                        font=('Arial', 8),
-                        text_color='#ff0000',
-                        visible=True,
-                        auto_size_text=True,
-                        size=(40, 1)
-                    )
-                ]
-            ])
-        ], inputs))
+            if input['type'] == 'combo':
+                inputElement = sg.Combo(
+                    input['values'],
+                    key='input_' + input['key'],
+                    size=(21, 8),
+                    font=('Arial', 15),
+                    enable_events=True,
+                    background_color='#ffffff',
+                )
+            elif input['type'] == 'text':
+                inputElement = sg.Input(
+                    key='input_' + input['key'],
+                    default_text=input['default_text'] if 'default_text' in input else '',
+                    background_color='#ffffff',
+                    font=('Arial', 15),
+                    size=(22, 2),
+                    enable_events=True
+                )
+
+            return [
+                sg.Column([
+                    [
+                        sg.Text(input['label'])
+                    ],
+                    [
+                        inputElement
+                    ],
+                    [
+                        sg.Text(
+                            'Preencha este campo.',
+                            key='input_' + input['key'] + '_hint',
+                            font=('Arial', 8),
+                            text_color='#ff0000',
+                            visible=True,
+                            auto_size_text=True,
+                            size=(40, 1)
+                        )
+                    ]
+                ])
+            ]
+
+        lista_inputs = list(map(map_inputs, inputs))
 
         lista_inputs.append([
             sg.Button(

@@ -44,11 +44,30 @@ class TelaEndereco(AbstractTela):
 
     def init_components(self):
         layout = super().layout_tela_cadastro([
-            {'key': 'rua', 'label': mensagens.get('label_rua')},
-            {'key': 'cidade', 'label': mensagens.get('label_cidade')},
-            {'key': 'estado', 'label': mensagens.get('label_estado')},
-            {'key': 'cep', 'label': mensagens.get('label_cep')},
-            {'key': 'complemento', 'label': mensagens.get('label_complemento')}
+            {
+                'key': 'rua',
+                'label': mensagens.get('label_rua'),
+                'type': 'text'
+            },
+            {
+                'key': 'cidade',
+                'label': mensagens.get('label_cidade'),
+                'type': 'text'},
+            {
+                'key': 'estado',
+                'label': mensagens.get('label_estado'),
+                'type': 'combo', 'values': LISTA_ESTADOS
+            },
+            {
+                'key': 'cep',
+                'label': mensagens.get('label_cep'),
+                'type': 'text'
+            },
+            {
+                'key': 'complemento',
+                'label': mensagens.get('label_complemento'),
+                'type': 'text'
+            }
         ])
 
         super().set_tela_layout(layout, size=(300, 400))

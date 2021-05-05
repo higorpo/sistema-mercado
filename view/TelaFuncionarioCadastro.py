@@ -16,11 +16,11 @@ class TelaFuncionarioCadastro(AbstractTela):
 
     def init_components(self, modo_edicao, data):
         layout = super().layout_tela_cadastro([
-            {'key': 'nome_funcionario', 'label': 'Nome do funcionário'},
-            {'key': 'email', 'label': 'E-mail do funcionário'},
-            {'key': 'telefone', 'label': 'Telefone do funcionário'},
-            {'key': 'cpf', 'label': 'CPF do funcionário'},
-            {'key': 'salario', 'label': 'Salário do funcionário'},
+            {'key': 'nome_funcionario', 'label': 'Nome do funcionário', 'type': 'text'},
+            {'key': 'email', 'label': 'E-mail do funcionário', 'type': 'text'},
+            {'key': 'telefone', 'label': 'Telefone do funcionário', 'type': 'text'},
+            {'key': 'cpf', 'label': 'CPF do funcionário', 'type': 'text'},
+            {'key': 'salario', 'label': 'Salário do funcionário', 'type': 'text'},
         ])
 
         super().set_tela_layout(layout, size=(300, 400))
