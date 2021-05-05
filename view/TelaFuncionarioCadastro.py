@@ -2,7 +2,6 @@ import PySimpleGUI as sg
 from datetime import date
 from model.Funcionario import Funcionario
 from utils.Terminal import Terminal
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.Validators import Validators
 from view.AbstractTela import AbstractTela
 from messages.Funcionarios import mensagens
@@ -19,33 +18,33 @@ class TelaFuncionarioCadastro(AbstractTela):
         layout = super().layout_tela_cadastro([
             {
                 'key': 'nome_funcionario',
-                'label': 'Nome do funcionário',
+                'label': mensagens.get('label_nome'),
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.nome,
                 'disabled': modo_edicao
             },
             {
                 'key': 'email',
-                'label': 'E-mail do funcionário',
+                'label': mensagens.get('label_email'),
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.email
             },
             {
                 'key': 'telefone',
-                'label': 'Telefone do funcionário',
+                'label': mensagens.get('label_telefone'),
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.telefone
             },
             {
                 'key': 'cpf',
-                'label': 'CPF do funcionário',
+                'label': mensagens.get('label_cpf'),
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.cpf,
                 'disabled': modo_edicao
             },
             {
                 'key': 'salario',
-                'label': 'Salário do funcionário',
+                'label': mensagens.get('label_salario'),
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.salario
             },
