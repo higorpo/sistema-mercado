@@ -32,7 +32,7 @@ class ControladorFuncionarios(AbstractControlador):
                 event, values = super()._tela_cadastro.abrir_tela(False, None)
 
                 if event == 'criar':
-                    print(values)
+                    super()._tela_cadastro.fechar_tela()
                     self.adicionar(values)
 
                 # super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [

@@ -35,6 +35,9 @@ class AbstractTela(ABC):
     def abrir_tela(self):
         return self.__window.Read()
 
+    def fechar_tela(self):
+        self._window.close()
+
     def set_tela_layout(self, layout, size=(900, 680)):
         if layout == None:
             raise LayoutNotDefined
