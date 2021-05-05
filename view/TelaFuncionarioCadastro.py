@@ -22,7 +22,7 @@ class TelaFuncionarioCadastro(AbstractTela):
                 'label': 'Nome do funcionário',
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.nome,
-                'disabled': True
+                'disabled': modo_edicao
             },
             {
                 'key': 'email',
@@ -41,7 +41,7 @@ class TelaFuncionarioCadastro(AbstractTela):
                 'label': 'CPF do funcionário',
                 'type': 'text',
                 'default_text': '' if modo_edicao == False else data.cpf,
-                'disabled': True
+                'disabled': modo_edicao
             },
             {
                 'key': 'salario',
