@@ -34,7 +34,6 @@ class TelaSistema(AbstractTela):
             'Sistema Supermacado 2.0').Layout(layout)
 
     def mostrar_opcoes(self, opcoes=[]):
-        self.init_components()
         botao, values = self.__window.Read()
         return botao
 
