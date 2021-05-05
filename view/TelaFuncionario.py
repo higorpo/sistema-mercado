@@ -29,9 +29,6 @@ class TelaFuncionario(AbstractTela):
         while True:
             event, values = super().abrir_tela()
 
-            print(event)
-            print(values)
-
             # Quando fechar a tela
             if event == sg.WIN_CLOSED:
                 return ('exited', None)
