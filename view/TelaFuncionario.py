@@ -40,41 +40,15 @@ class TelaFuncionario(AbstractTela):
                     'column_editar_deletar'
                 )
                 column_editar_deletar.Update(visible=True)
-            elif (event == 'Editar funcionário' or event == 'Deletar funcionário') and len(values['-TABLE-']) == 0:
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) == 0:
                 sg.popup_no_buttons(
                     'Você precisa selecionar um item da lista para\npoder realizar esta ação.',
                     title='Erro'
                 )
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
+                return (event, values['-TABLE-'][0])
             else:
                 return (event, values)
-
-    def adicionar(self):
-
-        dados_funcionario = {
-            'data_atual': date.today().strftime('%d/%m/%Y'),
-            'salario': None,
-            'nome': None,
-            'email': None,
-            'telefone': None,
-            'cpf': None
-        }
-
-        print(mensagens.get('label_cpf'))
-        dados_funcionario['cpf'] = super().ler_cpf()
-
-        print(mensagens.get('label_nome'))
-        dados_funcionario['nome'] = super().ler_string()
-
-        print(mensagens.get('label_email'))
-        dados_funcionario['email'] = super().ler_email()
-
-        print(mensagens.get('label_telefone'))
-        dados_funcionario['telefone'] = super().ler_telefone()
-
-        print(mensagens.get('label_salario'))
-        dados_funcionario['salario'] = super().ler_float()
-
-        return dados_funcionario
 
     def editar(self, funcionario: Funcionario):
         dados_funcionario = {

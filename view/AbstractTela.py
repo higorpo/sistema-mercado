@@ -141,21 +141,55 @@ class AbstractTela(ABC):
             ))
 
         def callable(size):
+            if len(values) > 0:
+                tableElement = sg.Table(
+                    values=values,
+                    headings=headings,
+                    enable_events=True,
+                    auto_size_columns=True,
+                    hide_vertical_scroll=False,
+                    num_rows=20,
+                    justification='center',
+                    key='-TABLE-',
+                    row_height=30,
+                    alternating_row_color='#e0e0e0',
+                    select_mode=sg.TABLE_SELECT_MODE_BROWSE,
+                )
+            else:
+                tableElement = sg.Text(
+                    'Não há dados para serem exibidos... Comece cadastrando-os!',
+                    s=(40, 2),
+                    justification='center'
+                )
+
             return [
                 [
-                    sg.Table(
-                        values=values,
-                        headings=headings,
-                        enable_events=True,
-                        auto_size_columns=True,
-                        hide_vertical_scroll=False,
-                        num_rows=20,
-                        justification='center',
-                        key='-TABLE-',
-                        row_height=30,
-                        alternating_row_color='#e0e0e0',
-                        select_mode=sg.TABLE_SELECT_MODE_BROWSE,
-                    )
+                    sg.Column([
+                        [
+                            tableElement
+                        ],
+
+                        [
+                            sg.Button(
+                                f'Cadastrar novo(a) {modulo_nome}',
+                                key='btn_cadastrar',
+                                size=(40, 2)
+                            ),
+                            sg.Column(
+                                [
+                                    buttons
+                                ],
+                                key='column_editar_deletar',
+                                visible=False
+                            )
+                        ]
+
+                    ], justification='center' if len(values) == 0 else 'left', vertical_alignment='center' if len(values) == 0 else 'top')
+                ]
+            ]
+            return [
+                [
+                    tableElement
                 ],
                 [
                     [

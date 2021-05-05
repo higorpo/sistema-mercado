@@ -34,25 +34,14 @@ class ControladorFuncionarios(AbstractControlador):
                 if event == 'criar':
                     super()._tela_cadastro.fechar_tela()
                     self.adicionar(values)
-
-                # super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
-                #     mensagens.get('cadastrar'),
-                #     mensagens.get('excluir'),
-                #     mensagens.get('editar'),
-                #     mensagens.get('listar')
-                # ], [
-                #     self.adicionar,
-                #     self.excluir,
-                #     self.editar,
-                #     self.listar
-                # ])
+            elif event == 'btn_deletar':
+                self.excluir(values)
+                super()._tela.fechar_tela()
 
     def map_object_to_array(self):
         return list(map(lambda item: [item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
 
     def adicionar(self, dados_funcionario):
-        # dados_funcionario = super()._tela.adicionar()
-
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
             instancia_funcionario = Funcionario(*dados_funcionario.values())
             event, dados_endereco = self.__tela_endereco.abrir_tela()
@@ -68,13 +57,11 @@ class ControladorFuncionarios(AbstractControlador):
             super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
             self.adicionar()
 
-    def excluir(self):
-        if self.__verifica_tem_dados():
-            try:
-                funcionario = self.buscar(mensagens.get('titulo_tela_excluir'))
-                self.__funcionarios.remove(funcionario)
-            except Exception:
-                super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
+    def excluir(self, funcionarioIndex):
+        try:
+            self.__funcionarios.remove(self.__funcionarios[funcionarioIndex])
+        except Exception:
+            super()._sistema.mensagem_sistema.error(mensagens.get('erro_excluir'))
 
     def editar(self):
         if self.__verifica_tem_dados():
