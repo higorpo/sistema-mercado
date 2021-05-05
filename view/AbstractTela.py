@@ -62,11 +62,11 @@ class AbstractTela(ABC):
                 ],
                 [
                     sg.Text(
-                        'Nome digitado é inválido.',
+                        '',
                         key='input_' + input['key'] + '_hint',
                         font=('Arial', 8),
                         text_color='#ff0000',
-                        visible=False,
+                        visible=True,
                         auto_size_text=True,
                         size=(40, 1)
                     )
@@ -83,6 +83,9 @@ class AbstractTela(ABC):
         ])
 
         def callable(size):
+            size_height = 150*len(lista_inputs) + 100
+            size = (size[0], size_height)
+
             return [
                 [
                     sg.Column(
@@ -451,9 +454,9 @@ class AbstractTela(ABC):
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         return True if re.search(regex, email) else False
 
-    def validar_numero(self, email: str) -> bool:
-        regex = '(\b[0-9]\b)/g'
-        return True if re.search(regex, email) else False
+    def validar_numero(self, numero: str) -> bool:
+        regex = '^([\s\d]+)$'
+        return True if re.search(regex, numero) else False
 
     def validar_telefone(self, telefone: str) -> bool:
         # Maneiras possíveis de inserir o telefone (DDD obrigatório):
