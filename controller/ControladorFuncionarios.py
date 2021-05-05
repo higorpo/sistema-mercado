@@ -29,7 +29,12 @@ class ControladorFuncionarios(AbstractControlador):
                 break
             elif event == 'btn_cadastrar':
                 super()._tela.fechar_tela()
-                super()._tela_cadastro.abrir_tela(False, None)
+                event, values = super()._tela_cadastro.abrir_tela(False, None)
+
+                if event == 'criar':
+                    print(values)
+                    self.adicionar(values)
+
                 # super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
                 #     mensagens.get('cadastrar'),
                 #     mensagens.get('excluir'),
@@ -45,8 +50,8 @@ class ControladorFuncionarios(AbstractControlador):
     def map_object_to_array(self):
         return list(map(lambda item: [item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
 
-    def adicionar(self):
-        dados_funcionario = super()._tela.adicionar()
+    def adicionar(self, dados_funcionario):
+        # dados_funcionario = super()._tela.adicionar()
 
         if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
             instancia_funcionario = Funcionario(*dados_funcionario.values())

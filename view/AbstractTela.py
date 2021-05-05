@@ -62,7 +62,7 @@ class AbstractTela(ABC):
                 ],
                 [
                     sg.Text(
-                        '',
+                        'Preencha este campo.',
                         key='input_' + input['key'] + '_hint',
                         font=('Arial', 8),
                         text_color='#ff0000',
@@ -428,15 +428,17 @@ class AbstractTela(ABC):
                 print(Terminal.error(self, MENSAGEM_ENTRADA_DADOS_INTERROMPIDA))
                 exit(0)
 
-    def validar_input(self, key: str, validator: bool, error_message: str):
+    def validar_input(self, key: str, validator: bool, error_message: str) -> bool:
         hint = self._window.FindElement(key + '_hint')
         if validator:
-            return hint.Update(
+            hint.Update(
                 error_message,
                 visible=True
             )
+            return False
         else:
-            return hint.Update(visible=False)
+            hint.Update(visible=False)
+            return True
 
     def validar_nome(self, nome: str) -> bool:
         regex = '^[A-ZÀ-Ÿ][A-zÀ-ÿ\']+\s([A-zÀ-ÿ\']\s?)*[A-ZÀ-Ÿ][A-zÀ-ÿ\']+$'
