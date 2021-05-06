@@ -8,6 +8,7 @@ from messages.Fornecedor import mensagens
 from utils.faker.Fornecedor import fakeFornecedor
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from utils.exceptions.TelaFechada import TelaFechada
 from configs.settings import Settings
 
 
@@ -47,9 +48,14 @@ class ControladorFornecedores:
             if len(self.__controlador_sistema.controlador_cat_produto.categorias) == 0:
                 # Cadastra categoria
                 self.__controlador_sistema.mensagem_sistema.clear()
-                dados_fornecedor['fornece'] = \
-                    self.__controlador_sistema.controlador_cat_produto.adicionar()
-                if dados_fornecedor['fornece'] == None:
+                try:
+                    dados_fornecedor['fornece'] = \
+                        self.__controlador_sistema.controlador_cat_produto.adicionar()
+                except TelaFechada:
+                    self.__controlador_sistema\
+                        .mensagem_sistema.error(mensagens.get('erro_cadastrar'))
+                    return
+                except Exception:
                     return
             else:
                 # Seleciona categoria
@@ -57,7 +63,7 @@ class ControladorFornecedores:
                     dados_fornecedor['fornece'] = \
                         self.__controlador_sistema\
                             .controlador_cat_produto.buscar(mensagens.get('selecionar_categoria_adicionar_fornecedor'))
-                except NenhumaOpcaoParaSelecionar:
+                except TelaFechada:
                     self.__controlador_sistema\
                         .mensagem_sistema.error(mensagens.get('erro_cadastrar'))
                     return

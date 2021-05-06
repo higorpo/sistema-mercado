@@ -1,10 +1,12 @@
 from controller.AbstractControlador import AbstractControlador
 from view.TelaCategoriaProduto import TelaCategoriaProduto
 from view.TelaCategoriaProdutoCadastro import TelaCategoriaProdutoCadastro
+from view.TelaCategoriaProdutoSelecao import TelaCategoriaProdutoSelecao
 from model.CategoriaProduto import CategoriaProduto
 from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from utils.exceptions.TelaFechada import TelaFechada
 
 
 class ControladorCategoriasProduto:
@@ -12,6 +14,7 @@ class ControladorCategoriasProduto:
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaCategoriaProduto(self)
         self.__tela_cadastro = TelaCategoriaProdutoCadastro(self)
+        self.__tela_selecao = TelaCategoriaProdutoSelecao(self)
 
         self.__list_cat_produto = []
 
@@ -22,7 +25,10 @@ class ControladorCategoriasProduto:
                 break
             elif event == 'btn_cadastrar':
                 self.__tela.fechar_tela()
-                self.adicionar()
+                try:
+                    self.adicionar()
+                except Exception:
+                    continue
 
     def map_object_to_array(self):
         return list(map(lambda item: [item.codigo, item.nome, len(item.produtos)], self.__list_cat_produto))
@@ -39,18 +45,27 @@ class ControladorCategoriasProduto:
                 self.__controlador_sistema.mensagem_sistema.warning(
                     mensagens.get('ja_cadastrado')
                 )
-                return None
+                raise Exception
         else:
-            return None
+            raise TelaFechada
 
     def listar(self):
         self.__tela.listar(self.__list_cat_produto, mensagens)
 
     def buscar(self, titulo_tela: str) -> CategoriaProduto:
-        try:
-            return self.__tela.buscar(self.__list_cat_produto, titulo_tela, mensagens)
-        except NenhumaOpcaoParaSelecionar:
-            self.abre_tela()
+        event, index = self.__tela_selecao.abrir_tela(
+            self.map_object_to_array()
+        )
+
+        if event == 'exited':
+            raise TelaFechada
+        elif event == 'selecionado':
+            return self.__list_cat_produto[index]
+
+        # try:
+        #     return self.__tela.buscar(self.__list_cat_produto, titulo_tela, mensagens)
+        # except NenhumaOpcaoParaSelecionar:
+        #     self.abre_tela()
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))

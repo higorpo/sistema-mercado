@@ -121,7 +121,7 @@ class AbstractTela(ABC):
 
         return callable
 
-    def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_deletar_enabled=True, btn_editar_enabled=True):
+    def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_cadastrar_enabled=True, btn_deletar_enabled=True, btn_editar_enabled=True):
         self.__table_key = key
         self.__layout_tabela = True
 
@@ -176,7 +176,8 @@ class AbstractTela(ABC):
                             sg.Button(
                                 f'Cadastrar novo(a) {modulo_nome}',
                                 key='btn_cadastrar',
-                                size=(40, 2)
+                                size=(40, 2),
+                                visible=btn_cadastrar_enabled
                             ),
                             sg.Column(
                                 [
