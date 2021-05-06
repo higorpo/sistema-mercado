@@ -1,4 +1,5 @@
 import time
+import PySimpleGUI as sg
 from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 from model.CategoriaProduto import CategoriaProduto
@@ -10,7 +11,29 @@ from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecion
 
 class TelaCategoriaProduto(AbstractTela):
     def __init__(self, controlador):
-        super().__init__(controlador)
+        sg.ChangeLookAndFeel('Reddit')
+
+        super().__init__(controlador, nome_tela='Categorias de produto')
+
+    def init_components(self, data):
+        headings = ['Código', 'Nome da categoria', 'Produtos cadastrados']
+
+        layout = super()\
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='categoria', btn_deletar_enabled=False, btn_editar_enabled=False)
+
+        super().set_tela_layout(layout)
+
+    def abrir_tela(self, data):
+        self.init_components(data)
+
+        while True:
+            event, values = super().abrir_tela()
+
+            # Quando fechar a tela
+            if event == sg.WIN_CLOSED:
+                return ('exited', None)
+            else:
+                return (event, values)
 
     def adicionar(self):
         print(mensagens.get('label_nome_categoria'))

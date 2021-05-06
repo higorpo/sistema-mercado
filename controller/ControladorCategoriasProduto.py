@@ -1,38 +1,44 @@
 from controller.AbstractControlador import AbstractControlador
 from view.TelaCategoriaProduto import TelaCategoriaProduto
+from view.TelaCategoriaProdutoCadastro import TelaCategoriaProdutoCadastro
 from model.CategoriaProduto import CategoriaProduto
 from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 
 
-class ControladorCategoriasProduto(AbstractControlador):
+class ControladorCategoriasProduto:
     def __init__(self, controlador_sistema):
-        super().__init__(controlador_sistema, TelaCategoriaProduto(self))
+        self.__controlador_sistema = controlador_sistema
+        self.__tela = TelaCategoriaProduto(self)
+        self.__tela_cadastro = TelaCategoriaProdutoCadastro(self)
+
         self.__list_cat_produto = []
 
     def abre_tela(self):
-        super().abre_tela(mensagens_sistema.get('titulo_tela_opcoes'), [
-            mensagens.get('adicionar'),
-            mensagens.get('listar'),
-            mensagens.get('listar_produtos_por_categoria')
-        ], [
-            self.adicionar,
-            self.listar,
-            self.listar_produtos_por_categoria
-        ])
+        while True:
+            event, values = self.__tela.abrir_tela(self.map_object_to_array())
+            if event == 'exited':
+                break
+            elif event == 'btn_cadastrar':
+                self.__tela.fechar_tela()
+                self.adicionar()
+
+    def map_object_to_array(self):
+        return list(map(lambda item: [item.codigo, item.nome, len(item.produtos)], self.__list_cat_produto))
 
     def adicionar(self) -> CategoriaProduto:
-        categoria_produto = super()._tela.adicionar()
-        if len([x for x in self.__list_cat_produto if x.nome == categoria_produto]) == 0:
-            nova_categoria = CategoriaProduto(categoria_produto)
-            self.__list_cat_produto.append(nova_categoria)
-            return nova_categoria
-        else:
-            super()._sistema.mensagem_sistema.warning(
-                mensagens.get('ja_cadastrado')
-            )
-            self.adicionar()
+        event, dados_categoria = self.__tela_cadastro.abrir_tela()
+
+        if event == 'criar':
+            if len([x for x in self.__list_cat_produto if x.nome == dados_categoria['nome']]) == 0:
+                nova_categoria = CategoriaProduto(dados_categoria['nome'])
+                self.__list_cat_produto.append(nova_categoria)
+                return nova_categoria
+            else:
+                super()._sistema.mensagem_sistema.warning(
+                    mensagens.get('ja_cadastrado')
+                )
 
     def listar(self):
         super()._tela.listar(self.__list_cat_produto, mensagens)

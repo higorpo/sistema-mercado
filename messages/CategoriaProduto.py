@@ -4,7 +4,7 @@ mensagens = {
     'buscar': 'Buscar categorias de produto',
     'listar_produtos_por_categoria': 'Listar produtos por categoria',
     'ja_cadastrado': 'AVISO: Essa categoria de produto já foi cadastrada!',
-    'label_nome_categoria': 'Digite o nome da nova categoria de produto a ser cadastrada:',
+    'label_nome_categoria': 'Nome da categoria de produto',
     'mostrando_cadastros': 'Mostrando as categorias de produto cadastradas',
     'lista_valores': lambda categoria_produto: f'- Código: {categoria_produto.codigo}    |    Categoria: {categoria_produto.nome}',
     'nada_cadastrado_busca': 'AVISO: Não existe categorias de produto para buscar, cadastre uma primeiro...',
