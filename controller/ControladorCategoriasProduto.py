@@ -52,6 +52,7 @@ class ControladorCategoriasProduto:
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))
 
+    # TODO: Criar listagem de produtos por categoria...
     def listar_produtos_por_categoria(self):
         categoria_selecionada = \
             self.buscar(mensagens.get('mostrando_cadastros_para_selecionar'))
