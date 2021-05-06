@@ -36,16 +36,19 @@ class ControladorCategoriasProduto:
                 self.__list_cat_produto.append(nova_categoria)
                 return nova_categoria
             else:
-                super()._sistema.mensagem_sistema.warning(
+                self.__controlador_sistema.mensagem_sistema.warning(
                     mensagens.get('ja_cadastrado')
                 )
+                return None
+        else:
+            return None
 
     def listar(self):
-        super()._tela.listar(self.__list_cat_produto, mensagens)
+        self.__tela.listar(self.__list_cat_produto, mensagens)
 
     def buscar(self, titulo_tela: str) -> CategoriaProduto:
         try:
-            return super()._tela.buscar(self.__list_cat_produto, titulo_tela, mensagens)
+            return self.__tela.buscar(self.__list_cat_produto, titulo_tela, mensagens)
         except NenhumaOpcaoParaSelecionar:
             self.abre_tela()
 
@@ -57,7 +60,7 @@ class ControladorCategoriasProduto:
         categoria_selecionada = \
             self.buscar(mensagens.get('mostrando_cadastros_para_selecionar'))
         try:
-            return super()._tela.listar_produtos_por_categoria(categoria_selecionada)
+            return self.__tela.listar_produtos_por_categoria(categoria_selecionada)
         except AttributeError:
             self._sistema.abre_tela()
 

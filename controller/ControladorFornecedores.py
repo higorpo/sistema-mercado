@@ -49,6 +49,8 @@ class ControladorFornecedores:
                 self.__controlador_sistema.mensagem_sistema.clear()
                 dados_fornecedor['fornece'] = \
                     self.__controlador_sistema.controlador_cat_produto.adicionar()
+                if dados_fornecedor['fornece'] == None:
+                    return
             else:
                 # Seleciona categoria
                 try:
