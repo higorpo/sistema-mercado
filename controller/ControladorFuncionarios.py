@@ -1,14 +1,16 @@
+import time
+
+from configs.settings import Settings
+from utils.faker.Funcionario import fakeFuncionario
+from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 from controller.AbstractControlador import AbstractControlador
 from model.Funcionario import Funcionario
+from messages.Funcionarios import mensagens
+from messages.Sistema import mensagens as mensagens_sistema
 from view.TelaFuncionario import TelaFuncionario
 from view.TelaFuncionarioCadastro import TelaFuncionarioCadastro
 from view.TelaEndereco import TelaEndereco
-from messages.Funcionarios import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
-from utils.faker.Funcionario import fakeFuncionario
-from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
-from configs.settings import Settings
-import time
+from dao.FuncionarioDAO import FuncionarioDAO
 
 
 class ControladorFuncionarios:
@@ -16,9 +18,8 @@ class ControladorFuncionarios:
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaFuncionario(self)
         self.__tela_cadastro = TelaFuncionarioCadastro(self)
+        self.__dao = FuncionarioDAO()
 
-        self.__funcionarios = \
-            [fakeFuncionario] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
@@ -37,13 +38,14 @@ class ControladorFuncionarios:
                 self.editar(values)
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__funcionarios))
+        return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cpf, item.endereco], self.__dao.get_all()))
 
     def adicionar(self):
         event, dados_funcionario = self.__tela_cadastro.abrir_tela(False, None)
 
         if event == 'criar':
-            if len([x for x in self.__funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
+            funcionarios = self.__dao.get_all()
+            if len([x for x in funcionarios if x.cpf == dados_funcionario['cpf']]) == 0:
                 instancia_funcionario = Funcionario(
                     *dados_funcionario.values())
                 event, dados_endereco = self.__tela_endereco.abrir_tela()
@@ -54,24 +56,26 @@ class ControladorFuncionarios:
                     instancia_funcionario.definir_endereco(
                         *dados_endereco.values()
                     )
-                    self.__funcionarios.append(instancia_funcionario)
+                    self.__dao.add(instancia_funcionario)
             else:
                 self.__controlador_sistema\
                     .mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
 
-    def excluir(self, funcionarioIndex):
+    def excluir(self, codigoFuncionario):
         try:
-            self.__funcionarios.remove(self.__funcionarios[funcionarioIndex])
+            funcionario = self.__dao.get(codigoFuncionario)
+            self.__dao.remove(funcionario)
         except Exception:
             self.__controlador_sistema\
                 .mensagem_sistema.error(mensagens.get('erro_excluir'))
 
-    def editar(self, funcionarioIndex):
-        try:
-            funcionario = self.__funcionarios[funcionarioIndex]
+    def editar(self, codigoFuncionario):
+        funcionario = self.__dao.get(codigoFuncionario)
 
+        try:
             event, dados_funcionarios = self.__tela_cadastro.abrir_tela(
-                True, funcionario)
+                True, funcionario
+            )
 
             if event == 'exited':
                 return
@@ -82,6 +86,8 @@ class ControladorFuncionarios:
                 funcionario.email = email
                 funcionario.telefone = telefone
 
+                self.__dao.add(funcionario)
+
         except NenhumaOpcaoSelecionada:
             self.__controlador_sistema\
                 .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada')
@@ -89,18 +95,18 @@ class ControladorFuncionarios:
 
     # TODO: Remover no futuro
     def listar(self):
-        self.__tela.listar(self.__funcionarios, mensagens)
+        self.__tela.listar(self.__dao.get_all(), mensagens)
 
     # TODO: Remover no futuro
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')) -> Funcionario:
-        return self.__tela.buscar(self.__funcionarios, titulo_tela, mensagens)
+        return self.__tela.buscar(self.__dao.get_all(), titulo_tela, mensagens)
 
     # TODO: Remover no futuro
 
     def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__funcionarios))
+        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
 
     @property
     def funcionarios(self):
-        return self.__funcionarios
+        return self.__dao.get_all()

@@ -1,5 +1,6 @@
 from abc import ABC
 import pickle5 as pickle
+import functools
 
 
 class DAO(ABC):
@@ -30,6 +31,7 @@ class DAO(ABC):
             pass
 
     def get(self, key):
+        key = int(key)
         try:
             return self.__cache[key]
         except KeyError:
