@@ -4,104 +4,125 @@ from model.Produto import Produto
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Produto import mensagens
 from view.TelaProduto import TelaProduto
+from view.TelaProdutoCadastro import TelaProdutoCadastro
+from view.TelaProdutoSelecao import TelaProdutoSelecao
 from utils.faker.Produto import fakeProdutos
 from datetime import date
 from configs.settings import Settings
 from utils.exceptions import NenhumaOpcaoParaSelecionar
+from utils.exceptions.TelaFechada import TelaFechada
 
 
-class ControladorProdutos(AbstractControlador):
+class ControladorProdutos:
     def __init__(self, controlador_sistema):
-        super().__init__(controlador_sistema, TelaProduto(self))
+        self.__controlador_sistema = controlador_sistema
+        self.__tela = TelaProduto(self)
+        self.__tela_cadastro = TelaProdutoCadastro(self)
+        self.__tela_selecao = TelaProdutoSelecao(self)
         self.__produtos = \
             [*fakeProdutos] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
 
     def abre_tela(self):
-        super().abre_tela(mensagens_sistema.get('titulo_opcoes'), [
-            mensagens.get('adicionar'),
-            mensagens.get('listar'),
-            mensagens.get('editar')
-        ], [
-            self.adicionar,
-            self.listar,
-            self.editar,
-        ])
+        while True:
+            event, values = self.__tela.abrir_tela(self.map_object_to_array())
+            if event == 'exited':
+                break
+            elif event == 'btn_cadastrar':
+                self.__tela.fechar_tela()
+                self.adicionar()
+            elif event == 'btn_deletar':
+                self.excluir(values)
+                self.__tela.fechar_tela()
+            elif event == 'btn_editar':
+                self.__tela.fechar_tela()
+                self.editar(values)
+
+    def map_object_to_array(self):
+        return list(map(lambda item: [item.nome, item.qtd_estoque, item.marca, item.preco, item.categoria.nome], self.__produtos))
 
     def adicionar(self):
-        dados_produto = super()._tela.adicionar()
+        event, dados_produto = self.__tela_cadastro.abrir_tela(False, None)
 
-        # Obtem os dados da categoria deste produto
-        # Verifica se existe categorias de produto para cadastrar, se não possuir, abre a tela para o cadastro.
-        if len(super()._sistema.controlador_cat_produto.categorias) == 0:
-            # Cadastra categoria
-            super()._sistema.mensagem_sistema.clear()
-            dados_produto['categoria'] = \
-                super()._sistema.controlador_cat_produto.adicionar()
-        else:
-            # Seleciona categoria
-            try:
+        if event == 'criar':
+            # Cadastra categoria se não houver nenhuma
+            if len(self.__controlador_sistema.controlador_cat_produto.categorias) == 0:
                 dados_produto['categoria'] = \
-                    super()._sistema.controlador_cat_produto.buscar(
-                        mensagens.get('selecionar_categoria_adicionar_produtos'))
-            except NenhumaOpcaoParaSelecionar:
-                super()._sistema.mensagem_sistema.error(mensagens.get('erro_cadastrar'))
-                return
+                    self.__controlador_sistema.controlador_cat_produto.adicionar()
+            else:
+                # Seleciona categoria
+                try:
+                    dados_produto['categoria'] = \
+                        self.__controlador_sistema.controlador_cat_produto.buscar(
+                            mensagens.get('selecionar_categoria_adicionar_produtos'))
+                except NenhumaOpcaoParaSelecionar:
+                    self.__controlador_sistema.mensagem_sistema.error(
+                        mensagens.get('erro_cadastrar'))
+                    return
 
-        # Verifica se o produto já está cadastrado, caso não esteja, cadastra
-        if len([x for x in self.__produtos if x.nome == dados_produto['nome'] and x.categoria.nome == dados_produto['categoria'].nome and x.marca == dados_produto['marca']]) == 0:
-            instancia_marca = Produto(*dados_produto.values())
-            dados_produto['categoria'].adicionar_produto(instancia_marca)
-            self.__produtos.append(instancia_marca)
+            # Verifica se o produto já está cadastrado, caso não esteja, cadastra
+            if len([x for x in self.__produtos if x.nome == dados_produto['nome'] and x.categoria.nome == dados_produto['categoria'].nome and x.marca == dados_produto['marca']]) == 0:
+                instancia_produto = Produto(*dados_produto.values())
+                dados_produto['categoria'].adicionar_produto(instancia_produto)
+                self.__produtos.append(instancia_produto)
+            else:
+                self.__controlador_sistema.mensagem_sistema.warning(
+                    mensagens.get('ja_cadastrado'))
         else:
-            super()._sistema.mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
-            time.sleep(1)
+            raise TelaFechada
 
     def listar(self):
         super()._tela.listar(self.__produtos, mensagens)
 
-    def editar(self):
-        if self.__verifica_tem_dados():
-            try:
-                produto = self.buscar(mensagens.get('titulo_tela_editar'))
-                dados_produto = super()._tela.editar(produto)
+    def excluir(self, produtoIndex):
+        try:
+            self.__produtos.remove(self.__produtos[produtoIndex])
+        except Exception:
+            self.__controlador_sistema\
+                .mensagem_sistema.error(mensagens.get('erro_excluir'))
 
-                nome, qtd_estoque, preco = dados_produto.values()
+    def editar(self, produtoIndex):
+        try:
+            produto = self.__produtos[produtoIndex]
 
-                produto.nome = nome if nome != '--' else produto.nome
-                produto.preco = preco if preco != '--' else produto.preco
-                produto.qtd_estoque = qtd_estoque if qtd_estoque != '--' else produto.qtd_estoque
-            except Exception:
-                super()._sistema.mensagem_sistema.warning(
-                    mensagens_sistema.get('nenhuma_opcao_selecionada'))
+            event, dados_produtos = self.__tela_cadastro.abrir_tela(
+                True, produto)
 
-    def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        return super()._tela.buscar(self.__produtos, titulo_tela, mensagens)
+            if event == 'exited':
+                return
+            elif event == 'criar':
+                _, qtd_estoque, _, preco, _ = dados_produtos.values()
+
+                produto.qtd_estoque = qtd_estoque
+                produto.preco = preco
+
+        except NenhumaOpcaoSelecionada:
+            self.__controlador_sistema\
+                .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
+
+    def buscar(self, titulo_tela: str):
+        event, index = self.__tela_selecao.abrir_tela(
+            self.map_object_to_array()
+        )
+
+        if event == 'exited':
+            raise TelaFechada
+        elif event == 'selecionado':
+            return self.__produtos[index]
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__produtos))
 
-    def selecionar_produtos(self, titulo_tela: str = mensagens.get('titulo_tela_selecionar')):
+    # TODO: Implementar depois (seleção múltipla de produtos)
+    def selecionar_produtos(self, titulo_tela: str):
         produtos_em_estoque = [x for x in self.__produtos if x.qtd_estoque > 0]
         try:
-            return super()._tela.selecionar_produtos(produtos_em_estoque, titulo_tela)
+            return self.__tela.selecionar_produtos(produtos_em_estoque, mensagens.get('titulo_tela_selecionar'))
         except ValueError:
             super()._sistema.abre_tela()
 
+    # TODO: Implementar depois, quando mover o método da TelaProduto pra uma nova tela separada
     def definir_quantidade_comprada(self, produto_selecionado: Produto):
-        return super()._tela.definir_quantidade_comprada(produto_selecionado, produto_selecionado.qtd_estoque)
-
-    def __verifica_tem_dados(self) -> bool:
-        if len(self.__produtos) == 0:
-            super()._sistema.mensagem_sistema.log(
-                mensagens.get('nada_cadastrado_busca')
-            )
-            super()._sistema.mensagem_sistema.warning(
-                mensagens_sistema.get('enter_continuar')
-            )
-            input()
-            return False
-        else:
-            return True
+        return self.__tela.definir_quantidade_comprada(produto_selecionado, produto_selecionado.qtd_estoque)
 
     @property
     def tem_produtos_estoque(self) -> bool:

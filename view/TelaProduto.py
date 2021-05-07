@@ -4,82 +4,49 @@ from messages.Produto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from pick import pick
+import PySimpleGUI as sg
 
 
 class TelaProduto(AbstractTela):
     def __init__(self, controlador):
-        super().__init__(controlador)
+        sg.ChangeLookAndFeel('Reddit')
 
-    def adicionar(self):
-        dados_produto = {
-            'nome': None,
-            'qtd_estoque': None,
-            'marca': None,
-            'preco': None
-        }
+        super().__init__(controlador, nome_tela='Produtos')
 
-        print(mensagens.get('label_nome'))
-        dados_produto['nome'] = super().ler_string()
+    def init_components(self, data):
+        headings = ['Nome', 'Qtd. Estoque', 'Marca', 'Preço', 'Categoria']
 
-        print(mensagens.get('label_estoque'))
-        dados_produto['qtd_estoque'] = super().ler_inteiro()
+        layout = super()\
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='produto')
 
-        print(mensagens.get('label_marca'))
-        dados_produto['marca'] = super().ler_string()
+        super().set_tela_layout(layout)
 
-        print(mensagens.get('label_preco'))
-        dados_produto['preco'] = super().ler_float()
+    def abrir_tela(self, data):
+        self.init_components(data)
 
-        return dados_produto
+        while True:
+            event, values = super().abrir_tela()
 
-    def editar(self, cliente):
-        dados_produto = {
-            'nome': None,
-            'qtd_estoque': None,
-            'preco': None
-        }
-
-        print(mensagens.get('label_nome'))
-        print(
-            Terminal.warning(
-                self,
-                mensagens_sistema.get('label_atualmente')
-                (
-                    'Nome', dados_produto['nome']
+            # Quando fechar a tela
+            if event == sg.WIN_CLOSED:
+                return ('exited', None)
+            if event == '-TABLE-' and len(values['-TABLE-']) != 0:
+                column_editar_deletar = super()._window.FindElement(
+                    'column_editar_deletar'
                 )
-            )
-        )
-
-        dados_produto['nome'] = super().ler_string(modo_edicao=True)
-
-        print(mensagens.get('label_estoque'))
-        print(
-            Terminal.warning(
-                self,
-                mensagens_sistema.get('label_atualmente')
-                (
-                    'Estoque', dados_produto['qtd_estoque']
+                column_editar_deletar.Update(visible=True)
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) == 0:
+                sg.popup_no_buttons(
+                    'Você precisa selecionar um item da lista para\npoder realizar esta ação.',
+                    title='Erro'
                 )
-            )
-        )
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
+                print(f'Event: {event}\nValues: {values}')
+                return (event, values['-TABLE-'][0])
+            else:
+                return (event, values)
 
-        dados_produto['qtd_estoque'] = super().ler_inteiro(modo_edicao=True)
-
-        print(mensagens.get('label_preco'))
-        print(
-            Terminal.warning(
-                self,
-                mensagens_sistema.get('label_atualmente')
-                (
-                    'Preco', dados_produto['preco']
-                )
-            )
-        )
-
-        dados_produto['preco'] = super().ler_float(modo_edicao=True)
-
-        return dados_produto
-
+    # TODO: Implementar seleção múltipla de produtos
     def selecionar_produtos(self, opcoes, titulo_tela):
         if len(opcoes) == 0:
             print(Terminal.warning(self, mensagens.get('estoque_vazio')))
@@ -93,6 +60,9 @@ class TelaProduto(AbstractTela):
         produtos, index = zip(*produtos_selecionados)
         return [x for x in opcoes if x.nome in produtos]
 
+    # TODO: Mover essa ação pra uma nova tela separada (fazer com que cada evento de clique adicione o index do produto
+    # numa lista, sempre checando se há um igual ou não. Depois, abra uma tela que mostre os nomes dos produtos
+    # selecionados como label e nos inputs permitir digitar a quantidade de produtos a ser comprada)
     def definir_quantidade_comprada(self, produto_selecionado, qtd_estoque: int):
         print(mensagens.get('label_quantidade_desejada')
               (produto_selecionado, qtd_estoque))
