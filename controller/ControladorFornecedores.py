@@ -10,6 +10,7 @@ from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.exceptions.TelaFechada import TelaFechada
 from configs.settings import Settings
+from dao.FornecedoresDAO import FornecedoresDAO
 
 
 class ControladorFornecedores:
@@ -17,10 +18,8 @@ class ControladorFornecedores:
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaFornecedor(self)
         self.__tela_cadastro = TelaFornecedorCadastro(self)
-
-        self.__fornecedores = \
-            [fakeFornecedor] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
+        self.__dao = FornecedoresDAO()
 
     def abre_tela(self):
         while True:
@@ -38,7 +37,7 @@ class ControladorFornecedores:
                 self.editar(values)
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cnpj, item.fornece.nome, item.endereco], self.__fornecedores))
+        return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cnpj, item.fornece.nome, item.endereco], self.__dao.get_all()))
 
     def adicionar(self):
         event, dados_fornecedor = self.__tela_cadastro.abrir_tela(False, None)
@@ -68,7 +67,8 @@ class ControladorFornecedores:
                         .mensagem_sistema.error(mensagens.get('erro_cadastrar'))
                     return
 
-            if len([x for x in self.__fornecedores if x.cnpj == dados_fornecedor['cnpj']]) == 0:
+            fornecedores = self.__dao.get_all()
+            if len([x for x in fornecedores if x.cnpj == dados_fornecedor['cnpj']]) == 0:
                 instancia_fornecedor = Fornecedor(*dados_fornecedor.values())
 
                 event, dados_endereco = self.__tela_endereco.abrir_tela()
@@ -79,20 +79,20 @@ class ControladorFornecedores:
                     instancia_fornecedor.definir_endereco(
                         *dados_endereco.values()
                     )
-                    self.__fornecedores.append(instancia_fornecedor)
+                    self.__dao.add(instancia_fornecedor)
             else:
                 self.__controlador_sistema.mensagem_sistema.warning(
                     mensagens.get('ja_cadastrado'))
 
-    def excluir(self, fornecedorIndex):
+    def excluir(self, codigoFornecedor):
         try:
-            self.__fornecedores.remove(self.__fornecedores[fornecedorIndex])
+            self.__fornecedores.remove(self.__dao.get(codigoFornecedor))
         except Exception:
             self.__controlador_sistema.mensagem_sistema\
                 .error(mensagens.get('erro_excluir'))
 
-    def editar(self, fornecedorIndex):
-        fornecedor = self.__fornecedores[fornecedorIndex]
+    def editar(self, codigoFornecedor):
+        fornecedor = self.__dao.get(codigoFornecedor)
         event, dados_fornecedor = self.__tela_cadastro.abrir_tela(
             True, fornecedor
         )
@@ -106,10 +106,10 @@ class ControladorFornecedores:
             fornecedor.telefone = telefone
 
     def listar(self):
-        self.__tela.listar(self.__fornecedores, mensagens)
+        self.__tela.listar(self.__dao.get_all(), mensagens)
 
     def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        return self.__tela.buscar(self.__fornecedores, titulo_tela, mensagens)
+        return self.__tela.buscar(self.__dao.get_all(), titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__fornecedores))
+        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
