@@ -30,8 +30,10 @@ class TelaSistema(AbstractTela):
             lista_botoes
         ]
 
+        w, h = sg.Window.get_screen_size()
         self.__window = sg.Window(
-            'Sistema Supermacado 2.0'
+            'Sistema Supermacado 2.0',
+            location=(w/4 - 100, h/4)
         ).Layout(layout)
 
     def mostrar_opcoes(self, opcoes=[]):
