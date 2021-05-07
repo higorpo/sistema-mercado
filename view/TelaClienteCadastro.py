@@ -101,7 +101,7 @@ class TelaClienteCadastro(AbstractTela):
                 valido[4] = super().validar_input(
                     event,
                     values[event] not in LISTA_ESCOLHAS and
-                    Validators.validar_string(values[event]) == False
+                    Validators.validar_string(values[event]) == False,
                     'Escolha inválida, selecione uma escolha válida.'
                 )
                 continue

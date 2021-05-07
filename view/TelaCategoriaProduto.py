@@ -27,7 +27,6 @@ class TelaCategoriaProduto(AbstractTela):
 
     def abrir_tela(self, data):
         self.init_components(data)
-        print(data)
 
         while True:
             event, values = super().abrir_tela()
