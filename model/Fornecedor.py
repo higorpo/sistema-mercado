@@ -52,5 +52,5 @@ class Fornecedor:
         self.__endereco = Endereco(rua, cidade, estado, cep, complemento)
 
     @property
-    def fornece(self):
+    def fornece(self) -> CategoriaProduto:
         return self.__fornece
