@@ -34,8 +34,10 @@ class TelaCategoriaProduto(AbstractTela):
             # Quando fechar a tela
             if event == sg.WIN_CLOSED:
                 return ('exited', None)
+            if event == 'btn_cadastrar':
+                return ('btn_cadastrar', None)
             else:
-                return (event, values)
+                continue
 
     def adicionar(self):
         print(mensagens.get('label_nome_categoria'))

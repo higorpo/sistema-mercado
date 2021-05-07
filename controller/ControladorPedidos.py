@@ -19,7 +19,7 @@ class ControladorPedidos(AbstractControlador):
             mensagens.get('listar'),
         ], [
             self.adicionar_pedido,
-            self.listar_pedido
+            self.listar_pedidos
         ])
 
     def adicionar_pedido(self):
