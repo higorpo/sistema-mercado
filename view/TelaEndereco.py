@@ -145,7 +145,6 @@ class TelaEndereco(AbstractTela):
                     else:
                         super().fechar_tela()
                         return (
-                            # TODO: Transferir os validators e formatters pra outro arquivo para usá-los (formatar CPF e tal).
                             'criar', {
                                 'rua': values['input_rua'],
                                 'cidade': values['input_cidade'],

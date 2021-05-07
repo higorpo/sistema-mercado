@@ -5,8 +5,6 @@ from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 import PySimpleGUI as sg
 
-# TODO: Arrumar tamanho do layout de lista das formas de pagamento
-
 
 class TelaFormaPagamento(AbstractTela):
     def __init__(self, controlador):
