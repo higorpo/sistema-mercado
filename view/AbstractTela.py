@@ -59,6 +59,7 @@ class AbstractTela(ABC):
                 inputElement = sg.Combo(
                     input['values'],
                     key='input_' + input['key'],
+                    default_value=input['default_value'] if 'default_value' in input else '',
                     size=(21, 8),
                     font=('Arial', 15),
                     enable_events=True,
