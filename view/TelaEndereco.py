@@ -53,7 +53,8 @@ class TelaEndereco(AbstractTela):
             {
                 'key': 'cidade',
                 'label': mensagens.get('label_cidade'),
-                'type': 'text'},
+                'type': 'text'
+            },
             {
                 'key': 'estado',
                 'label': mensagens.get('label_estado'),

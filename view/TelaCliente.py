@@ -4,86 +4,49 @@ from utils.Terminal import Terminal
 from messages.Cliente import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+import PySimpleGUI as sg
 
 
 class TelaCliente(AbstractTela):
     def __init__(self, controlador):
-        super().__init__(controlador)
+        sg.ChangeLookAndFeel('Reddit')
 
-    def adicionar(self):
-        dados_cliente = {
-            'vip': None,
-            'nome': None,
-            'email': None,
-            'telefone': None,
-            'cpf': None
-        }
+        super().__init__(controlador, nome_tela='Clientes')
 
-        print(mensagens.get('label_cpf'))
-        dados_cliente['cpf'] = super().ler_cpf()
+    def init_components(self, data):
+        headings = ['Nome', 'E-mail', 'Telefone', 'CPF', 'Endereço', 'VIP']
 
-        print(mensagens.get('label_nome'))
-        dados_cliente['nome'] = super().ler_string()
+        layout = super()\
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='cliente')
 
-        print(mensagens.get('label_email'))
-        dados_cliente['email'] = super().ler_email()
+        super().set_tela_layout(layout)
 
-        print(mensagens.get('label_telefone'))
-        dados_cliente['telefone'] = super().ler_telefone()
+    def abrir_tela(self, data):
+        self.init_components(data)
 
-        print(mensagens.get('label_vip'))
-        dados_cliente['vip'] = super().ler_vip()
+        while True:
+            event, values = super().abrir_tela()
 
-        return dados_cliente
-
-    def editar(self, cliente):
-        dados_cliente = {
-            'vip': cliente.vip,
-            'email': cliente.email,
-            'telefone': cliente.telefone
-        }
-
-        print(mensagens.get('label_vip'))
-        print(
-            Terminal.warning(
-                self,
-                mensagens_sistema.get('label_atualmente')
-                (
-                    'VIP', dados_cliente['vip']
+            # Quando fechar a tela
+            if event == sg.WIN_CLOSED:
+                return ('exited', None)
+            if event == '-TABLE-' and len(values['-TABLE-']) != 0:
+                column_editar_deletar = super()._window.FindElement(
+                    'column_editar_deletar'
                 )
-            )
-        )
-
-        dados_cliente['vip'] = super().ler_vip(modo_edicao=True)
-
-        print(mensagens.get('label_email'))
-        print(
-            Terminal.warning(
-                self,
-                mensagens_sistema.get('label_atualmente')
-                (
-                    'E-mail', dados_cliente['email']
+                column_editar_deletar.Update(visible=True)
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) == 0:
+                sg.popup_no_buttons(
+                    'Você precisa selecionar um item da lista para\npoder realizar esta ação.',
+                    title='Erro'
                 )
-            )
-        )
+            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
+                print(f'Event: {event}\nValues: {values}')
+                return (event, values['-TABLE-'][0])
+            else:
+                return (event, values)
 
-        dados_cliente['email'] = super().ler_email(modo_edicao=True)
-
-        print(mensagens.get('label_telefone'))
-        print(
-            Terminal.warning(
-                self,
-                mensagens_sistema.get('label_atualmente')
-                (
-                    'Telefone', dados_cliente['telefone']
-                )
-            )
-        )
-
-        dados_cliente['telefone'] = super().ler_telefone(modo_edicao=True)
-
-        return dados_cliente
-
+    # TODO implementar isso
     def listar_compras(self, lista_pedidos):
         if len(lista_pedidos) == 0:
             print(Terminal.error(self, mensagens.get('cliente_nao_possui_pedidos')))

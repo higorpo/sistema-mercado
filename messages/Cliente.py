@@ -10,7 +10,7 @@ mensagens = {
     'label_nome': 'Digite o nome do cliente:',
     'label_email': 'Digite o email do cliente:',
     'label_telefone': 'Digite o telefone (com DDD) do cliente:',
-    'label_vip': 'O cliente é VIP? (s/n)',
+    'label_vip': 'O cliente é VIP?',
     'nada_cad_excluir': 'AVISO: Não há nenhum cliente para excluir, cadastre um primeiro...',
     'mostrando_cadastros': 'Mostrando clientes cadastrados',
     'lista_valores':
