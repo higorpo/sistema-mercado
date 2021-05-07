@@ -7,6 +7,9 @@ from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.exceptions.TelaFechada import TelaFechada
+from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
+
+# TODO: Adicionar lista de fornecedores para cada categoria se der tempo..
 
 
 class ControladorCategoriasProduto:
@@ -15,8 +18,7 @@ class ControladorCategoriasProduto:
         self.__tela = TelaCategoriaProduto(self)
         self.__tela_cadastro = TelaCategoriaProdutoCadastro(self)
         self.__tela_selecao = TelaCategoriaProdutoSelecao(self)
-
-        self.__list_cat_produto = []
+        self.__dao = CategoriaProdutoDAO()
 
     def abre_tela(self):
         while True:
@@ -31,15 +33,16 @@ class ControladorCategoriasProduto:
                     continue
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.codigo, item.nome, len(item.produtos)], self.__list_cat_produto))
+        return list(map(lambda item: [item.codigo, item.nome, len(item.produtos)], self.__dao.get_all()))
 
     def adicionar(self) -> CategoriaProduto:
         event, dados_categoria = self.__tela_cadastro.abrir_tela()
 
         if event == 'criar':
-            if len([x for x in self.__list_cat_produto if x.nome == dados_categoria['nome']]) == 0:
+            categorias = self.__dao.get_all()
+            if len([x for x in categorias if x.nome == dados_categoria['nome']]) == 0:
                 nova_categoria = CategoriaProduto(dados_categoria['nome'])
-                self.__list_cat_produto.append(nova_categoria)
+                self.__dao.add(nova_categoria)
                 return nova_categoria
             else:
                 self.__controlador_sistema.mensagem_sistema.warning(
@@ -50,17 +53,17 @@ class ControladorCategoriasProduto:
             raise TelaFechada
 
     def listar(self):
-        self.__tela.listar(self.__list_cat_produto, mensagens)
+        self.__tela.listar(self.__dao.get_all(), mensagens)
 
     def buscar(self, titulo_tela: str) -> CategoriaProduto:
-        event, index = self.__tela_selecao.abrir_tela(
+        event, codigoCategoria = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()
         )
 
         if event == 'exited':
             raise TelaFechada
         elif event == 'selecionado':
-            return self.__list_cat_produto[index]
+            return self.__dao.get(codigoCategoria)
 
         # try:
         #     return self.__tela.buscar(self.__list_cat_produto, titulo_tela, mensagens)
@@ -68,7 +71,7 @@ class ControladorCategoriasProduto:
         #     self.abre_tela()
 
     def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__list_cat_produto))
+        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
 
     # TODO: Criar listagem de produtos por categoria...
     def listar_produtos_por_categoria(self):
@@ -81,4 +84,4 @@ class ControladorCategoriasProduto:
 
     @property
     def categorias(self):
-        return self.__list_cat_produto
+        return self.__dao.get_all()

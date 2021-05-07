@@ -134,17 +134,25 @@ class TelaEndereco(AbstractTela):
                     )
                     continue
                 else:
-                    super().fechar_tela()
-                    return (
-                        # TODO: Transferir os validators e formatters pra outro arquivo para usá-los (formatar CPF e tal).
-                        'criar', {
-                            'rua': values['input_rua'],
-                            'cidade': values['input_cidade'],
-                            'estado': values['input_estado'],
-                            'cep': values['input_cep'],
-                            'complemento': values['input_complemento'],
-                        }
-                    )
+                    # Verifica se o valor do combo está certo...
+                    if values['input_estado'] not in LISTA_ESTADOS:
+                        valido[4] = super().validar_input(
+                            'input_estado',
+                            True,
+                            'Estado inválido, selecione um estado válido.'
+                        )
+                        continue
+                    else:
+                        super().fechar_tela()
+                        return (
+                            'criar', {
+                                'rua': values['input_rua'],
+                                'cidade': values['input_cidade'],
+                                'estado': values['input_estado'],
+                                'cep': values['input_cep'],
+                                'complemento': values['input_complemento'],
+                            }
+                        )
             else:
                 return (event, values)
 

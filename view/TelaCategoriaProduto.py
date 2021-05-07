@@ -8,8 +8,6 @@ from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 
-# TODO quando clica numa categoria de produto, ele abre a mesma tela (talvez não tenha sido implementado ainda)
-
 
 class TelaCategoriaProduto(AbstractTela):
     def __init__(self, controlador):
@@ -34,8 +32,10 @@ class TelaCategoriaProduto(AbstractTela):
             # Quando fechar a tela
             if event == sg.WIN_CLOSED:
                 return ('exited', None)
+            if event == 'btn_cadastrar':
+                return ('btn_cadastrar', None)
             else:
-                return (event, values)
+                continue
 
     def adicionar(self):
         print(mensagens.get('label_nome_categoria'))

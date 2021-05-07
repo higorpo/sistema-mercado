@@ -5,8 +5,6 @@ from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 import PySimpleGUI as sg
 
-# TODO: Arrumar tamanho do layout de lista das formas de pagamento
-
 
 class TelaFormaPagamento(AbstractTela):
     def __init__(self, controlador):
@@ -18,7 +16,7 @@ class TelaFormaPagamento(AbstractTela):
         headings = ['Código', 'Método']
 
         layout = super()\
-            .layout_tela_lista(headings=headings, values=data, modulo_nome='forma_pagamento', btn_deletar_enabled=False, btn_editar_enabled=False)
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='forma de pagamento', btn_deletar_enabled=False, btn_editar_enabled=False)
 
         super().set_tela_layout(layout, size=(430, 680))
 
@@ -31,5 +29,7 @@ class TelaFormaPagamento(AbstractTela):
             # Quando fechar a tela
             if event == sg.WIN_CLOSED:
                 return ('exited', None)
+            if event == 'btn_cadastrar':
+                return ('btn_cadastrar', None)
             else:
-                return (event, values)
+                continue

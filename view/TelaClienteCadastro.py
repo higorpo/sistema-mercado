@@ -48,6 +48,7 @@ class TelaClienteCadastro(AbstractTela):
                 'key': 'vip',
                 'label': mensagens.get('label_vip'),
                 'type': 'combo',
+                'default_value': '' if modo_edicao == False else data.vip,
                 'values': LISTA_ESCOLHAS
             },
         ], modo_edicao)
@@ -96,7 +97,6 @@ class TelaClienteCadastro(AbstractTela):
                     'CPF inválido, digite um CPF válido.'
                 )
                 continue
-            # TODO: Entender/arrumar o porquê do input do vip não estar validando quando se escreve ao invés de selecionar
             elif event == 'input_vip':
                 valido[4] = super().validar_input(
                     event,
@@ -114,16 +114,25 @@ class TelaClienteCadastro(AbstractTela):
                     )
                     continue
                 else:
-                    super().fechar_tela()
-                    return (
-                        'criar', {
-                            'vip': values['input_vip'],
-                            'nome': values['input_nome_cliente'],
-                            'email': values['input_email'],
-                            'telefone': values['input_telefone'],
-                            # por questões de validação...
-                            'cpf': Formatters.formatar_cpf(values['input_cpf']),
-                        }
-                    )
+                    # Verifica se o valor do combo está certo...
+                    if values['input_vip'] not in LISTA_ESCOLHAS:
+                        valido[4] = super().validar_input(
+                            'input_vip',
+                            True,
+                            'Escolha inválida, selecione uma escolha válida.'
+                        )
+                        continue
+                    else:
+                        super().fechar_tela()
+                        return (
+                            'criar', {
+                                'vip': True if values['input_vip'] == "Sim" else False,
+                                'nome': values['input_nome_cliente'],
+                                'email': values['input_email'],
+                                'telefone': values['input_telefone'],
+                                # por questões de validação...
+                                'cpf': Formatters.formatar_cpf(values['input_cpf']),
+                            }
+                        )
             else:
                 return (event, values)

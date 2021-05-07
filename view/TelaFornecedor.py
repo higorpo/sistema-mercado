@@ -37,6 +37,6 @@ class TelaFornecedor(AbstractTela):
                 )
                 column_editar_deletar.Update(visible=True)
             elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
-                return (event, values['-TABLE-'][0])
+                return (event, data[values['-TABLE-'][0]][0])
             else:
                 return (event, values)

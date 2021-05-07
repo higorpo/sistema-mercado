@@ -44,8 +44,11 @@ class AbstractTela(ABC):
         if layout == None:
             raise LayoutNotDefined
 
+        w, h = sg.Window.get_screen_size()
         self.__window = sg.Window(
-            self.__nome_tela, size=size
+            self.__nome_tela,
+            size=size,
+            location=(w/4 - (size[0]/2), h/4)
         ).Layout(layout(size))
 
     def layout_tela_cadastro(self, inputs, modo_edicao: bool = False):
@@ -56,6 +59,7 @@ class AbstractTela(ABC):
                 inputElement = sg.Combo(
                     input['values'],
                     key='input_' + input['key'],
+                    default_value=input['default_value'] if 'default_value' in input else '',
                     size=(21, 8),
                     font=('Arial', 15),
                     enable_events=True,
