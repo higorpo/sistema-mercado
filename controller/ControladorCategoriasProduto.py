@@ -9,6 +9,8 @@ from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecion
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
 
+# TODO: Adicionar lista de fornecedores para cada categoria se der tempo..
+
 
 class ControladorCategoriasProduto:
     def __init__(self, controlador_sistema):
