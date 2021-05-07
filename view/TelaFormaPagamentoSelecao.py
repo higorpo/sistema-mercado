@@ -19,7 +19,7 @@ class TelaFormaPagamentoSelecao(AbstractTela):
         headings = ['Código', 'Método de pagamento']
 
         layout = super()\
-            .layout_tela_lista(headings=headings, values=data, modulo_nome='forma_pagamento', btn_cadastrar_enabled=False, btn_deletar_enabled=False, btn_editar_enabled=False)
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='forma de pagamento', btn_cadastrar_enabled=False, btn_deletar_enabled=False, btn_editar_enabled=False)
 
         super().set_tela_layout(layout, size=(430, 680))
 
