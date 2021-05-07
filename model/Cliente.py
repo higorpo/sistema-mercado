@@ -13,7 +13,7 @@ class Cliente(Pessoa):
 
     @property
     def vip(self) -> str:
-        return self.__vip
+        return 'Sim' if self.__vip == True else 'Não'
 
     @vip.setter
     def vip(self, cliente_vip: bool) -> str:

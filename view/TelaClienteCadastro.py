@@ -126,7 +126,7 @@ class TelaClienteCadastro(AbstractTela):
                         super().fechar_tela()
                         return (
                             'criar', {
-                                'vip': values['input_vip'],
+                                'vip': True if values['input_vip'] == "Sim" else False,
                                 'nome': values['input_nome_cliente'],
                                 'email': values['input_email'],
                                 'telefone': values['input_telefone'],

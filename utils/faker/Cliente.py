@@ -3,7 +3,7 @@ from model.Cliente import Cliente
 
 # Cadastra o primeiro cliente
 __dados_cliente = {
-    'vip': 'sim',
+    'vip': True,
     'nome': 'John Lennon',
     'email': 'john@beatles.com',
     'telefone': '(48) 99645-3859',
@@ -23,7 +23,7 @@ __fakeCliente1.definir_endereco(*__dados_endereco.values())
 
 # Cadastra o segundo cliente
 __dados_cliente = {
-    'vip': 'não',
+    'vip': False,
     'nome': 'Pedro Pedroso',
     'email': 'pedro@email.com',
     'telefone': '(48) 99645-3859',
@@ -43,7 +43,7 @@ __fakeCliente2.definir_endereco(*__dados_endereco.values())
 
 # Cadastra o terceiro cliente
 __dados_cliente = {
-    'vip': 'não',
+    'vip': True,
     'nome': 'João Augusto',
     'email': 'joao.augusto@email.com',
     'telefone': '(48) 94456-4992',
