@@ -105,6 +105,8 @@ class ControladorFornecedores:
             fornecedor.email = email
             fornecedor.telefone = telefone
 
+            self.__dao.add(fornecedor)
+
     def listar(self):
         self.__tela.listar(self.__dao.get_all(), mensagens)
 
