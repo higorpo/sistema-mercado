@@ -2,7 +2,7 @@ from dao.AbstractDAO import DAO
 from model.CategoriaProduto import CategoriaProduto
 
 
-class FuncionarioDAO(DAO):
+class CategoriaProdutoDAO(DAO):
     def __init__(self):
         super().__init__('dao/store/categoria_produto.pkl')
 
