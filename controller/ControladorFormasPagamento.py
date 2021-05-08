@@ -62,8 +62,6 @@ class ControladorFormasPagamento:
         elif event == 'selecionado':
             return self.__formas_pagamentos[index]
 
-        # return super()._tela.buscar(self.__formas_pagamentos, titulo_tela, mensagens)
-
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.metodo.lower(), self.__formas_pagamentos))
 

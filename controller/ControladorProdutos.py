@@ -6,6 +6,7 @@ from messages.Produto import mensagens
 from view.TelaProduto import TelaProduto
 from view.TelaProdutoCadastro import TelaProdutoCadastro
 from view.TelaProdutoSelecao import TelaProdutoSelecao
+from view.TelaProdutoDefinirQuantidade import TelaProdutoDefinirQuantidade
 from utils.faker.Produto import fakeProdutos
 from datetime import date
 from configs.settings import Settings
@@ -19,6 +20,7 @@ class ControladorProdutos:
         self.__tela = TelaProduto(self)
         self.__tela_cadastro = TelaProdutoCadastro(self)
         self.__tela_selecao = TelaProdutoSelecao(self)
+        self.__tela_definir_quantidade = TelaProdutoDefinirQuantidade(self)
         self.__produtos = \
             [*fakeProdutos] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
 
@@ -100,14 +102,16 @@ class ControladorProdutos:
                 .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
 
     def buscar(self, titulo_tela: str):
-        event, index = self.__tela_selecao.abrir_tela(
+        event, index_dos_produtos = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()
         )
 
         if event == 'exited':
             raise TelaFechada
         elif event == 'selecionado':
-            return self.__produtos[index]
+            print([x for x in self.__produtos if self.__produtos.index(
+                x) in index_dos_produtos])
+            return [x for x in self.__produtos if self.__produtos.index(x) in index_dos_produtos]
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__produtos))
@@ -121,10 +125,9 @@ class ControladorProdutos:
             super()._sistema.abre_tela()
 
     # TODO: Implementar depois, quando mover o método da TelaProduto pra uma nova tela separada
-    def definir_quantidade_comprada(self, produto_selecionado: Produto):
-        return self.__tela.definir_quantidade_comprada(produto_selecionado, produto_selecionado.qtd_estoque)
+    def definir_quantidade_comprada(self, produtos_selecionados: list):
+        return self.__tela_definir_quantidade.abrir_tela(produtos_selecionados)
 
-    @property
     def tem_produtos_estoque(self) -> bool:
         tem_produtos_estoque = False
 
@@ -132,5 +135,4 @@ class ControladorProdutos:
             if produto.qtd_estoque > 0:
                 tem_produtos_estoque = True
                 break
-
         return tem_produtos_estoque

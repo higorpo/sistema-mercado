@@ -9,6 +9,7 @@ from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from view.TelaFuncionario import TelaFuncionario
 from view.TelaFuncionarioCadastro import TelaFuncionarioCadastro
+from view.TelaFuncionarioSelecao import TelaFuncionarioSelecao
 from view.TelaEndereco import TelaEndereco
 from dao.FuncionarioDAO import FuncionarioDAO
 
@@ -18,6 +19,7 @@ class ControladorFuncionarios:
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaFuncionario(self)
         self.__tela_cadastro = TelaFuncionarioCadastro(self)
+        self.__tela_selecao = TelaFuncionarioSelecao(self)
         self.__dao = FuncionarioDAO()
 
         self.__tela_endereco = TelaEndereco(self)
@@ -90,20 +92,23 @@ class ControladorFuncionarios:
 
         except NenhumaOpcaoSelecionada:
             self.__controlador_sistema\
-                .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada')
-                                          )
+                .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
 
     # TODO: Remover no futuro
     def listar(self):
         self.__tela.listar(self.__dao.get_all(), mensagens)
 
+    def buscar(self, titulo_tela: str) -> Funcionario:
+        event, key = self.__tela_selecao.abrir_tela(
+            self.map_object_to_array()
+        )
+
+        if event == 'exited':
+            raise TelaFechada
+        elif event == 'selecionado':
+            return self.__dao.get(key)
+
     # TODO: Remover no futuro
-
-    def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')) -> Funcionario:
-        return self.__tela.buscar(self.__dao.get_all(), titulo_tela, mensagens)
-
-    # TODO: Remover no futuro
-
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
 

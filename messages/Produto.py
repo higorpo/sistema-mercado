@@ -17,6 +17,6 @@ mensagens = {
     'label_estoque': 'Quantidade no estoque',
     'label_marca': 'Marca do produto',
     'selecionar_categoria_adicionar_produtos': 'A qual categoria de produto este produto pertence?\nSelecione uma das duas opções abaixo para escolher uma categoria de produto',
-    'label_quantidade_desejada': lambda produto, estoque: f'Digite a quantidade desejada para o produto {produto.nome} (em estoque: {produto.qtd_estoque}):',
+    'label_quantidade_desejada': lambda produto: f'{produto.nome} (em estoque: {produto.qtd_estoque})',
     'estoque_vazio': 'Não há itens em estoque!'
 }

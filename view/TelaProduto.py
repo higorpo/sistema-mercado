@@ -46,7 +46,7 @@ class TelaProduto(AbstractTela):
             else:
                 return (event, values)
 
-    # TODO: Implementar seleção múltipla de produtos
+    # TODO: Remover futuramente
     def selecionar_produtos(self, opcoes, titulo_tela):
         if len(opcoes) == 0:
             print(Terminal.warning(self, mensagens.get('estoque_vazio')))
@@ -60,9 +60,7 @@ class TelaProduto(AbstractTela):
         produtos, index = zip(*produtos_selecionados)
         return [x for x in opcoes if x.nome in produtos]
 
-    # TODO: Mover essa ação pra uma nova tela separada (fazer com que cada evento de clique adicione o index do produto
-    # numa lista, sempre checando se há um igual ou não. Depois, abra uma tela que mostre os nomes dos produtos
-    # selecionados como label e nos inputs permitir digitar a quantidade de produtos a ser comprada)
+    # TODO: Remover futuramente
     def definir_quantidade_comprada(self, produto_selecionado, qtd_estoque: int):
         print(mensagens.get('label_quantidade_desejada')
               (produto_selecionado, qtd_estoque))

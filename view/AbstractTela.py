@@ -125,7 +125,7 @@ class AbstractTela(ABC):
 
         return callable
 
-    def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_cadastrar_enabled=True, btn_deletar_enabled=True, btn_editar_enabled=True):
+    def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_cadastrar_enabled=True, btn_deletar_enabled=True, btn_editar_enabled=True, btn_confirmar_enabled=False):
         self.__table_key = key
         self.__layout_tabela = True
 
@@ -144,6 +144,14 @@ class AbstractTela(ABC):
                 f'Editar {modulo_nome}',
                 key='btn_editar',
                 button_color='#000000',
+                size=(40, 2)
+            ))
+
+        if btn_confirmar_enabled:
+            buttons.append(sg.Button(
+                f'Confirmar seleção',
+                key='btn_confirmar',
+                button_color='#e3a540',
                 size=(40, 2)
             ))
 

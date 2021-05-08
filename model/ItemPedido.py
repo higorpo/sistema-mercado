@@ -17,4 +17,4 @@ class ItemPedido:
         return self.__produto
 
     def obter_dados_item_pedido(self) -> str:
-        return f'\t{self.__quantidade} {self.__produto.nome.lower()}(s)\n'
+        return f'{self.__quantidade} {self.__produto.nome.lower()}(s)\n'

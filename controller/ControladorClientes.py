@@ -1,6 +1,7 @@
 from model.Cliente import Cliente
 from view.TelaCliente import TelaCliente
 from view.TelaClienteCadastro import TelaClienteCadastro
+from view.TelaClienteSelecao import TelaClienteSelecao
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
@@ -14,6 +15,7 @@ class ControladorClientes:
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaCliente(self)
         self.__tela_cadastro = TelaClienteCadastro(self)
+        self.__tela_selecao = TelaClienteSelecao(self)
 
         self.__clientes = \
             [*fakeClientes] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
@@ -82,16 +84,15 @@ class ControladorClientes:
             self.__controlador_sistema\
                 .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
 
-    # TODO: Remover no futuro
-    def listar(self):
-        super()._tela.listar(self.__clientes, mensagens)
+    def buscar(self, titulo_tela: str) -> Cliente:
+        event, valor_cpf = self.__tela_selecao.abrir_tela(
+            self.map_object_to_array()
+        )
 
-    # TODO: Remover no futuro
-    def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        try:
-            return super()._tela.buscar(self.__clientes, titulo_tela, mensagens)
-        except NenhumaOpcaoParaSelecionar:
-            self.abre_tela()
+        if event == 'exited':
+            raise TelaFechada
+        elif event == 'selecionado':
+            return [x for x in self.__clientes if x.cpf == valor_cpf][0]
 
     # TODO: Remover no futuro
     def pesquisar_opcoes(self, buscar_por: str):
