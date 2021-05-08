@@ -2,7 +2,7 @@ mensagens = {
     'adicionar': 'Adicionar novo pedido',
     'listar': 'Listar pedidos',
     'ja_cadastrado': 'AVISO: Um pedido com este código já foi cadastrado!',
-    'label_observacao': 'Digite uma observação para este pedido:',
+    'label_observacao': 'Observação para o pedido',
     'mostrando_cadastros': 'Mostrando pedidos cadastrados',
     'lista_valores':
         lambda pedido: f'Código: {pedido.codigo}\nObservação: {pedido.observacao}\nData: {pedido.data_pedido}\nCliente: {pedido.cliente.nome}\nFuncionário: {pedido.funcionario.nome}\nForma de pagamento: {pedido.forma_pagamento.metodo}\nPreço da compra: R$ {pedido.obter_dados_faturamento()}\nItem(s) pedido:\n{pedido.obter_itens_pedido()} ---',

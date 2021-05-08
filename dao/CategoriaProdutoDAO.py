@@ -12,4 +12,4 @@ class CategoriaProdutoDAO(DAO):
 
     def remove(self, categoria_produto: CategoriaProduto):
         if ((categoria_produto is not None) and isinstance(categoria_produto, CategoriaProduto) and isinstance(categoria_produto.codigo, int)):
-            super().remove(funcionario.codigo)
+            super().remove(cateogira_produto.codigo)
