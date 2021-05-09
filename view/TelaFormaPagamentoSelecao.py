@@ -34,6 +34,6 @@ class TelaFormaPagamentoSelecao(AbstractTela):
                 return ('exited', None)
             elif event == '-TABLE-' and len(values['-TABLE-']) != 0:
                 super().fechar_tela()
-                return ('selecionado', values['-TABLE-'][0])
+                return ('selecionado', data[values['-TABLE-'][0]][0])
             else:
                 return (event, values)

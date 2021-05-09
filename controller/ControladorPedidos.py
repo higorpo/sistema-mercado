@@ -30,7 +30,7 @@ class ControladorPedidos:
             #    print('alguma exceção')
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.codigo, item.observacao, item.data_pedido, item.cliente.nome, item.funcionario.nome, item.forma_pagamento, item.obter_itens_pedido()], self.__dao.get_all()))
+        return list(map(lambda item: [item.codigo, item.observacao, item.data_pedido, item.cliente.nome, item.funcionario.nome, item.forma_pagamento.metodo, item.obter_itens_pedido()], self.__dao.get_all()))
 
     def adicionar(self):
         # Verifica se existem produtos cadastrados em estoque antes de realizar o cadastro de um pedido
