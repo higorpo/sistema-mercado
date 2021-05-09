@@ -11,6 +11,7 @@ from datetime import date
 from configs.settings import Settings
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.ProdutoDAO import ProdutoDAO
+from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
 
 
 class ControladorProdutos:
@@ -22,6 +23,7 @@ class ControladorProdutos:
         self.__tela_produtos_categoria = TelaProdutosPorCategoria(self)
         self.__tela_definir_quantidade = TelaProdutoDefinirQuantidade(self)
         self.__dao = ProdutoDAO()
+        self.__dao_cat_produto = CategoriaProdutoDAO()
 
     @property
     def dao(self) -> ProdutoDAO:
@@ -69,6 +71,8 @@ class ControladorProdutos:
             if len([x for x in produtos if x.nome == dados_produto['nome'] and x.categoria.nome == dados_produto['categoria'].nome and x.marca == dados_produto['marca']]) == 0:
                 instancia_produto = Produto(*dados_produto.values())
                 dados_produto['categoria'].adicionar_produto(instancia_produto)
+                self.__dao_cat_produto.add(dados_produto['categoria'])
+
                 self.__dao.add(instancia_produto)
             else:
                 self.__controlador_sistema.mensagem_sistema.warning(
