@@ -203,27 +203,6 @@ class AbstractTela(ABC):
                     ], justification='center' if len(values) == 0 else 'left', vertical_alignment='center' if len(values) == 0 else 'top')
                 ]
             ]
-            return [
-                [
-                    tableElement
-                ],
-                [
-                    [
-                        sg.Button(
-                            f'Cadastrar novo(a) {modulo_nome}',
-                            key='btn_cadastrar',
-                            size=(40, 2)
-                        ),
-                        sg.Column(
-                            [
-                                buttons
-                            ],
-                            key='column_editar_deletar',
-                            visible=False
-                        )
-                    ]
-                ]
-            ]
 
         return callable
 
