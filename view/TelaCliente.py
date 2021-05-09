@@ -14,7 +14,8 @@ class TelaCliente(AbstractTela):
         super().__init__(controlador, nome_tela='Clientes')
 
     def init_components(self, data):
-        headings = ['Nome', 'E-mail', 'Telefone', 'CPF', 'Endereço', 'VIP']
+        headings = ['Código', 'Nome', 'E-mail',
+                    'Telefone', 'CPF', 'Endereço', 'VIP']
 
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='cliente')

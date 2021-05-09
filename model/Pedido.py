@@ -46,7 +46,8 @@ class Pedido:
         total_compra = 0.0
 
         for itens_pedido in self.__itens_pedido:
-            total_compra += itens_pedido.produto.preco * itens_pedido.quantidade
+            total_compra += int(itens_pedido.produto.preco) * \
+                int(itens_pedido.quantidade)
 
         if cliente_vip:
             total_compra = total_compra * 0.9

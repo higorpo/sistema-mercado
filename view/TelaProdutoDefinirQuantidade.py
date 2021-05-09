@@ -48,7 +48,7 @@ class TelaProdutoDefinirQuantidade(AbstractTela):
                     if x == event:
                         valido[lista_eventos.index(event)] = super().validar_input(
                             event,
-                            (Validators.validar_numero(values[event]) and data[lista_eventos.index(event)].qtd_estoque >= int(values[event])) == False, 'Quantidade inválida')
+                            (Validators.validar_numero(values[event]) and int(data[lista_eventos.index(event)].qtd_estoque) >= int(values[event])) == False, 'Quantidade inválida')
                 continue
             elif event == 'btn_salvar':
                 # Verifica se todos os campos são válidos, se não forem, exibe mensagem de erro.

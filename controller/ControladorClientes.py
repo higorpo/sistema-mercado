@@ -8,6 +8,7 @@ from view.TelaEndereco import TelaEndereco
 from utils.faker.Cliente import fakeClientes
 from configs.settings import Settings
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from dao.ClienteDAO import ClienteDAO
 
 
 class ControladorClientes:
@@ -16,9 +17,8 @@ class ControladorClientes:
         self.__tela = TelaCliente(self)
         self.__tela_cadastro = TelaClienteCadastro(self)
         self.__tela_selecao = TelaClienteSelecao(self)
+        self.__dao = ClienteDAO()
 
-        self.__clientes = \
-            [*fakeClientes] if Settings.INICIAR_SISTEMA_COM_DADOS_FAKES else []
         self.__tela_endereco = TelaEndereco(self)
 
     def abre_tela(self):
@@ -37,13 +37,14 @@ class ControladorClientes:
                 self.editar(values)
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.nome, item.email, item.telefone, item.cpf, item.endereco, item.vip], self.__clientes))
+        return list(map(lambda item: [item.codigo, item.nome, item.email, item.telefone, item.cpf, item.endereco, item.vip], self.__dao.get_all()))
 
     def adicionar(self):
         event, dados_cliente = self.__tela_cadastro.abrir_tela(False, None)
 
         if event == 'criar':
-            if len([x for x in self.__clientes if x.cpf == dados_cliente['cpf']]) == 0:
+            clientes = self.__dao.get_all()
+            if len([x for x in clientes if x.cpf == dados_cliente['cpf']]) == 0:
                 instancia_cliente = Cliente(*dados_cliente.values())
                 event, dados_endereco = self.__tela_endereco.abrir_tela()
 
@@ -52,22 +53,23 @@ class ControladorClientes:
                 elif event == 'criar':
                     instancia_cliente.definir_endereco(
                         *dados_endereco.values())
-                    self.__clientes.append(instancia_cliente)
+                    self.__dao.add(instancia_cliente)
             else:
                 self.__controlador_sistema\
                     .mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
 
-    def excluir(self, clienteIndex):
+    def excluir(self, codigo_cliente):
         try:
-            self.__clientes.remove(self.__clientes[clienteIndex])
+            cliente = self.__dao.get(codigo_cliente)
+            self.__dao.remove(cliente)
         except Exception:
             self.__controlador_sistema\
                 .mensagem_sistema.error(mensagens.get('erro_excluir'))
 
-    def editar(self, clienteIndex):
-        try:
-            cliente = self.__clientes[clienteIndex]
+    def editar(self, codigo_cliente):
+        cliente = self.__dao.get(codigo_cliente)
 
+        try:
             event, dados_clientes = self.__tela_cadastro.abrir_tela(
                 True, cliente)
 
@@ -80,27 +82,29 @@ class ControladorClientes:
                 cliente.telefone = telefone
                 cliente.vip = vip
 
+                self.__dao.add(cliente)
+
         except NenhumaOpcaoSelecionada:
             self.__controlador_sistema\
                 .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
 
     def buscar(self, titulo_tela: str) -> Cliente:
-        event, valor_cpf = self.__tela_selecao.abrir_tela(
+        event, key = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()
         )
 
         if event == 'exited':
             raise TelaFechada
         elif event == 'selecionado':
-            return [x for x in self.__clientes if x.cpf == valor_cpf][0]
+            return self.__dao.get(key)
 
     # TODO: Remover no futuro
     def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__clientes))
+        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
 
     # TODO: Remover no futuro
     def __verifica_tem_dados(self) -> bool:
-        if len(self.__clientes) == 0:
+        if len(self.__dao.get_all()) == 0:
             super()._sistema.mensagem_sistema.log(
                 mensagens.get('nada_cadastrado_busca')
             )
@@ -121,4 +125,4 @@ class ControladorClientes:
 
     @ property
     def clientes(self):
-        return self.__clientes
+        return self.__dao.get_all()

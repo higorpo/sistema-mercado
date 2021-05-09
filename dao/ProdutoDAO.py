@@ -1,4 +1,4 @@
-from dao.AbintactDAO import DAO
+from dao.AbstractDAO import DAO
 from model.Produto import Produto
 
 

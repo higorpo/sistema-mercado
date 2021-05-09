@@ -1,11 +1,19 @@
+import itertools
 from model.Pessoa import Pessoa
 
 
 class Cliente(Pessoa):
+    novo_codigo = itertools.count()
+
     def __init__(self, vip: bool, nome: str, email: str, telefone: str, cpf: str):
         super().__init__(nome, email, telefone, cpf)
+        self.__codigo = next(Cliente.novo_codigo)
         self.__vip = vip
         self.__pedidos = []
+
+    @property
+    def codigo(self) -> int:
+        return self.__codigo
 
     @property
     def pedidos(self) -> list:

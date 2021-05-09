@@ -7,9 +7,9 @@ class ClienteDAO(DAO):
         super().__init__('dao/store/cliente.pkl')
 
     def add(self, cliente: Cliente):
-        if ((cliente is not None) and isinstance(cliente, Cliente) and isinstance(cliente.cpf, str)):
-            super().add(cliente.cpf, cliente)
+        if ((cliente is not None) and isinstance(cliente, Cliente) and isinstance(cliente.codigo, int)):
+            super().add(cliente.codigo, cliente)
 
     def remove(self, cliente: Cliente):
-        if ((cliente is not None) and isinstance(cliente, Cliente) and isinstance(cliente.cpf, str)):
-            super().remove(cliente.cpf)
+        if ((cliente is not None) and isinstance(cliente, Cliente) and isinstance(cliente.codigo, int)):
+            super().remove(cliente.codigo)

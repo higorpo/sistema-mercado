@@ -15,7 +15,8 @@ class TelaClienteSelecao(AbstractTela):
         super().__init__(controlador, nome_tela='Cliente')
 
     def init_components(self, data):
-        headings = ['Nome', 'E-mail', 'Telefone', 'CPF', 'Endereço', 'VIP']
+        headings = ['Código', 'Nome', 'E-mail',
+                    'Telefone', 'CPF', 'Endereço', 'VIP']
 
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='cliente', btn_cadastrar_enabled=False, btn_deletar_enabled=False, btn_editar_enabled=False)
@@ -33,6 +34,6 @@ class TelaClienteSelecao(AbstractTela):
                 return ('exited', None)
             elif event == '-TABLE-' and len(values['-TABLE-']) != 0:
                 super().fechar_tela()
-                return ('selecionado', data[values['-TABLE-'][0]][3])
+                return ('selecionado', data[values['-TABLE-'][0]][0])
             else:
                 return (event, values)

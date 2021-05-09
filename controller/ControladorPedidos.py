@@ -7,6 +7,7 @@ from view.TelaPedidoCadastro import TelaPedidoCadastro
 from model.ItemPedido import ItemPedido
 from datetime import date
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from dao.PedidoDAO import PedidoDAO
 
 
 class ControladorPedidos:
@@ -14,7 +15,7 @@ class ControladorPedidos:
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaPedido(self)
         self.__tela_cadastro = TelaPedidoCadastro(self)
-        self.__pedidos = []
+        self.__dao = PedidoDAO()
 
     # TODO: Colocar alguma exceção ali
     def abre_tela(self):
@@ -24,13 +25,13 @@ class ControladorPedidos:
                 break
             elif event == 'btn_cadastrar':
                 self.__tela.fechar_tela()
-            try:
+            # try:
                 self.adicionar()
-            except Exception:
-                print('alguma exceção')
+            # except Exception:
+            #    print('alguma exceção')
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.codigo, item.observacao, item.data_pedido, item.cliente.nome, item.funcionario.nome, item.forma_pagamento.metodo, item.obter_itens_pedido()], self.__pedidos))
+        return list(map(lambda item: [item.codigo, item.observacao, item.data_pedido, item.cliente.nome, item.funcionario.nome, item.forma_pagamento.metodo, item.obter_itens_pedido()], self.__dao.get_all()))
 
     def adicionar(self):
         # Verifica se existem produtos cadastrados em estoque antes de realizar o cadastro de um pedido
@@ -96,20 +97,20 @@ class ControladorPedidos:
 
             produtos_selecionados = self.__controlador_sistema.controlador_produtos.buscar(
                 mensagens.get('selecionar_produtos_adicionar_pedido'))
-            print(f' Produtos selecionados: {produtos_selecionados}')
 
             dict_quantidade_comprada = \
                 self.__controlador_sistema.controlador_produtos.definir_quantidade_comprada(
                     produtos_selecionados)
-            print(f'Dict quantidade comprada: {dict_quantidade_comprada}')
 
             for produto in produtos_selecionados:
                 pedido.adicionar_item_pedido(ItemPedido(
                     pedido, produto, dict_quantidade_comprada[produto.codigo]))
-                produto.qtd_estoque -= dict_quantidade_comprada[produto.codigo]
+                self.__controlador_sistema.controlador_produto
+                produto.qtd_estoque = int(
+                    produto.qtd_estoque) - dict_quantidade_comprada[produto.codigo]
 
             dados_pedido['cliente'].adicionar_novo_pedido(pedido)
-            self.__pedidos.append(pedido)
+            self.__dao.add(pedido)
 
             # Entrega o faturamento do pedido
             total_preco = pedido.obter_dados_faturamento()
@@ -119,4 +120,4 @@ class ControladorPedidos:
 
     # TODO: Remover no futuro
     def listar_pedidos(self):
-        super()._tela.listar(self.__pedidos, mensagens)
+        super()._tela.listar(self.__dao.get_all(), mensagens)
