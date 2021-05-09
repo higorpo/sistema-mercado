@@ -158,6 +158,7 @@ class AbstractTela(ABC):
                 tableElement = sg.Table(
                     values=values,
                     headings=headings,
+                    display_row_numbers=True,
                     visible_column_map=visible_column_map,
                     enable_events=True,
                     auto_size_columns=True,
