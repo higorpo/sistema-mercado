@@ -43,7 +43,7 @@ class TelaCliente(AbstractTela):
                 )
             elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
                 print(f'Event: {event}\nValues: {values}')
-                return (event, values['-TABLE-'][0])
+                return (event, data[values['-TABLE-'][0]][0])
             else:
                 return (event, values)
 
