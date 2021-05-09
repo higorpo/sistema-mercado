@@ -45,23 +45,3 @@ class TelaProduto(AbstractTela):
                 return (event, values['-TABLE-'][0])
             else:
                 return (event, values)
-
-    # TODO: Remover futuramente
-    def selecionar_produtos(self, opcoes, titulo_tela):
-        if len(opcoes) == 0:
-            print(Terminal.warning(self, mensagens.get('estoque_vazio')))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
-            raise ValueError
-
-        lista_opcoes = list(map(lambda x: x.nome, opcoes))
-        produtos_selecionados = pick(
-            lista_opcoes, titulo_tela, multiselect=True, min_selection_count=1)
-        produtos, index = zip(*produtos_selecionados)
-        return [x for x in opcoes if x.nome in produtos]
-
-    # TODO: Remover futuramente
-    def definir_quantidade_comprada(self, produto_selecionado, qtd_estoque: int):
-        print(mensagens.get('label_quantidade_desejada')
-              (produto_selecionado, qtd_estoque))
-        return int(super().ler_inteiro())

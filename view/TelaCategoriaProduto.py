@@ -37,10 +37,6 @@ class TelaCategoriaProduto(AbstractTela):
             else:
                 continue
 
-    def adicionar(self):
-        print(mensagens.get('label_nome_categoria'))
-        return super().ler_string()
-
     def listar_produtos_por_categoria(self, categoria: CategoriaProduto):
         if len(categoria.produtos) == 0:
             print(Terminal.error(self, mensagens.get('nenhum_produto_cadastrado')))
