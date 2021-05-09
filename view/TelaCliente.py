@@ -34,24 +34,12 @@ class TelaCliente(AbstractTela):
                     'column_editar_deletar'
                 )
                 column_editar_deletar.Update(visible=True)
-            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) == 0:
+            elif (event == 'btn_editar' or event == 'btn_deletar' or event == 'btn_visualizar') and len(values['-TABLE-']) == 0:
                 sg.popup_no_buttons(
                     'Você precisa selecionar um item da lista para\npoder realizar esta ação.',
                     title='Erro'
                 )
-            elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
-                print(f'Event: {event}\nValues: {values}')
+            elif (event == 'btn_editar' or event == 'btn_deletar' or event == 'btn_visualizar') and len(values['-TABLE-']) != 0:
                 return (event, data[values['-TABLE-'][0]][0])
             else:
                 return (event, values)
-
-    # TODO implementar isso
-    # def listar_compras(self, lista_pedidos):
-    #     if len(lista_pedidos) == 0:
-    #         print(Terminal.error(self, mensagens.get('cliente_nao_possui_pedidos')))
-    #     else:
-    #         print(Terminal.info(self, mensagens.get('mostrando_lista_compras')))
-    #         for pedido in lista_pedidos:
-    #             print(mensagens.get('lista_pedidos_por_cliente')(pedido))
-    #     print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-    #     input()

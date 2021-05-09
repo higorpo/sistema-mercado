@@ -7,8 +7,6 @@ from view.AbstractTela import AbstractTela
 from messages.Produto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 
-LISTA_ESCOLHAS = ['Sim', 'Não']
-
 
 class TelaProdutoDefinirQuantidade(AbstractTela):
     def __init__(self, controlador):

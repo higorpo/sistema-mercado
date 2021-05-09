@@ -7,6 +7,7 @@ from model.ItemPedido import ItemPedido
 from datetime import date
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.PedidoDAO import PedidoDAO
+from dao.ClienteDAO import ClienteDAO
 
 
 class ControladorPedidos:
@@ -15,6 +16,7 @@ class ControladorPedidos:
         self.__tela = TelaPedido(self)
         self.__tela_cadastro = TelaPedidoCadastro(self)
         self.__dao = PedidoDAO()
+        self.__dao_cliente = ClienteDAO()
 
     @property
     def dao(self) -> PedidoDAO:
@@ -108,6 +110,7 @@ class ControladorPedidos:
                     produto.qtd_estoque) - dict_quantidade_comprada[produto.codigo]
 
             dados_pedido['cliente'].adicionar_novo_pedido(pedido)
+            self.__dao_cliente.add(dados_pedido['cliente'])
             self.__dao.add(pedido)
 
             # Entrega o faturamento do pedido
