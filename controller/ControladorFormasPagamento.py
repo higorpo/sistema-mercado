@@ -17,6 +17,10 @@ class ControladorFormasPagamento:
         self.__tela_selecao = TelaFormaPagamentoSelecao(self)
         self.__dao = FormaPagamentoDAO()
 
+    @property
+    def dao(self) -> FormaPagamentoDAO:
+        return self.__dao
+
     def abre_tela(self):
         while True:
             event, values = self.__tela.abrir_tela(self.map_object_to_array())

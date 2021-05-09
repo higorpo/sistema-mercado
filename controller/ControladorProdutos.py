@@ -21,6 +21,10 @@ class ControladorProdutos:
         self.__tela_definir_quantidade = TelaProdutoDefinirQuantidade(self)
         self.__dao = ProdutoDAO()
 
+    @property
+    def dao(self) -> ProdutoDAO:
+        return self.__dao
+
     def abre_tela(self):
         while True:
             event, values = self.__tela.abrir_tela(self.map_object_to_array())

@@ -37,8 +37,8 @@ class TelaSistema(AbstractTela):
 
     def mostrar_opcoes(self, opcoes=[]):
         self.init_components()
-        botao, values = self.__window.Read()
-        return botao
+        event, values = self.__window.Read()
+        return event
 
     def fechar_tela(self):
         self.__window.close()

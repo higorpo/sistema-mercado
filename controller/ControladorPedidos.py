@@ -16,6 +16,10 @@ class ControladorPedidos:
         self.__tela_cadastro = TelaPedidoCadastro(self)
         self.__dao = PedidoDAO()
 
+    @property
+    def dao(self) -> PedidoDAO:
+        return self.__dao
+
     def abre_tela(self):
         while True:
             event, values = self.__tela.abrir_tela(self.map_object_to_array())

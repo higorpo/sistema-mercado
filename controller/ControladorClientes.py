@@ -20,6 +20,10 @@ class ControladorClientes:
 
         self.__tela_endereco = TelaEndereco(self)
 
+    @property
+    def dao(self) -> ClienteDAO:
+        return self.__dao
+
     def abre_tela(self):
         while True:
             event, values = self.__tela.abrir_tela(self.map_object_to_array())

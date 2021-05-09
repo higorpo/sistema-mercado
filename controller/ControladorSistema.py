@@ -1,4 +1,5 @@
 import time
+import PySimpleGUI as sg
 from controller.ControladorCategoriasProduto import ControladorCategoriasProduto
 from controller.ControladorFormasPagamento import ControladorFormasPagamento
 from controller.ControladorFuncionarios import ControladorFuncionarios
@@ -38,7 +39,7 @@ class ControladorSistema:
             4: self.__controlador_formas_pagamento.abre_tela,
             5: self.__controlador_produtos.abre_tela,
             6: self.__controlador_pedidos.abre_tela,
-            7: exit
+            7: self.fechar_sistema
         }
 
         while True:
@@ -55,10 +56,24 @@ class ControladorSistema:
 
             try:
                 self.__tela_sistema.fechar_tela()
+
+                if opcao_selecionada == sg.WIN_CLOSED:
+                    self.fechar_sistema()
+                    return
+
                 lista_opcoes[opcao_selecionada]()
 
             except KeyError:
                 raise NotImplementedError
+
+    def fechar_sistema(self):
+        self.__controlador_cat_produto.dao.save_all()
+        self.__controlador_formas_pagamento.dao.save_all()
+        self.__controlador_funcionarios.dao.save_all()
+        self.__controlador_fornecedores.dao.save_all()
+        self.__controlador_clientes.dao.save_all()
+        self.__controlador_pedidos.dao.save_all()
+        self.__controlador_produtos.dao.save_all()
 
     @property
     def controlador_cat_produto(self) -> ControladorCategoriasProduto:

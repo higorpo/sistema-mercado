@@ -18,6 +18,10 @@ class ControladorCategoriasProduto:
         self.__tela_selecao = TelaCategoriaProdutoSelecao(self)
         self.__dao = CategoriaProdutoDAO()
 
+    @property
+    def dao(self) -> CategoriaProdutoDAO:
+        return self.__dao
+
     def abre_tela(self):
         while True:
             event, values = self.__tela.abrir_tela(self.map_object_to_array())
