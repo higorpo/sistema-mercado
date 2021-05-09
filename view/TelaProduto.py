@@ -18,7 +18,7 @@ class TelaProduto(AbstractTela):
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='produto')
 
-        super().set_tela_layout(layout, size=(500, 680))
+        super().set_tela_layout(layout)
 
     def abrir_tela(self, data):
         self.init_components(data)
