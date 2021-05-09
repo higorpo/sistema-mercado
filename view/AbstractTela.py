@@ -134,7 +134,7 @@ class AbstractTela(ABC):
                 f'Deletar {modulo_nome}',
                 key='btn_deletar',
                 button_color='#e32f2f',
-                size=(40, 2)
+                size=(30, 2)
             ))
 
         if btn_editar_enabled:
@@ -142,7 +142,7 @@ class AbstractTela(ABC):
                 f'Editar {modulo_nome}',
                 key='btn_editar',
                 button_color='#000000',
-                size=(40, 2)
+                size=(30, 2)
             ))
 
         if btn_confirmar_enabled:
