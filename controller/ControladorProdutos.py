@@ -30,7 +30,10 @@ class ControladorProdutos:
                 break
             elif event == 'btn_cadastrar':
                 self.__tela.fechar_tela()
-                self.adicionar()
+                try:
+                    self.adicionar()
+                except Exception:
+                    continue
             elif event == 'btn_deletar':
                 self.excluir(values)
                 self.__tela.fechar_tela()
@@ -82,6 +85,7 @@ class ControladorProdutos:
 
     def editar(self, codigo_produto):
         produto = self.__dao.get(codigo_produto)
+        print(produto)
 
         try:
             event, dados_produtos = self.__tela_cadastro.abrir_tela(
