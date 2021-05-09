@@ -105,7 +105,6 @@ class ControladorPedidos:
             for produto in produtos_selecionados:
                 pedido.adicionar_item_pedido(ItemPedido(
                     pedido, produto, dict_quantidade_comprada[produto.codigo]))
-                self.__controlador_sistema.controlador_produto
                 produto.qtd_estoque = int(
                     produto.qtd_estoque) - dict_quantidade_comprada[produto.codigo]
 
