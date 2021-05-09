@@ -7,8 +7,6 @@ from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
 
-# TODO: Adicionar lista de fornecedores para cada categoria se der tempo..
-
 
 class ControladorCategoriasProduto:
     def __init__(self, controlador_sistema):
@@ -67,12 +65,8 @@ class ControladorCategoriasProduto:
         elif event == 'selecionado':
             return self.__dao.get(codigoCategoria)
 
-    # TODO: Criar listagem de produtos por categoria...
-
     def listar_produtos_por_categoria(self, categoriaIndex):
         categoria = self.__dao.get(categoriaIndex)
-        print(categoria.nome)
-        print(categoria.produtos)
         self.__controlador_sistema.controlador_produtos.exibir_produtos_por_categoria(
             categoria.produtos
         )
