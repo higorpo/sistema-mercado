@@ -34,7 +34,7 @@ class AbstractTela(ABC):
     def fechar_tela(self):
         self._window.close()
 
-    def set_tela_layout(self, layout, size=(900, 680)):
+    def set_tela_layout(self, layout, size=(780, 680)):
         if layout == None:
             raise LayoutNotDefined
 
@@ -125,6 +125,10 @@ class AbstractTela(ABC):
 
         buttons = []
 
+        visible_column_map = list(
+            map(lambda value: value != 'Código', headings)
+        )
+
         if btn_deletar_enabled:
             buttons.append(sg.Button(
                 f'Deletar {modulo_nome}',
@@ -154,6 +158,7 @@ class AbstractTela(ABC):
                 tableElement = sg.Table(
                     values=values,
                     headings=headings,
+                    visible_column_map=visible_column_map,
                     enable_events=True,
                     auto_size_columns=True,
                     hide_vertical_scroll=False,
