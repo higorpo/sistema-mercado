@@ -16,7 +16,7 @@ class TelaCliente(AbstractTela):
                     'Telefone', 'CPF', 'Endereço', 'VIP']
 
         layout = super()\
-            .layout_tela_lista(headings=headings, values=data, modulo_nome='cliente')
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='cliente', btn_visualizar_enabled=True)
 
         super().set_tela_layout(layout)
 

@@ -119,7 +119,7 @@ class AbstractTela(ABC):
 
         return callable
 
-    def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_cadastrar_enabled=True, btn_deletar_enabled=True, btn_editar_enabled=True, btn_confirmar_enabled=False):
+    def layout_tela_lista(self, headings=[], values=[], key='-TABLE-', modulo_nome='', btn_visualizar_enabled=False, btn_cadastrar_enabled=True, btn_deletar_enabled=True, btn_editar_enabled=True, btn_confirmar_enabled=False):
         self.__table_key = key
         self.__layout_tabela = True
 
@@ -134,7 +134,7 @@ class AbstractTela(ABC):
                 f'Deletar {modulo_nome}',
                 key='btn_deletar',
                 button_color='#e32f2f',
-                size=(30, 2)
+                size=(18, 2)
             ))
 
         if btn_editar_enabled:
@@ -142,7 +142,7 @@ class AbstractTela(ABC):
                 f'Editar {modulo_nome}',
                 key='btn_editar',
                 button_color='#000000',
-                size=(30, 2)
+                size=(18, 2)
             ))
 
         if btn_confirmar_enabled:
@@ -150,7 +150,15 @@ class AbstractTela(ABC):
                 f'Confirmar seleção',
                 key='btn_confirmar',
                 button_color='#e3a540',
-                size=(40, 2)
+                size=(18, 2)
+            ))
+
+        if btn_visualizar_enabled:
+            buttons.append(sg.Button(
+                f'Visualizar',
+                key='btn_visualizar',
+                button_color='#1aab3d',
+                size=(18, 2)
             ))
 
         def callable(size):
@@ -186,9 +194,9 @@ class AbstractTela(ABC):
 
                         [
                             sg.Button(
-                                f'Cadastrar novo(a) {modulo_nome}',
+                                f'Cadastrar',
                                 key='btn_cadastrar',
-                                size=(40, 2),
+                                size=(30, 2),
                                 visible=btn_cadastrar_enabled
                             ),
                             sg.Column(
