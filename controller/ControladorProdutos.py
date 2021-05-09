@@ -6,6 +6,7 @@ from view.TelaProduto import TelaProduto
 from view.TelaProdutoCadastro import TelaProdutoCadastro
 from view.TelaProdutoSelecao import TelaProdutoSelecao
 from view.TelaProdutoDefinirQuantidade import TelaProdutoDefinirQuantidade
+from view.TelaProdutosPorCategoria import TelaProdutosPorCategoria
 from datetime import date
 from configs.settings import Settings
 from utils.exceptions.TelaFechada import TelaFechada
@@ -18,6 +19,7 @@ class ControladorProdutos:
         self.__tela = TelaProduto(self)
         self.__tela_cadastro = TelaProdutoCadastro(self)
         self.__tela_selecao = TelaProdutoSelecao(self)
+        self.__tela_produtos_categoria = TelaProdutosPorCategoria(self)
         self.__tela_definir_quantidade = TelaProdutoDefinirQuantidade(self)
         self.__dao = ProdutoDAO()
 
@@ -27,7 +29,9 @@ class ControladorProdutos:
 
     def abre_tela(self):
         while True:
-            event, values = self.__tela.abrir_tela(self.map_object_to_array())
+            event, values = self.__tela.abrir_tela(
+                self.map_object_to_array(self.__dao.get_all())
+            )
             if event == 'exited':
                 break
             elif event == 'btn_cadastrar':
@@ -43,8 +47,8 @@ class ControladorProdutos:
                 self.__tela.fechar_tela()
                 self.editar(values)
 
-    def map_object_to_array(self):
-        return list(map(lambda item: [item.codigo, item.nome, item.qtd_estoque, item.marca, item.preco, item.categoria.nome], self.__dao.get_all()))
+    def map_object_to_array(self, data):
+        return list(map(lambda item: [item.codigo, item.nome, item.qtd_estoque, item.marca, item.preco, item.categoria.nome], data))
 
     def adicionar(self):
         event, dados_produto = self.__tela_cadastro.abrir_tela(False, None)
@@ -119,3 +123,11 @@ class ControladorProdutos:
                 tem_produtos_estoque = True
                 break
         return tem_produtos_estoque
+
+    def exibir_produtos_por_categoria(self, data):
+        while True:
+            event, values = self.__tela_produtos_categoria.abrir_tela(
+                self.map_object_to_array(data)
+            )
+            if event == 'exited':
+                break

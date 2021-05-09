@@ -16,7 +16,7 @@ class TelaCategoriaProduto(AbstractTela):
         headings = ['Código', 'Nome da categoria', 'Produtos cadastrados']
 
         layout = super()\
-            .layout_tela_lista(headings=headings, values=data, modulo_nome='categoria', btn_deletar_enabled=False, btn_editar_enabled=False)
+            .layout_tela_lista(headings=headings, values=data, modulo_nome='categoria', btn_deletar_enabled=False, btn_editar_enabled=False, btn_visualizar_enabled=True)
 
         super().set_tela_layout(layout, size=(430, 680))
 
@@ -29,6 +29,13 @@ class TelaCategoriaProduto(AbstractTela):
             # Quando fechar a tela
             if event == sg.WIN_CLOSED:
                 return ('exited', None)
+            if event == '-TABLE-' and len(values['-TABLE-']) != 0:
+                column_editar_deletar = super()._window.FindElement(
+                    'column_editar_deletar'
+                )
+                column_editar_deletar.Update(visible=True)
+            if event == 'btn_visualizar':
+                return (event, data[values['-TABLE-'][0]][0])
             if event == 'btn_cadastrar':
                 return ('btn_cadastrar', None)
             else:

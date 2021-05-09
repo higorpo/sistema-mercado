@@ -33,6 +33,9 @@ class ControladorCategoriasProduto:
                     self.adicionar()
                 except Exception:
                     continue
+            elif event == 'btn_visualizar':
+                self.__tela.fechar_tela()
+                self.listar_produtos_por_categoria(values)
 
     def map_object_to_array(self):
         return list(map(lambda item: [item.codigo, item.nome, len(item.produtos)], self.__dao.get_all()))
@@ -66,13 +69,13 @@ class ControladorCategoriasProduto:
 
     # TODO: Criar listagem de produtos por categoria...
 
-    def listar_produtos_por_categoria(self):
-        categoria_selecionada = \
-            self.buscar(mensagens.get('mostrando_cadastros_para_selecionar'))
-        try:
-            return self.__tela.listar_produtos_por_categoria(categoria_selecionada)
-        except AttributeError:
-            self._sistema.abre_tela()
+    def listar_produtos_por_categoria(self, categoriaIndex):
+        categoria = self.__dao.get(categoriaIndex)
+        print(categoria.nome)
+        print(categoria.produtos)
+        self.__controlador_sistema.controlador_produtos.exibir_produtos_por_categoria(
+            categoria.produtos
+        )
 
     @property
     def categorias(self):
