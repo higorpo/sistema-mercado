@@ -28,6 +28,13 @@ class Validators:
         regex = '^([\s\d]+)$'
         return True if re.search(regex, numero) else False
 
+    def validar_float(numero: str) -> bool:
+        try:
+            n = float(numero)
+            return True
+        except ValueError:
+            return False
+
     def validar_telefone(telefone: str) -> bool:
         # Maneiras possíveis de inserir o telefone (DDD obrigatório):
         # (48) 2020-2020, (48) 20202020, (48) 32020-2020, (48) 320202020

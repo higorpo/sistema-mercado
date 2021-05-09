@@ -84,7 +84,7 @@ class TelaProdutoCadastro(AbstractTela):
             elif event == 'input_preco':
                 valido[3] = super().validar_input(
                     event,
-                    Validators.validar_numero(values[event]) == False,
+                    Validators.validar_float(values[event]) == False,
                     'Preço inválido, digite um preço válido.'
                 )
                 continue
@@ -101,9 +101,9 @@ class TelaProdutoCadastro(AbstractTela):
                     return (
                         'criar', {
                             'nome': values['input_nome_produto'],
-                            'qtd_estoque': values['input_qtd_estoque'],
+                            'qtd_estoque': int(values['input_qtd_estoque']),
                             'marca': values['input_marca'],
-                            'preco': values['input_preco'],
+                            'preco': float(values['input_preco']),
                             'categoria': None,
                         }
                     )
