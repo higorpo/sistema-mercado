@@ -5,7 +5,6 @@ from view.TelaClienteSelecao import TelaClienteSelecao
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
-from utils.faker.Cliente import fakeClientes
 from configs.settings import Settings
 from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from dao.ClienteDAO import ClienteDAO

@@ -1,7 +1,6 @@
 import time
 
 from configs.settings import Settings
-from utils.faker.Funcionario import fakeFuncionario
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
 from model.Funcionario import Funcionario
 from messages.Funcionarios import mensagens

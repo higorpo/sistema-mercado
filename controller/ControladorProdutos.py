@@ -6,7 +6,6 @@ from view.TelaProduto import TelaProduto
 from view.TelaProdutoCadastro import TelaProdutoCadastro
 from view.TelaProdutoSelecao import TelaProdutoSelecao
 from view.TelaProdutoDefinirQuantidade import TelaProdutoDefinirQuantidade
-from utils.faker.Produto import fakeProdutos
 from datetime import date
 from configs.settings import Settings
 from utils.exceptions import NenhumaOpcaoParaSelecionar
