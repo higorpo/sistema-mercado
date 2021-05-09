@@ -1,15 +1,14 @@
-import itertools
+import uuid
 
 
 class FormaPagamento:
-    novo_codigo = itertools.count()
 
     def __init__(self, metodo: str):
-        self.__codigo = next(FormaPagamento.novo_codigo)
+        self.__codigo = uuid.uuid4()
         self.__metodo = metodo
 
     @property
-    def codigo(self) -> int:
+    def codigo(self) -> uuid.UUID:
         return self.__codigo
 
     @property

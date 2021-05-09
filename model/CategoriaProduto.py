@@ -1,16 +1,15 @@
-import itertools
+import uuid
 
 
 class CategoriaProduto:
-    novo_codigo = itertools.count()
 
     def __init__(self, nome: str):
-        self.__codigo = next(CategoriaProduto.novo_codigo)
+        self.__codigo = uuid.uuid4()
         self.__nome = nome
         self.__produtos = []
 
     @property
-    def codigo(self) -> str:
+    def codigo(self) -> uuid.UUID:
         return self.__codigo
 
     @property

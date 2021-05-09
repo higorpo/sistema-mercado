@@ -31,7 +31,6 @@ class DAO(ABC):
             pass
 
     def get(self, key):
-        key = int(key)
         try:
             return self.__cache[key]
         except KeyError:

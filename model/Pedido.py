@@ -1,15 +1,14 @@
+import datetime
+import uuid
 from model.FormaPagamento import FormaPagamento
 from model.Cliente import Cliente
 from model.Funcionario import Funcionario
-import datetime
-import itertools
 
 
 class Pedido:
-    novo_codigo = itertools.count()
 
     def __init__(self, observacao: str, data_pedido: datetime, cliente: Cliente, funcionario: Funcionario, forma_pagamento: FormaPagamento):
-        self.__codigo = next(Pedido.novo_codigo)
+        self.__codigo = uuid.uuid4()
         self.__observacao = observacao
         self.__data_pedido = data_pedido
         self.__cliente = cliente
@@ -18,7 +17,7 @@ class Pedido:
         self.__itens_pedido = []
 
     @property
-    def codigo(self) -> int:
+    def codigo(self) -> uuid.UUID:
         return self.__codigo
 
     @property
