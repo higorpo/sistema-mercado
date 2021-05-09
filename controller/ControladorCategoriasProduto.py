@@ -60,10 +60,8 @@ class ControladorCategoriasProduto:
         elif event == 'selecionado':
             return self.__dao.get(codigoCategoria)
 
-    def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
-
     # TODO: Criar listagem de produtos por categoria...
+
     def listar_produtos_por_categoria(self):
         categoria_selecionada = \
             self.buscar(mensagens.get('mostrando_cadastros_para_selecionar'))

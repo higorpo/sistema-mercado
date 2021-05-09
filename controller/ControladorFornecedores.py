@@ -97,9 +97,3 @@ class ControladorFornecedores:
             fornecedor.telefone = telefone
 
             self.__dao.add(fornecedor)
-
-    # def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-    #     return self.__tela.buscar(self.__dao.get_all(), titulo_tela, mensagens)
-
-    def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))

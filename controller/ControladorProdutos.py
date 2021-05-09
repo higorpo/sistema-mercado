@@ -104,9 +104,6 @@ class ControladorProdutos:
         elif event == 'selecionado':
             return [x for x in produtos if list(produtos).index(x) in index_dos_produtos]
 
-    def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
-
     # TODO: Implementar depois, quando mover o método da TelaProduto pra uma nova tela separada
     def definir_quantidade_comprada(self, produtos_selecionados: list):
         return self.__tela_definir_quantidade.abrir_tela(produtos_selecionados)

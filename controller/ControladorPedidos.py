@@ -16,7 +16,6 @@ class ControladorPedidos:
         self.__tela_cadastro = TelaPedidoCadastro(self)
         self.__dao = PedidoDAO()
 
-    # TODO: Colocar alguma exceção ali
     def abre_tela(self):
         while True:
             event, values = self.__tela.abrir_tela(self.map_object_to_array())
@@ -24,10 +23,10 @@ class ControladorPedidos:
                 break
             elif event == 'btn_cadastrar':
                 self.__tela.fechar_tela()
-            # try:
-                self.adicionar()
-            # except Exception:
-            #    print('alguma exceção')
+                try:
+                    self.adicionar()
+                except TelaFechada:
+                    continue
 
     def map_object_to_array(self):
         return list(map(lambda item: [item.codigo, item.observacao, item.data_pedido, item.cliente.nome, item.funcionario.nome, item.forma_pagamento.metodo, item.obter_itens_pedido()], self.__dao.get_all()))

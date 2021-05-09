@@ -97,10 +97,6 @@ class ControladorFuncionarios:
         elif event == 'selecionado':
             return self.__dao.get(key)
 
-    # TODO: Remover no futuro
-    def pesquisar_opcoes(self, buscar_por: str):
-        return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
-
     @property
     def funcionarios(self):
         return self.__dao.get_all()
