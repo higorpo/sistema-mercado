@@ -1,5 +1,4 @@
 from view.AbstractTela import AbstractTela
-from utils.Terminal import Terminal
 from messages.Produto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from pick import pick

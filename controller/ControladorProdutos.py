@@ -68,9 +68,6 @@ class ControladorProdutos:
         else:
             raise TelaFechada
 
-    def listar(self):
-        super()._tela.listar(self.__dao.get_all(), mensagens)
-
     def excluir(self, codigo_produto):
         try:
             produto = self.__dao.get(codigo_produto)

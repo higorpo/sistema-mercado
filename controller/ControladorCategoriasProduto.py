@@ -50,9 +50,6 @@ class ControladorCategoriasProduto:
         else:
             raise TelaFechada
 
-    def listar(self):
-        self.__tela.listar(self.__dao.get_all(), mensagens)
-
     def buscar(self, titulo_tela: str) -> CategoriaProduto:
         event, codigoCategoria = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()

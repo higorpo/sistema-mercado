@@ -1,6 +1,5 @@
 import time
 import PySimpleGUI as sg
-from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 from model.Produto import Produto
 from messages.Produto import mensagens

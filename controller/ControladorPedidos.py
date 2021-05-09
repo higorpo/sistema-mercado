@@ -112,7 +112,3 @@ class ControladorPedidos:
             self.__tela.exibir_preco_final(total_preco)
         else:
             raise TelaFechada
-
-    # TODO: Remover no futuro
-    def listar_pedidos(self):
-        super()._tela.listar(self.__dao.get_all(), mensagens)

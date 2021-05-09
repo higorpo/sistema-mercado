@@ -87,10 +87,6 @@ class ControladorFuncionarios:
 
             self.__dao.add(funcionario)
 
-    # TODO: Remover no futuro
-    def listar(self):
-        self.__tela.listar(self.__dao.get_all(), mensagens)
-
     def buscar(self, titulo_tela: str) -> Funcionario:
         event, key = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()

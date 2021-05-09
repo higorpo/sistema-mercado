@@ -25,7 +25,6 @@ class ControladorSistema:
 
     def inicializa_sistema(self):
         try:
-            self.mensagem_sistema.clear()
             self.abre_tela()
         except NotImplementedError:
             exit(0)

@@ -96,27 +96,6 @@ class ControladorClientes:
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
 
-    # TODO: Remover no futuro
-    def __verifica_tem_dados(self) -> bool:
-        if len(self.__dao.get_all()) == 0:
-            super()._sistema.mensagem_sistema.log(
-                mensagens.get('nada_cadastrado_busca')
-            )
-            super()._sistema.mensagem_sistema.warning(
-                mensagens_sistema.get('enter_continuar')
-            )
-            input()
-
-            return False
-        else:
-            return True
-
-    # TODO: Implementar no futuro
-    def listar_compras(self):
-        if self.__verifica_tem_dados():
-            cliente = self.buscar()
-            return super()._tela.listar_compras(cliente.pedidos)
-
     @ property
     def clientes(self):
         return self.__dao.get_all()

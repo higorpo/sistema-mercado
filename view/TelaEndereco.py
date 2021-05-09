@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 
 from view.AbstractTela import AbstractTela
-from utils.Terminal import Terminal
 from utils.Validators import Validators
 from messages.Endereco import mensagens
 from pick import pick

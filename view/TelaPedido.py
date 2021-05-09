@@ -4,7 +4,6 @@ from model.Pedido import Pedido
 from messages.Pedido import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 from datetime import date
-from utils.Terminal import Terminal
 
 
 class TelaPedido(AbstractTela):

@@ -1,6 +1,5 @@
 import os
 import PySimpleGUI as sg
-from utils.Terminal import Terminal
 
 
 class TelaMensagemSistema:
@@ -26,6 +25,3 @@ class TelaMensagemSistema:
     def log(self, message: str) -> None:
         # Print um log normal
         sg.popup_ok(message, title='Info')
-
-    def clear(self) -> None:
-        Terminal.clear_all(self)

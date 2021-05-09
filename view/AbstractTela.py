@@ -4,7 +4,6 @@ import PySimpleGUI as sg
 from abc import ABC, abstractmethod
 from brutils import cpf, cnpj
 from pick import pick
-from utils.Terminal import Terminal
 from utils.exceptions.LayoutNotDefined import LayoutNotDefined
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.Validators import Validators
@@ -221,28 +220,6 @@ class AbstractTela(ABC):
             ]
 
         return callable
-
-    def listar(self, lista, mensagens):
-        Terminal.clear_all(self)
-        print(Terminal.info(self, mensagens.get('mostrando_cadastros')))
-        if len(lista) == 0:
-            print(mensagens_sistema.get('nada_cadastrado'))
-        else:
-            for item in lista:
-                print(mensagens.get('lista_valores')(item))
-        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-        input()
-
-    def buscar(self, lista, titulo_tela, mensagens):
-        if len(lista) == 0:
-            print(Terminal.error(
-                self,
-                mensagens.get('nada_cadastrado_busca')
-            ))
-            print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-            input()
-
-        return self.encontrar_opcao(lista, titulo_tela)
 
     def validar_input(self, key: str, validator: bool, error_message: str) -> bool:
         hint = self._window.FindElement(key + '_hint')

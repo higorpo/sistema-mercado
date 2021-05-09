@@ -1,6 +1,5 @@
 from view.AbstractTela import AbstractTela
 from messages.Cliente import mensagens
-from utils.Terminal import Terminal
 from messages.Cliente import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
 import PySimpleGUI as sg
@@ -47,12 +46,12 @@ class TelaCliente(AbstractTela):
                 return (event, values)
 
     # TODO implementar isso
-    def listar_compras(self, lista_pedidos):
-        if len(lista_pedidos) == 0:
-            print(Terminal.error(self, mensagens.get('cliente_nao_possui_pedidos')))
-        else:
-            print(Terminal.info(self, mensagens.get('mostrando_lista_compras')))
-            for pedido in lista_pedidos:
-                print(mensagens.get('lista_pedidos_por_cliente')(pedido))
-        print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
-        input()
+    # def listar_compras(self, lista_pedidos):
+    #     if len(lista_pedidos) == 0:
+    #         print(Terminal.error(self, mensagens.get('cliente_nao_possui_pedidos')))
+    #     else:
+    #         print(Terminal.info(self, mensagens.get('mostrando_lista_compras')))
+    #         for pedido in lista_pedidos:
+    #             print(mensagens.get('lista_pedidos_por_cliente')(pedido))
+    #     print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
+    #     input()

@@ -42,7 +42,6 @@ class ControladorFornecedores:
             # Verifica se existe categorias de produto para cadastrar, se não possuir, abre a tela para o cadastro.
             if len(self.__controlador_sistema.controlador_cat_produto.categorias) == 0:
                 # Cadastra categoria
-                self.__controlador_sistema.mensagem_sistema.clear()
                 try:
                     dados_fornecedor['fornece'] = \
                         self.__controlador_sistema.controlador_cat_produto.adicionar()
@@ -99,11 +98,8 @@ class ControladorFornecedores:
 
             self.__dao.add(fornecedor)
 
-    def listar(self):
-        self.__tela.listar(self.__dao.get_all(), mensagens)
-
-    def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
-        return self.__tela.buscar(self.__dao.get_all(), titulo_tela, mensagens)
+    # def buscar(self, titulo_tela: str = mensagens.get('titulo_tela_buscar')):
+    #     return self.__tela.buscar(self.__dao.get_all(), titulo_tela, mensagens)
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))
