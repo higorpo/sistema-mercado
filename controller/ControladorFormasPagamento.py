@@ -30,7 +30,7 @@ class ControladorFormasPagamento:
                     continue
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.codigo, item.metodo], self.__dao.get_all()))
+        return list(map(lambda item: [item.codigo, item.metodo, ' '], self.__dao.get_all()))
 
     def adicionar(self):
         event, dados_forma_pagamento = self.__tela_cadastro.abrir_tela()

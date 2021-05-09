@@ -13,7 +13,8 @@ class TelaFormaPagamentoSelecao(AbstractTela):
         super().__init__(controlador, nome_tela='Formas de pagamento')
 
     def init_components(self, data):
-        headings = ['Código', 'Método de pagamento']
+        headings = ['Código', 'Método de pagamento',
+                    '                                     ']
 
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='forma de pagamento', btn_cadastrar_enabled=False, btn_deletar_enabled=False, btn_editar_enabled=False)

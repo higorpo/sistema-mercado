@@ -11,7 +11,8 @@ class TelaFormaPagamento(AbstractTela):
         super().__init__(controlador, nome_tela='Formas de pagamento')
 
     def init_components(self, data):
-        headings = ['Código', 'Método']
+        headings = ['Código', 'Método',
+                    '                                     ']
 
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='forma de pagamento', btn_deletar_enabled=False, btn_editar_enabled=False)
