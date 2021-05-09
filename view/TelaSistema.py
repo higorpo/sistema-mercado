@@ -31,7 +31,7 @@ class TelaSistema(AbstractTela):
 
         w, h = sg.Window.get_screen_size()
         self.__window = sg.Window(
-            'Sistema Supermacado 2.0',
+            'Sistema Supermercado 2.0',
             location=(w/4 - 100, h/4)
         ).Layout(layout)
 
