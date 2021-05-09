@@ -3,10 +3,8 @@ import PySimpleGUI as sg
 from utils.Terminal import Terminal
 from view.AbstractTela import AbstractTela
 from model.FormaPagamento import FormaPagamento
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from messages.FormaPagamento import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 
 
 class TelaFormaPagamentoSelecao(AbstractTela):

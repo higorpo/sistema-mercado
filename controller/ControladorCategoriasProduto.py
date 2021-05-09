@@ -4,7 +4,6 @@ from view.TelaCategoriaProdutoSelecao import TelaCategoriaProdutoSelecao
 from model.CategoriaProduto import CategoriaProduto
 from messages.CategoriaProduto import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
 
@@ -63,11 +62,6 @@ class ControladorCategoriasProduto:
             raise TelaFechada
         elif event == 'selecionado':
             return self.__dao.get(codigoCategoria)
-
-        # try:
-        #     return self.__tela.buscar(self.__list_cat_produto, titulo_tela, mensagens)
-        # except NenhumaOpcaoParaSelecionar:
-        #     self.abre_tela()
 
     def pesquisar_opcoes(self, buscar_por: str):
         return list(filter(lambda x: buscar_por.lower() in x.nome.lower(), self.__dao.get_all()))

@@ -4,8 +4,6 @@ from view.TelaFornecedorCadastro import TelaFornecedorCadastro
 from view.TelaEndereco import TelaEndereco
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Fornecedor import mensagens
-from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.exceptions.TelaFechada import TelaFechada
 from configs.settings import Settings
 from dao.FornecedoresDAO import FornecedoresDAO

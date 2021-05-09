@@ -5,8 +5,6 @@ from abc import ABC, abstractmethod
 from brutils import cpf, cnpj
 from pick import pick
 from utils.Terminal import Terminal
-from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.exceptions.LayoutNotDefined import LayoutNotDefined
 from messages.Sistema import mensagens as mensagens_sistema
 from utils.Validators import Validators
@@ -243,7 +241,6 @@ class AbstractTela(ABC):
             ))
             print(Terminal.warning(self, mensagens_sistema.get('enter_continuar')))
             input()
-            raise NenhumaOpcaoParaSelecionar
 
         return self.encontrar_opcao(lista, titulo_tela)
 

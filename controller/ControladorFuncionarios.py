@@ -1,7 +1,7 @@
 import time
 
 from configs.settings import Settings
-from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
+from utils.exceptions.TelaFechada import TelaFechada
 from model.Funcionario import Funcionario
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
@@ -72,25 +72,20 @@ class ControladorFuncionarios:
     def editar(self, codigoFuncionario):
         funcionario = self.__dao.get(codigoFuncionario)
 
-        try:
-            event, dados_funcionarios = self.__tela_cadastro.abrir_tela(
-                True, funcionario
-            )
+        event, dados_funcionarios = self.__tela_cadastro.abrir_tela(
+            True, funcionario
+        )
 
-            if event == 'exited':
-                return
-            elif event == 'criar':
-                _, salario, _, email, telefone, _ = dados_funcionarios.values()
+        if event == 'exited':
+            return
+        elif event == 'criar':
+            _, salario, _, email, telefone, _ = dados_funcionarios.values()
 
-                funcionario.salario = salario
-                funcionario.email = email
-                funcionario.telefone = telefone
+            funcionario.salario = salario
+            funcionario.email = email
+            funcionario.telefone = telefone
 
-                self.__dao.add(funcionario)
-
-        except NenhumaOpcaoSelecionada:
-            self.__controlador_sistema\
-                .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
+            self.__dao.add(funcionario)
 
     # TODO: Remover no futuro
     def listar(self):

@@ -5,7 +5,7 @@ from view.TelaPedido import TelaPedido
 from view.TelaPedidoCadastro import TelaPedidoCadastro
 from model.ItemPedido import ItemPedido
 from datetime import date
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from utils.exceptions.TelaFechada import TelaFechada
 from dao.PedidoDAO import PedidoDAO
 
 
@@ -53,7 +53,7 @@ class ControladorPedidos:
                                 'selecionar_cliente_adicionar_pedido'
                             )
                     )
-                except NenhumaOpcaoParaSelecionar:
+                except TelaFechada:
                     self.__controlador_sistema.mensagem_sistema.error(
                         mensagens.get('erro_cadastrar'))
                     return
@@ -70,7 +70,7 @@ class ControladorPedidos:
                                 'selecionar_funcionario_adicionar_pedido'
                             )
                     )
-                except NenhumaOpcaoParaSelecionar:
+                except TelaFechada:
                     self.__controlador_sistema.mensagem_sistema.error(
                         mensagens.get('erro_cadastrar'))
                     return
@@ -87,15 +87,21 @@ class ControladorPedidos:
                                 'selecionar_forma_pagamento_adicionar_pedido'
                             )
                     )
-                except NenhumaOpcaoParaSelecionar:
+                except TelaFechada:
                     self.__controlador_sistema.mensagem_sistema.error(
                         mensagens.get('erro_cadastrar'))
                     return
 
             pedido = Pedido(*dados_pedido.values())
 
-            produtos_selecionados = self.__controlador_sistema.controlador_produtos.buscar(
-                mensagens.get('selecionar_produtos_adicionar_pedido'))
+            try:
+                produtos_selecionados = self.__controlador_sistema.controlador_produtos.buscar(
+                    mensagens.get('selecionar_produtos_adicionar_pedido'))
+            except TelaFechada:
+                self.__controlador_sistema.mensagem_sistema.error(
+                    mensagens.get('erro_cadastrar')
+                )
+                return
 
             dict_quantidade_comprada = \
                 self.__controlador_sistema.controlador_produtos.definir_quantidade_comprada(

@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 
 from view.AbstractTela import AbstractTela
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 from utils.Terminal import Terminal
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Fornecedor import mensagens

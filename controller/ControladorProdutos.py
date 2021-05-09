@@ -8,7 +8,6 @@ from view.TelaProdutoSelecao import TelaProdutoSelecao
 from view.TelaProdutoDefinirQuantidade import TelaProdutoDefinirQuantidade
 from datetime import date
 from configs.settings import Settings
-from utils.exceptions import NenhumaOpcaoParaSelecionar
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.ProdutoDAO import ProdutoDAO
 
@@ -55,7 +54,7 @@ class ControladorProdutos:
                     dados_produto['categoria'] = \
                         self.__controlador_sistema.controlador_cat_produto.buscar(
                             mensagens.get('selecionar_categoria_adicionar_produtos'))
-                except NenhumaOpcaoParaSelecionar:
+                except TelaFechada:
                     self.__controlador_sistema.mensagem_sistema.error(
                         mensagens.get('erro_cadastrar'))
                     return
@@ -86,23 +85,18 @@ class ControladorProdutos:
         produto = self.__dao.get(codigo_produto)
         print(produto)
 
-        try:
-            event, dados_produtos = self.__tela_cadastro.abrir_tela(
-                True, produto)
+        event, dados_produtos = self.__tela_cadastro.abrir_tela(
+            True, produto)
 
-            if event == 'exited':
-                return
-            elif event == 'criar':
-                _, qtd_estoque, _, preco, _ = dados_produtos.values()
+        if event == 'exited':
+            return
+        elif event == 'criar':
+            _, qtd_estoque, _, preco, _ = dados_produtos.values()
 
-                produto.qtd_estoque = qtd_estoque
-                produto.preco = preco
+            produto.qtd_estoque = qtd_estoque
+            produto.preco = preco
 
-                self.__dao.add(produto)
-
-        except NenhumaOpcaoSelecionada:
-            self.__controlador_sistema\
-                .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
+            self.__dao.add(produto)
 
     def buscar(self, titulo_tela: str):
         event, index_dos_produtos = self.__tela_selecao.abrir_tela(

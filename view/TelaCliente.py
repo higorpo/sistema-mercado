@@ -3,7 +3,6 @@ from messages.Cliente import mensagens
 from utils.Terminal import Terminal
 from messages.Cliente import mensagens
 from messages.Sistema import mensagens as mensagens_sistema
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
 import PySimpleGUI as sg
 
 

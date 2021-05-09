@@ -6,7 +6,7 @@ from messages.Sistema import mensagens as mensagens_sistema
 from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
 from configs.settings import Settings
-from utils.exceptions.NenhumaOpcaoParaSelecionar import NenhumaOpcaoParaSelecionar
+from utils.exceptions.TelaFechada import TelaFechada
 from dao.ClienteDAO import ClienteDAO
 
 
@@ -68,24 +68,19 @@ class ControladorClientes:
     def editar(self, codigo_cliente):
         cliente = self.__dao.get(codigo_cliente)
 
-        try:
-            event, dados_clientes = self.__tela_cadastro.abrir_tela(
-                True, cliente)
+        event, dados_clientes = self.__tela_cadastro.abrir_tela(
+            True, cliente)
 
-            if event == 'exited':
-                return
-            elif event == 'criar':
-                vip, _, email, telefone, _ = dados_clientes.values()
+        if event == 'exited':
+            return
+        elif event == 'criar':
+            vip, _, email, telefone, _ = dados_clientes.values()
 
-                cliente.email = email
-                cliente.telefone = telefone
-                cliente.vip = vip
+            cliente.email = email
+            cliente.telefone = telefone
+            cliente.vip = vip
 
-                self.__dao.add(cliente)
-
-        except NenhumaOpcaoSelecionada:
-            self.__controlador_sistema\
-                .mensagem_sistema.warning(mensagens_sistema.get('nenhuma_opcao_selecionada'))
+            self.__dao.add(cliente)
 
     def buscar(self, titulo_tela: str) -> Cliente:
         event, key = self.__tela_selecao.abrir_tela(
