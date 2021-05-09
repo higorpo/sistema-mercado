@@ -55,8 +55,6 @@ class ControladorProdutos:
                         self.__controlador_sistema.controlador_cat_produto.buscar(
                             mensagens.get('selecionar_categoria_adicionar_produtos'))
                 except TelaFechada:
-                    self.__controlador_sistema.mensagem_sistema.error(
-                        mensagens.get('erro_cadastrar'))
                     return
 
             produtos = self.__dao.get_all()

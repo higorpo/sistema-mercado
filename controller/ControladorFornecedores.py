@@ -47,8 +47,6 @@ class ControladorFornecedores:
                     dados_fornecedor['fornece'] = \
                         self.__controlador_sistema.controlador_cat_produto.adicionar()
                 except TelaFechada:
-                    self.__controlador_sistema\
-                        .mensagem_sistema.error(mensagens.get('erro_cadastrar'))
                     return
                 except Exception:
                     return
@@ -59,8 +57,6 @@ class ControladorFornecedores:
                         self.__controlador_sistema\
                             .controlador_cat_produto.buscar(mensagens.get('selecionar_categoria_adicionar_fornecedor'))
                 except TelaFechada:
-                    self.__controlador_sistema\
-                        .mensagem_sistema.error(mensagens.get('erro_cadastrar'))
                     return
 
             fornecedores = self.__dao.get_all()

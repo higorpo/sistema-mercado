@@ -54,8 +54,6 @@ class ControladorPedidos:
                             )
                     )
                 except TelaFechada:
-                    self.__controlador_sistema.mensagem_sistema.error(
-                        mensagens.get('erro_cadastrar'))
                     return
 
             # Verifica se existe funcionário para cadastrar, se não possuir, abre a tela para o cadastro.
@@ -71,8 +69,6 @@ class ControladorPedidos:
                             )
                     )
                 except TelaFechada:
-                    self.__controlador_sistema.mensagem_sistema.error(
-                        mensagens.get('erro_cadastrar'))
                     return
 
             # Verifica se existe formas de pagamento para cadastrar, se não possuir, abre a tela para o cadastro.
@@ -88,8 +84,6 @@ class ControladorPedidos:
                             )
                     )
                 except TelaFechada:
-                    self.__controlador_sistema.mensagem_sistema.error(
-                        mensagens.get('erro_cadastrar'))
                     return
 
             pedido = Pedido(*dados_pedido.values())
@@ -98,9 +92,6 @@ class ControladorPedidos:
                 produtos_selecionados = self.__controlador_sistema.controlador_produtos.buscar(
                     mensagens.get('selecionar_produtos_adicionar_pedido'))
             except TelaFechada:
-                self.__controlador_sistema.mensagem_sistema.error(
-                    mensagens.get('erro_cadastrar')
-                )
                 return
 
             dict_quantidade_comprada = \
