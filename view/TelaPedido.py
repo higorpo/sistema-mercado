@@ -20,7 +20,7 @@ class TelaPedido(AbstractTela):
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='pedido', btn_deletar_enabled=False, btn_editar_enabled=False)
 
-        super().set_tela_layout(layout, size=(430, 680))
+        super().set_tela_layout(layout)
 
     def abrir_tela(self, data):
         self.init_components(data)
