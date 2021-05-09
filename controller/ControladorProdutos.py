@@ -42,7 +42,7 @@ class ControladorProdutos:
                 self.editar(values)
 
     def map_object_to_array(self):
-        return list(map(lambda item: [item.nome, item.qtd_estoque, item.marca, item.preco, item.categoria.nome], self.__dao.get_all()))
+        return list(map(lambda item: [item.codigo, item.nome, item.qtd_estoque, item.marca, item.preco, item.categoria.nome], self.__dao.get_all()))
 
     def adicionar(self):
         event, dados_produto = self.__tela_cadastro.abrir_tela(False, None)

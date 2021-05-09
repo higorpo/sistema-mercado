@@ -16,7 +16,8 @@ class TelaProdutoSelecao(AbstractTela):
         super().__init__(controlador, nome_tela='Produtos')
 
     def init_components(self, data):
-        headings = ['Nome', 'Qtd. Estoque', 'Marca', 'Preço', 'Categoria']
+        headings = ['Código', 'Nome', 'Qtd. Estoque',
+                    'Marca', 'Preço', 'Categoria']
 
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='produto', btn_cadastrar_enabled=False, btn_deletar_enabled=False, btn_editar_enabled=False, btn_confirmar_enabled=True)

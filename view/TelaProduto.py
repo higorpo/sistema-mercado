@@ -14,7 +14,8 @@ class TelaProduto(AbstractTela):
         super().__init__(controlador, nome_tela='Produtos')
 
     def init_components(self, data):
-        headings = ['Nome', 'Qtd. Estoque', 'Marca', 'Preço', 'Categoria']
+        headings = ['Código', 'Nome', 'Qtd. Estoque',
+                    'Marca', 'Preço', 'Categoria']
 
         layout = super()\
             .layout_tela_lista(headings=headings, values=data, modulo_nome='produto')
@@ -42,6 +43,6 @@ class TelaProduto(AbstractTela):
                 )
             elif (event == 'btn_editar' or event == 'btn_deletar') and len(values['-TABLE-']) != 0:
                 print(f'Event: {event}\nValues: {values}')
-                return (event, values['-TABLE-'][0])
+                return (event, data[values['-TABLE-'][0]][0])
             else:
                 return (event, values)
