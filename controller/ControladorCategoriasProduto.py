@@ -1,4 +1,3 @@
-from controller.AbstractControlador import AbstractControlador
 from view.TelaCategoriaProduto import TelaCategoriaProduto
 from view.TelaCategoriaProdutoCadastro import TelaCategoriaProdutoCadastro
 from view.TelaCategoriaProdutoSelecao import TelaCategoriaProdutoSelecao

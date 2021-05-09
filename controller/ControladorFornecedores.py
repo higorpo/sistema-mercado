@@ -1,4 +1,3 @@
-from controller.AbstractControlador import AbstractControlador
 from model.Fornecedor import Fornecedor
 from view.TelaFornecedor import TelaFornecedor
 from view.TelaFornecedorCadastro import TelaFornecedorCadastro

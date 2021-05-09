@@ -3,7 +3,6 @@ import time
 from configs.settings import Settings
 from utils.faker.Funcionario import fakeFuncionario
 from utils.exceptions.NenhumaOpcaoSelecionada import NenhumaOpcaoSelecionada
-from controller.AbstractControlador import AbstractControlador
 from model.Funcionario import Funcionario
 from messages.Funcionarios import mensagens
 from messages.Sistema import mensagens as mensagens_sistema

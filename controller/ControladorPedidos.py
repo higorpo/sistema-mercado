@@ -1,4 +1,3 @@
-from controller.AbstractControlador import AbstractControlador
 from model.Pedido import Pedido
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Pedido import mensagens

@@ -1,5 +1,4 @@
 import time
-from controller.AbstractControlador import AbstractControlador
 from model.Produto import Produto
 from messages.Sistema import mensagens as mensagens_sistema
 from messages.Produto import mensagens
