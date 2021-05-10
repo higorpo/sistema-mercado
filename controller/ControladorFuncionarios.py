@@ -68,6 +68,7 @@ class ControladorFuncionarios:
                         *dados_endereco.values()
                     )
                     self.__dao.add(instancia_funcionario)
+                    return instancia_funcionario
             else:
                 self.__controlador_sistema\
                     .mensagem_sistema.warning(mensagens.get('ja_cadastrado'))

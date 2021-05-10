@@ -129,7 +129,7 @@ class TelaClienteCadastro(AbstractTela):
                                 'vip': True if values['input_vip'] == "Sim" else False,
                                 'nome': values['input_nome_cliente'],
                                 'email': values['input_email'],
-                                'telefone': values['input_telefone'],
+                                'telefone': Formatters.formatar_telefone(values['input_telefone']),
                                 # por questões de validação...
                                 'cpf': Formatters.formatar_cpf(values['input_cpf']),
                             }

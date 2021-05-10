@@ -33,14 +33,14 @@ class TelaProdutoCadastro(AbstractTela):
                 'key': 'marca',
                 'label': mensagens.get('label_marca'),
                 'type': 'text',
-                'default_text': '' if modo_edicao == False else data.marca
+                'default_text': '' if modo_edicao == False else data.marca,
+                'disabled': modo_edicao
             },
             {
                 'key': 'preco',
                 'label': mensagens.get('label_preco'),
                 'type': 'text',
-                'default_text': '' if modo_edicao == False else data.preco,
-                'disabled': modo_edicao
+                'default_text': '' if modo_edicao == False else data.preco
             },
         ], modo_edicao)
 

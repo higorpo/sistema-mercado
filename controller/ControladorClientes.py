@@ -69,6 +69,7 @@ class ControladorClientes:
                     instancia_cliente.definir_endereco(
                         *dados_endereco.values())
                     self.__dao.add(instancia_cliente)
+                    return instancia_cliente
             else:
                 self.__controlador_sistema\
                     .mensagem_sistema.warning(mensagens.get('ja_cadastrado'))

@@ -69,8 +69,7 @@ class ControladorProdutos:
             else:
                 try:
                     dados_produto['categoria'] = \
-                        self.__controlador_sistema.controlador_cat_produto.buscar(
-                            mensagens.get('selecionar_categoria_adicionar_produtos'))
+                        self.__controlador_sistema.controlador_cat_produto.buscar()
                 except TelaFechada:
                     return
 
@@ -97,10 +96,10 @@ class ControladorProdutos:
 
     def editar(self, codigo_produto):
         produto = self.__dao.get(codigo_produto)
-        print(produto)
 
         event, dados_produtos = self.__tela_cadastro.abrir_tela(
-            True, produto)
+            True, produto
+        )
 
         if event == 'exited':
             return

@@ -102,6 +102,7 @@ class ControladorPedidos:
                 produto.qtd_estoque = int(
                     produto.qtd_estoque) - dict_quantidade_comprada[produto.codigo]
 
+            print(dados_pedido['cliente'])
             dados_pedido['cliente'].adicionar_novo_pedido(pedido)
             self.__dao_cliente.add(dados_pedido['cliente'])
             self.__dao.add(pedido)

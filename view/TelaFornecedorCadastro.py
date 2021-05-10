@@ -103,7 +103,7 @@ class TelaFornecedorCadastro(AbstractTela):
                             'nome': values['input_nome'],
                             'cnpj': Formatters.formatar_cnpj(values['input_cnpj']),
                             'email': values['input_email'],
-                            'telefone': values['input_telefone'],
+                            'telefone': Formatters.formatar_telefone(values['input_telefone']),
                             'fornece': None,
                         }
                     )

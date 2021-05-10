@@ -65,7 +65,7 @@ class ControladorFornecedores:
                 try:
                     dados_fornecedor['fornece'] = \
                         self.__controlador_sistema\
-                            .controlador_cat_produto.buscar(mensagens.get('selecionar_categoria_adicionar_fornecedor'))
+                            .controlador_cat_produto.buscar()
                 except TelaFechada:
                     return
 
@@ -82,13 +82,14 @@ class ControladorFornecedores:
                         *dados_endereco.values()
                     )
                     self.__dao.add(instancia_fornecedor)
+                    return instancia_fornecedor
             else:
                 self.__controlador_sistema.mensagem_sistema.warning(
                     mensagens.get('ja_cadastrado'))
 
     def excluir(self, codigo_fornecedor):
         try:
-            self.__fornecedores.remove(self.__dao.get(codigo_fornecedor))
+            self.__dao.remove(self.__dao.get(codigo_fornecedor))
         except Exception:
             self.__controlador_sistema.mensagem_sistema\
                 .error(mensagens.get('erro_excluir'))

@@ -117,7 +117,7 @@ class TelaFuncionarioCadastro(AbstractTela):
                             'salario': values['input_salario'],
                             'nome': values['input_nome_funcionario'],
                             'email': values['input_email'],
-                            'telefone': values['input_telefone'],
+                            'telefone': Formatters.formatar_telefone(values['input_telefone']),
                             # por questões de validação...
                             'cpf': Formatters.formatar_cpf(values['input_cpf']),
                         }
