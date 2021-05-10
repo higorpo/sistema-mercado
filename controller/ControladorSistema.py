@@ -1,4 +1,3 @@
-import time
 import PySimpleGUI as sg
 from controller.ControladorCategoriasProduto import ControladorCategoriasProduto
 from controller.ControladorFormasPagamento import ControladorFormasPagamento

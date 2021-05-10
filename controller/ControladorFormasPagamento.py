@@ -5,7 +5,6 @@ from view.TelaFormaPagamentoSelecao import TelaFormaPagamentoSelecao
 from model.FormaPagamento import FormaPagamento
 from messages.FormaPagamento import mensagens
 from utils.exceptions.TelaFechada import TelaFechada
-from messages.Sistema import mensagens as mensagens_sistema
 from dao.FormaPagamentoDAO import FormaPagamentoDAO
 
 

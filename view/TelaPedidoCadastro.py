@@ -1,9 +1,7 @@
 import PySimpleGUI as sg
-from model.Pedido import Pedido
 from utils.Validators import Validators
 from view.AbstractTela import AbstractTela
 from messages.Pedido import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 from datetime import date
 
 

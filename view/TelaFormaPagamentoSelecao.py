@@ -1,9 +1,5 @@
-import time
 import PySimpleGUI as sg
 from view.AbstractTela import AbstractTela
-from model.FormaPagamento import FormaPagamento
-from messages.FormaPagamento import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaFormaPagamentoSelecao(AbstractTela):

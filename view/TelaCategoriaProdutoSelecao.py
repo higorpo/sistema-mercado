@@ -1,9 +1,6 @@
-import time
 import PySimpleGUI as sg
 from view.AbstractTela import AbstractTela
-from model.CategoriaProduto import CategoriaProduto
 from messages.CategoriaProduto import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaCategoriaProdutoSelecao(AbstractTela):

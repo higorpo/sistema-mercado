@@ -2,7 +2,6 @@ from model.Cliente import Cliente
 from view.TelaCliente import TelaCliente
 from view.TelaClienteCadastro import TelaClienteCadastro
 from view.TelaClienteSelecao import TelaClienteSelecao
-from messages.Sistema import mensagens as mensagens_sistema
 from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
 from view.TelaPedidosPorCliente import TelaPedidosPorCliente

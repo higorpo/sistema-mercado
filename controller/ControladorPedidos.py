@@ -1,10 +1,7 @@
 from model.Pedido import Pedido
-from messages.Sistema import mensagens as mensagens_sistema
-from messages.Pedido import mensagens
 from view.TelaPedido import TelaPedido
 from view.TelaPedidoCadastro import TelaPedidoCadastro
 from model.ItemPedido import ItemPedido
-from datetime import date
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.PedidoDAO import PedidoDAO
 from dao.ClienteDAO import ClienteDAO

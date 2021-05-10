@@ -3,7 +3,6 @@ from view.TelaCategoriaProdutoCadastro import TelaCategoriaProdutoCadastro
 from view.TelaCategoriaProdutoSelecao import TelaCategoriaProdutoSelecao
 from model.CategoriaProduto import CategoriaProduto
 from messages.CategoriaProduto import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
 

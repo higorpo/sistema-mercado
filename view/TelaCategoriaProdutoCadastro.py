@@ -1,9 +1,7 @@
 import PySimpleGUI as sg
-from model.CategoriaProduto import CategoriaProduto
 from utils.Validators import Validators
 from view.AbstractTela import AbstractTela
 from messages.CategoriaProduto import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaCategoriaProdutoCadastro(AbstractTela):

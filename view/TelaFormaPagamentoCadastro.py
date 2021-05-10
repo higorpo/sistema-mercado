@@ -1,9 +1,7 @@
 import PySimpleGUI as sg
-from model.FormaPagamento import FormaPagamento
 from utils.Validators import Validators
 from view.AbstractTela import AbstractTela
 from messages.FormaPagamento import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaFormaPagamentoCadastro(AbstractTela):

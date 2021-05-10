@@ -1,11 +1,9 @@
 import PySimpleGUI as sg
-from datetime import date
 from model.Cliente import Cliente
 from utils.Validators import Validators
 from utils.Formatters import Formatters
 from view.AbstractTela import AbstractTela
 from messages.Cliente import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 
 LISTA_ESCOLHAS = ['Sim', 'Não']
 

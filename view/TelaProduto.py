@@ -1,7 +1,4 @@
 from view.AbstractTela import AbstractTela
-from messages.Produto import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
-from pick import pick
 import PySimpleGUI as sg
 
 

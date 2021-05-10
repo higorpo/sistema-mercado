@@ -1,8 +1,5 @@
 import PySimpleGUI as sg
-
 from view.AbstractTela import AbstractTela
-from messages.Sistema import mensagens as mensagens_sistema
-from messages.Fornecedor import mensagens
 
 
 class TelaFornecedor(AbstractTela):

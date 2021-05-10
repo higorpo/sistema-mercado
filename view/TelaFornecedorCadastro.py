@@ -1,11 +1,9 @@
 import PySimpleGUI as sg
-from datetime import date
 from model.Fornecedor import Fornecedor
 from utils.Validators import Validators
 from utils.Formatters import Formatters
 from view.AbstractTela import AbstractTela
 from messages.Fornecedor import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaFornecedorCadastro(AbstractTela):

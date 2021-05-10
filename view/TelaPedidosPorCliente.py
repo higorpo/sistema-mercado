@@ -1,9 +1,4 @@
 from view.AbstractTela import AbstractTela
-from messages.Cliente import mensagens
-from messages.Cliente import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
-from model.Pedido import Pedido
-from model.Cliente import Cliente
 import PySimpleGUI as sg
 
 

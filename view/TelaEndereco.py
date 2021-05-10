@@ -1,9 +1,7 @@
 import PySimpleGUI as sg
-
 from view.AbstractTela import AbstractTela
 from utils.Validators import Validators
 from messages.Endereco import mensagens
-from pick import pick
 
 LISTA_ESTADOS = [
     'Acre',

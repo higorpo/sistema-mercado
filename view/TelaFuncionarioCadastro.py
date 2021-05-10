@@ -5,7 +5,6 @@ from utils.Validators import Validators
 from utils.Formatters import Formatters
 from view.AbstractTela import AbstractTela
 from messages.Funcionarios import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 
 
 class TelaFuncionarioCadastro(AbstractTela):

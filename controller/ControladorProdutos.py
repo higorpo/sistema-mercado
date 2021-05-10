@@ -1,13 +1,10 @@
-import time
 from model.Produto import Produto
-from messages.Sistema import mensagens as mensagens_sistema
 from messages.Produto import mensagens
 from view.TelaProduto import TelaProduto
 from view.TelaProdutoCadastro import TelaProdutoCadastro
 from view.TelaProdutoSelecao import TelaProdutoSelecao
 from view.TelaProdutoDefinirQuantidade import TelaProdutoDefinirQuantidade
 from view.TelaProdutosPorCategoria import TelaProdutosPorCategoria
-from datetime import date
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.ProdutoDAO import ProdutoDAO
 from dao.CategoriaProdutoDAO import CategoriaProdutoDAO

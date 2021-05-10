@@ -1,10 +1,5 @@
-from datetime import date
-from model.Funcionario import Funcionario
 from view.AbstractTela import AbstractTela
-from messages.Funcionarios import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 import PySimpleGUI as sg
-import time
 
 
 class TelaFuncionario(AbstractTela):

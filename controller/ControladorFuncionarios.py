@@ -1,9 +1,6 @@
-import time
-
 from utils.exceptions.TelaFechada import TelaFechada
 from model.Funcionario import Funcionario
 from messages.Funcionarios import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
 from view.TelaFuncionario import TelaFuncionario
 from view.TelaFuncionarioCadastro import TelaFuncionarioCadastro
 from view.TelaFuncionarioSelecao import TelaFuncionarioSelecao

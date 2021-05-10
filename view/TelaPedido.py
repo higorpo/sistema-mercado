@@ -1,9 +1,5 @@
 import PySimpleGUI as sg
 from view.AbstractTela import AbstractTela
-from model.Pedido import Pedido
-from messages.Pedido import mensagens
-from messages.Sistema import mensagens as mensagens_sistema
-from datetime import date
 
 
 class TelaPedido(AbstractTela):
