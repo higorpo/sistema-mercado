@@ -8,7 +8,6 @@ from view.TelaProdutoSelecao import TelaProdutoSelecao
 from view.TelaProdutoDefinirQuantidade import TelaProdutoDefinirQuantidade
 from view.TelaProdutosPorCategoria import TelaProdutosPorCategoria
 from datetime import date
-from configs.settings import Settings
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.ProdutoDAO import ProdutoDAO
 from dao.CategoriaProdutoDAO import CategoriaProdutoDAO

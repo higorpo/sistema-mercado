@@ -1,6 +1,5 @@
 import time
 
-from configs.settings import Settings
 from utils.exceptions.TelaFechada import TelaFechada
 from model.Funcionario import Funcionario
 from messages.Funcionarios import mensagens

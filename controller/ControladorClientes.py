@@ -6,7 +6,6 @@ from messages.Sistema import mensagens as mensagens_sistema
 from messages.Cliente import mensagens
 from view.TelaEndereco import TelaEndereco
 from view.TelaPedidosPorCliente import TelaPedidosPorCliente
-from configs.settings import Settings
 from utils.exceptions.TelaFechada import TelaFechada
 from dao.ClienteDAO import ClienteDAO
 
