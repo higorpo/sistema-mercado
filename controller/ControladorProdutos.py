@@ -15,6 +15,8 @@ from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
 
 
 class ControladorProdutos:
+    __instance = None
+
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaProduto(self)
@@ -24,6 +26,11 @@ class ControladorProdutos:
         self.__tela_definir_quantidade = TelaProdutoDefinirQuantidade(self)
         self.__dao = ProdutoDAO()
         self.__dao_cat_produto = CategoriaProdutoDAO()
+
+    def __new__(cls, _):
+        if ControladorProdutos.__instance is None:
+            ControladorProdutos.__instance = object.__new__(cls)
+        return ControladorProdutos.__instance
 
     @property
     def dao(self) -> ProdutoDAO:

@@ -13,6 +13,8 @@ from dao.FuncionarioDAO import FuncionarioDAO
 
 
 class ControladorFuncionarios:
+    __instance = None
+
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaFuncionario(self)
@@ -21,6 +23,11 @@ class ControladorFuncionarios:
         self.__dao = FuncionarioDAO()
 
         self.__tela_endereco = TelaEndereco(self)
+
+    def __new__(cls, _):
+        if ControladorFuncionarios.__instance is None:
+            ControladorFuncionarios.__instance = object.__new__(cls)
+        return ControladorFuncionarios.__instance
 
     @property
     def dao(self) -> FuncionarioDAO:

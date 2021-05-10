@@ -10,12 +10,19 @@ from dao.FornecedoresDAO import FornecedoresDAO
 
 
 class ControladorFornecedores:
+    __instance = None
+
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaFornecedor(self)
         self.__tela_cadastro = TelaFornecedorCadastro(self)
         self.__tela_endereco = TelaEndereco(self)
         self.__dao = FornecedoresDAO()
+
+    def __new__(cls, _):
+        if ControladorFornecedores.__instance is None:
+            ControladorFornecedores.__instance = object.__new__(cls)
+        return ControladorFornecedores.__instance
 
     @property
     def dao(self) -> FornecedoresDAO:

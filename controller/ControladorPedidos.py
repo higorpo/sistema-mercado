@@ -11,12 +11,19 @@ from dao.ClienteDAO import ClienteDAO
 
 
 class ControladorPedidos:
+    __instance = None
+
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaPedido(self)
         self.__tela_cadastro = TelaPedidoCadastro(self)
         self.__dao = PedidoDAO()
         self.__dao_cliente = ClienteDAO()
+
+    def __new__(cls, _):
+        if ControladorPedidos.__instance is None:
+            ControladorPedidos.__instance = object.__new__(cls)
+        return ControladorPedidos.__instance
 
     @property
     def dao(self) -> PedidoDAO:

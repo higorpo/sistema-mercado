@@ -9,12 +9,19 @@ from dao.CategoriaProdutoDAO import CategoriaProdutoDAO
 
 
 class ControladorCategoriasProduto:
+    __instance = None
+
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaCategoriaProduto(self)
         self.__tela_cadastro = TelaCategoriaProdutoCadastro(self)
         self.__tela_selecao = TelaCategoriaProdutoSelecao(self)
         self.__dao = CategoriaProdutoDAO()
+
+    def __new__(cls, _):
+        if ControladorCategoriasProduto.__instance is None:
+            ControladorCategoriasProduto.__instance = object.__new__(cls)
+        return ControladorCategoriasProduto.__instance
 
     @property
     def dao(self) -> CategoriaProdutoDAO:

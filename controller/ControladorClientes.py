@@ -12,6 +12,8 @@ from dao.ClienteDAO import ClienteDAO
 
 
 class ControladorClientes:
+    __instance = None
+
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaCliente(self)
@@ -21,6 +23,11 @@ class ControladorClientes:
         self.__dao = ClienteDAO()
 
         self.__tela_endereco = TelaEndereco(self)
+
+    def __new__(cls, _):
+        if ControladorClientes.__instance is None:
+            ControladorClientes.__instance = object.__new__(cls)
+        return ControladorClientes.__instance
 
     @property
     def dao(self) -> ClienteDAO:

@@ -10,12 +10,19 @@ from dao.FormaPagamentoDAO import FormaPagamentoDAO
 
 
 class ControladorFormasPagamento:
+    __instance = None
+
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela = TelaFormaPagamento(self)
         self.__tela_cadastro = TelaFormaPagamentoCadastro(self)
         self.__tela_selecao = TelaFormaPagamentoSelecao(self)
         self.__dao = FormaPagamentoDAO()
+
+    def __new__(cls, _):
+        if ControladorFormasPagamento.__instance is None:
+            ControladorFormasPagamento.__instance = object.__new__(cls)
+        return ControladorFormasPagamento.__instance
 
     @property
     def dao(self) -> FormaPagamentoDAO:

@@ -13,6 +13,8 @@ from messages.Sistema import mensagens as mensagens_sistema
 
 
 class ControladorSistema:
+    __instance = None
+
     def __init__(self):
         self.__controlador_cat_produto = ControladorCategoriasProduto(self)
         self.__controlador_formas_pagamento = ControladorFormasPagamento(self)
@@ -23,6 +25,11 @@ class ControladorSistema:
         self.__controlador_produtos = ControladorProdutos(self)
         self.__tela_sistema = TelaSistema(self)
         self.__tela_mensagem_sistema = TelaMensagemSistema(self)
+
+    def __new__(cls):
+        if ControladorSistema.__instance is None:
+            ControladorSistema.__instance = object.__new__(cls)
+        return ControladorSistema.__instance
 
     def inicializa_sistema(self):
         try:
