@@ -81,6 +81,7 @@ class ControladorSistema:
         self.__controlador_clientes.dao.save_all()
         self.__controlador_pedidos.dao.save_all()
         self.__controlador_produtos.dao.save_all()
+        exit(0)
 
     @property
     def controlador_cat_produto(self) -> ControladorCategoriasProduto:
