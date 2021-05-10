@@ -60,40 +60,28 @@ class ControladorPedidos:
             else:
                 try:
                     dados_pedido['cliente'] = \
-                        self.__controlador_sistema.controlador_clientes.buscar(
-                            mensagens.get(
-                                'selecionar_cliente_adicionar_pedido'
-                            )
-                    )
+                        self.__controlador_sistema.controlador_clientes.buscar()
                 except TelaFechada:
                     return
 
             # Verifica se existe funcionário para cadastrar, se não possuir, abre a tela para o cadastro.
             if len(self.__controlador_sistema.controlador_funcionarios.funcionarios) == 0:
-                dados_pedido['funcionario'] = \
-                    self.__controlador_sistema.controlador_funcionarios.adicionar()
+                dados_pedido['funcionario'] = self.__controlador_sistema.controlador_funcionarios.adicionar(
+                )
             else:
                 try:
-                    dados_pedido['funcionario'] = \
-                        self.__controlador_sistema.controlador_funcionarios.buscar(
-                            mensagens.get(
-                                'selecionar_funcionario_adicionar_pedido'
-                            )
+                    dados_pedido['funcionario'] = self.__controlador_sistema.controlador_funcionarios.buscar(
                     )
                 except TelaFechada:
                     return
 
             # Verifica se existe formas de pagamento para cadastrar, se não possuir, abre a tela para o cadastro.
             if len(self.__controlador_sistema.controlador_formas_pagamento.formas_pagamento) == 0:
-                dados_pedido['forma_pagamento'] = \
-                    self.__controlador_sistema.controlador_formas_pagamento.adicionar()
+                dados_pedido['forma_pagamento'] = self.__controlador_sistema.controlador_formas_pagamento.adicionar(
+                )
             else:
                 try:
-                    dados_pedido['forma_pagamento'] = \
-                        self.__controlador_sistema.controlador_formas_pagamento.buscar(
-                            mensagens.get(
-                                'selecionar_forma_pagamento_adicionar_pedido'
-                            )
+                    dados_pedido['forma_pagamento'] = self.__controlador_sistema.controlador_formas_pagamento.buscar(
                     )
                 except TelaFechada:
                     return
@@ -101,14 +89,12 @@ class ControladorPedidos:
             pedido = Pedido(*dados_pedido.values())
 
             try:
-                produtos_selecionados = self.__controlador_sistema.controlador_produtos.buscar(
-                    mensagens.get('selecionar_produtos_adicionar_pedido'))
+                produtos_selecionados = self.__controlador_sistema.controlador_produtos.buscar()
             except TelaFechada:
                 return
 
-            dict_quantidade_comprada = \
-                self.__controlador_sistema.controlador_produtos.definir_quantidade_comprada(
-                    produtos_selecionados)
+            dict_quantidade_comprada = self.__controlador_sistema.controlador_produtos.definir_quantidade_comprada(
+                produtos_selecionados)
 
             for produto in produtos_selecionados:
                 pedido.adicionar_item_pedido(ItemPedido(

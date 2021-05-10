@@ -112,7 +112,7 @@ class ControladorProdutos:
 
             self.__dao.add(produto)
 
-    def buscar(self, titulo_tela: str):
+    def buscar(self):
         event, index_dos_produtos = self.__tela_selecao.abrir_tela(
             self.map_object_to_array(self.__dao.get_all())
         )

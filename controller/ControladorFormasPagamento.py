@@ -61,7 +61,7 @@ class ControladorFormasPagamento:
         else:
             raise TelaFechada
 
-    def buscar(self, titulo_tela: str) -> FormaPagamento:
+    def buscar(self) -> FormaPagamento:
         event, key = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()
         )

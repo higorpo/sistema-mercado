@@ -62,7 +62,7 @@ class ControladorCategoriasProduto:
         else:
             raise TelaFechada
 
-    def buscar(self, titulo_tela: str) -> CategoriaProduto:
+    def buscar(self) -> CategoriaProduto:
         event, codigoCategoria = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()
         )
@@ -72,8 +72,8 @@ class ControladorCategoriasProduto:
         elif event == 'selecionado':
             return self.__dao.get(codigoCategoria)
 
-    def listar_produtos_por_categoria(self, categoriaIndex):
-        categoria = self.__dao.get(categoriaIndex)
+    def listar_produtos_por_categoria(self, categoria_index):
+        categoria = self.__dao.get(categoria_index)
         self.__controlador_sistema.controlador_produtos.exibir_produtos_por_categoria(
             categoria.produtos
         )

@@ -72,16 +72,16 @@ class ControladorFuncionarios:
                 self.__controlador_sistema\
                     .mensagem_sistema.warning(mensagens.get('ja_cadastrado'))
 
-    def excluir(self, codigoFuncionario):
+    def excluir(self, codigo_funcionario):
         try:
-            funcionario = self.__dao.get(codigoFuncionario)
+            funcionario = self.__dao.get(codigo_funcionario)
             self.__dao.remove(funcionario)
         except Exception:
             self.__controlador_sistema\
                 .mensagem_sistema.error(mensagens.get('erro_excluir'))
 
-    def editar(self, codigoFuncionario):
-        funcionario = self.__dao.get(codigoFuncionario)
+    def editar(self, codigo_funcionario):
+        funcionario = self.__dao.get(codigo_funcionario)
 
         event, dados_funcionarios = self.__tela_cadastro.abrir_tela(
             True, funcionario
@@ -98,7 +98,7 @@ class ControladorFuncionarios:
 
             self.__dao.add(funcionario)
 
-    def buscar(self, titulo_tela: str) -> Funcionario:
+    def buscar(self) -> Funcionario:
         event, key = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()
         )

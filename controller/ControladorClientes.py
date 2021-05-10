@@ -109,7 +109,7 @@ class ControladorClientes:
             if event == 'exited':
                 break
 
-    def buscar(self, titulo_tela: str) -> Cliente:
+    def buscar(self) -> Cliente:
         event, key = self.__tela_selecao.abrir_tela(
             self.map_object_to_array()
         )

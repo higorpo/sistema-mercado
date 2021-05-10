@@ -86,15 +86,15 @@ class ControladorFornecedores:
                 self.__controlador_sistema.mensagem_sistema.warning(
                     mensagens.get('ja_cadastrado'))
 
-    def excluir(self, codigoFornecedor):
+    def excluir(self, codigo_fornecedor):
         try:
-            self.__fornecedores.remove(self.__dao.get(codigoFornecedor))
+            self.__fornecedores.remove(self.__dao.get(codigo_fornecedor))
         except Exception:
             self.__controlador_sistema.mensagem_sistema\
                 .error(mensagens.get('erro_excluir'))
 
-    def editar(self, codigoFornecedor):
-        fornecedor = self.__dao.get(codigoFornecedor)
+    def editar(self, codigo_fornecedor):
+        fornecedor = self.__dao.get(codigo_fornecedor)
         event, dados_fornecedor = self.__tela_cadastro.abrir_tela(
             True, fornecedor
         )
